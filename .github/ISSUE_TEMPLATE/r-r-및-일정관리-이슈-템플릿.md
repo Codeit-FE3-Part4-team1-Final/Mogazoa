@@ -2,7 +2,7 @@
 name: R&R 및 일정관리 이슈 템플릿
 about: 일정 관리를 위한 이슈 템플릿으로 사용해주세요.
 title: ''
-labels: CSS, 기능개발, 리펙토링, 버그수정
+labels: ''
 assignees: ''
 
 ---
