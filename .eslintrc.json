@@ -1,14 +1,22 @@
 {
-  "extends": [
-    "airbnb",
-    "airbnb/hooks",
-    "airbnb-typescript",
-    "prettier"
-  ],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "plugins": ["@typescript-eslint/eslint-plugin"],
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript/base",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
   "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "": "never"
+      }
+    ],
     "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": "off"
   }
