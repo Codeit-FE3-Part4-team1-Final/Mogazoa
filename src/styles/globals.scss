@@ -1,5 +1,11 @@
 @import './constants/colors';
+@import './constants/breakpoints';
+
 @import './base/normalize';
 @import './base/reset';
+
+@import './mixins/responsive';
+@import './mixins/positions';
+@import './mixins/flexbox';
 
 @import './layouts/grids';
