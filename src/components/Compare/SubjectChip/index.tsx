@@ -1,3 +1,8 @@
+import classNames from 'classnames/bind';
+import styles from './SubjectChip.module.scss';
+
+const cx = classNames.bind(styles);
+
 interface SubjectChipInterface {
   name: string;
 }
@@ -5,10 +10,10 @@ interface SubjectChipInterface {
 export default function SubjectChip({ name }: SubjectChipInterface) {
   return (
     <>
-      <div>
+      <div className={cx('container')}>
         {name}
-        <div>
-          <div />
+        <div className={cx('close-container')}>
+          <div className={cx('close-icon')} />
         </div>
       </div>
     </>
