@@ -1,0 +1,27 @@
+@import '/src/styles/main.scss';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+
+.primary {
+  background: $main_gradient;
+}
+
+.secondary {
+  border: 1px solid $main_blue;
+  background: $main_gradient;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tertiary {
+  border: 1px solid #9fa6b2;
+  color: #9fa6b2;
+}
