@@ -1,27 +1,28 @@
-import Button from '@/components/Button';
+import CategoryChip from '@/components/Compare/CategoryChip';
 
 export default function page() {
   return (
     <main>
-      <div>profile page</div>
-      <Button width='640px' height='65px' category='primary'>
-        리뷰 작성하기
-      </Button>
-      <Button width='640px' height='65px' category='primary' disabled>
-        리뷰 작성하기
-      </Button>
-      <Button width='440px' height='55px' category='secondary'>
-        비교하기
-      </Button>
-      <Button width='440px' height='55px' category='secondary' disabled>
-        비교하기
-      </Button>
-      <Button width='335px' height='50px' category='tertiary'>
-        편집하기
-      </Button>
-      <Button width='335px' height='50px' category='tertiary' disabled>
-        편집하기
-      </Button>
+      <CategoryChip productCategory={'음악'} size='large' />
+      <CategoryChip productCategory={'영화/드라마'} size='large' />
+      <CategoryChip productCategory={'강의/책'} size='large' />
+      <CategoryChip productCategory={'호텔'} size='large' />
+      <CategoryChip productCategory={'가구/인테리어'} size='large' />
+      <CategoryChip productCategory={'식당'} size='large' />
+      <CategoryChip productCategory={'전자기기'} size='large' />
+      <CategoryChip productCategory={'화장품'} size='large' />
+      <CategoryChip productCategory={'의류/악세서리'} size='large' />
+      <CategoryChip productCategory={'앱'} size='large' />
+      <CategoryChip productCategory={'음악'} />
+      <CategoryChip productCategory={'영화/드라마'} />
+      <CategoryChip productCategory={'강의/책'} />
+      <CategoryChip productCategory={'호텔'} />
+      <CategoryChip productCategory={'가구/인테리어'} />
+      <CategoryChip productCategory={'식당'} />
+      <CategoryChip productCategory={'전자기기'} />
+      <CategoryChip productCategory={'화장품'} />
+      <CategoryChip productCategory={'의류/악세서리'} />
+      <CategoryChip productCategory={'앱'} />
     </main>
   );
 }
