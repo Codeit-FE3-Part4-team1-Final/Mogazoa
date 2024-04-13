@@ -3,6 +3,10 @@
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
 import { useEffect } from 'react';
+import classNames from 'classnames/bind';
+import styles from './TableCompare.module.scss';
+
+const cx = classNames.bind(styles);
 
 interface TableCompareInterface {
   SubjectProduct: any;
@@ -76,38 +80,38 @@ export default function TableCompare({
     <tbody>
       <tr>
         <td>찜 개수</td>
-        <td>{SubjectProductFavorite}</td>
-        <td>{ObjectProductFavorite}</td>
+        <td className={cx('product-count')}>{SubjectProductFavorite}</td>
+        <td className={cx('product-count')}>{ObjectProductFavorite}</td>
         {favorite === 1 ? (
-          <td>상품 1 승리</td>
+          <td className={cx('subejct-victory')}>상품 1 승리</td>
         ) : favorite === -1 ? (
-          <td>상품 2 승리</td>
+          <td className={cx('object-victory')}>상품 2 승리</td>
         ) : (
-          <td>무승부</td>
+          <td className={cx('product-count')}>무승부</td>
         )}
       </tr>
       <tr>
         <td>리뷰 개수</td>
-        <td>{SubjectProductReview}</td>
-        <td>{ObjectProductReview}</td>
+        <td className={cx('product-count')}>{SubjectProductReview}</td>
+        <td className={cx('product-count')}>{ObjectProductReview}</td>
         {review === 1 ? (
-          <td>상품 1 승리</td>
+          <td className={cx('subejct-victory')}>상품 1 승리</td>
         ) : review === -1 ? (
-          <td>상품 2 승리</td>
+          <td className={cx('object-victory')}>상품 2 승리</td>
         ) : (
-          <td>무승부</td>
+          <td className={cx('product-count')}>무승부</td>
         )}
       </tr>
       <tr>
         <td>찜 개수</td>
-        <td>{SubjectProductRating}</td>
-        <td>{ObjectProductRating}</td>
+        <td className={cx('product-count')}>{SubjectProductRating}</td>
+        <td className={cx('product-count')}>{ObjectProductRating}</td>
         {rating === 1 ? (
-          <td>상품 1 승리</td>
+          <td className={cx('subejct-victory')}>상품 1 승리</td>
         ) : rating === -1 ? (
-          <td>상품 2 승리</td>
+          <td className={cx('object-victory')}>상품 2 승리</td>
         ) : (
-          <td>무승부</td>
+          <td className={cx('product-count')}>무승부</td>
         )}
       </tr>
     </tbody>
