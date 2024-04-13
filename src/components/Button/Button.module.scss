@@ -1,0 +1,57 @@
+@import '/src/styles/main.scss';
+
+@mixin respond($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  @include respond($lg-breakpoint) {
+    font-size: 16px;
+  }
+}
+
+.primary {
+  background: $main_gradient;
+  color: $primary;
+  &:disabled {
+    background: $border;
+    color: $tertiary;
+    cursor: not-allowed;
+  }
+}
+
+.secondary {
+  border: 1px solid $main_blue;
+  background: $main_gradient;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  &:disabled {
+    border: 1px solid $tertiary;
+    background: $tertiary;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: not-allowed;
+  }
+}
+
+.tertiary {
+  border: 1px solid $secondary;
+  color: $secondary;
+  &:disabled {
+    border-color: $border;
+    color: $tertiary;
+    cursor: not-allowed;
+  }
+}

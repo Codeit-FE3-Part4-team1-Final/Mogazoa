@@ -1,5 +1,8 @@
+import classNames from 'classnames/bind';
 import { ButtonHTMLAttributes, ReactNode } from 'react';
-import styles from './index.module.scss';
+import styles from './Button.module.scss';
+
+const cx = classNames.bind(styles);
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -15,10 +18,12 @@ export default function Button({
   category,
   ...rest
 }: Props) {
-  const buttonClass = `${styles.button} ${styles[category]}`;
-
   return (
-    <button className={buttonClass} style={{ width, height }} {...rest}>
+    <button
+      className={cx('button', styles[category])}
+      style={{ width, height }}
+      {...rest}
+    >
       {children}
     </button>
   );
