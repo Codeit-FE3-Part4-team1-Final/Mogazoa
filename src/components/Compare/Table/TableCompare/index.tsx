@@ -103,7 +103,7 @@ export default function TableCompare({
         )}
       </tr>
       <tr>
-        <td>찜 개수</td>
+        <td>별점</td>
         <td className={cx('product-count')}>{SubjectProductRating}</td>
         <td className={cx('product-count')}>{ObjectProductRating}</td>
         {rating === 1 ? (
