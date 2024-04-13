@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 interface TableCompareInterface {
   SubjectProduct: any;
   ObjectProduct: any;
@@ -18,7 +20,7 @@ export default function TableCompare({
   const ObjectProductReview = ObjectProduct?.reviewCount;
   const ObjectProductRating = ObjectProduct?.rating?.toFixed(1);
 
-  const compareCount = (subject, object) => {
+  const compareCount = (subject: number, object: number) => {
     return subject === object ? 0 : subject > object ? 1 : -1;
   };
 
@@ -50,5 +52,19 @@ export default function TableCompare({
     },
   );
 
-  const 
+  const total = count.reduce(
+    (accumulator, current) => accumulator + current,
+    0,
+  );
+  const findVictoryProduct = count.filter((number) => {
+    if (total > 0) return number === 1;
+    else if (total < 0) return number === -1;
+  }).length;
+
+  const victoryProduct = total > 0 ? SubjectProduct.name : ObjectProduct.name;
+
+  useEffect(() => {
+    handleCount(findVictoryProduct);
+    showVictoryProduct(!total ? '무승부' : victoryProduct);
+  }, []);
 }
