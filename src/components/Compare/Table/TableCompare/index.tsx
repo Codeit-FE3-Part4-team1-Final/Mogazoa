@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 import { useEffect } from 'react';
 
 interface TableCompareInterface {
@@ -58,7 +62,7 @@ export default function TableCompare({
   );
   const findVictoryProduct = count.filter((number) => {
     if (total > 0) return number === 1;
-    else if (total < 0) return number === -1;
+    if (total < 0) return number === -1;
   }).length;
 
   const victoryProduct = total > 0 ? SubjectProduct.name : ObjectProduct.name;
@@ -67,4 +71,45 @@ export default function TableCompare({
     handleCount(findVictoryProduct);
     showVictoryProduct(!total ? '무승부' : victoryProduct);
   }, []);
+
+  return (
+    <tbody>
+      <tr>
+        <td>찜 개수</td>
+        <td>{SubjectProductFavorite}</td>
+        <td>{ObjectProductFavorite}</td>
+        {favorite === 1 ? (
+          <td>상품 1 승리</td>
+        ) : favorite === -1 ? (
+          <td>상품 2 승리</td>
+        ) : (
+          <td>무승부</td>
+        )}
+      </tr>
+      <tr>
+        <td>리뷰 개수</td>
+        <td>{SubjectProductReview}</td>
+        <td>{ObjectProductReview}</td>
+        {review === 1 ? (
+          <td>상품 1 승리</td>
+        ) : review === -1 ? (
+          <td>상품 2 승리</td>
+        ) : (
+          <td>무승부</td>
+        )}
+      </tr>
+      <tr>
+        <td>찜 개수</td>
+        <td>{SubjectProductRating}</td>
+        <td>{ObjectProductRating}</td>
+        {rating === 1 ? (
+          <td>상품 1 승리</td>
+        ) : rating === -1 ? (
+          <td>상품 2 승리</td>
+        ) : (
+          <td>무승부</td>
+        )}
+      </tr>
+    </tbody>
+  );
 }
