@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from 'react';
@@ -65,8 +63,13 @@ export default function TableCompare({
     0,
   );
   const findVictoryProduct = count.filter((number) => {
-    if (total > 0) return number === 1;
-    if (total < 0) return number === -1;
+    if (total > 0) {
+      return number === 1;
+    }
+    if (total < 0) {
+      return number === -1;
+    }
+    return number === 0;
   }).length;
 
   const victoryProduct = total > 0 ? SubjectProduct.name : ObjectProduct.name;
