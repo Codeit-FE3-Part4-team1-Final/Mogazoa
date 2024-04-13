@@ -1,5 +1,5 @@
-import ObjectChip from '@/components/Compare/ObjectChip';
-import SubjectChip from '@/components/Compare/SubjectChip';
+import ObjectChip from '@/components/Chip/ObjectChip';
+import SubjectChip from '@/components/Chip/SubjectChip';
 
 export default function ComparePage() {
   return (

@@ -1,4 +1,4 @@
-import CategoryChip from '@/components/Compare/CategoryChip';
+import CategoryChip from '@/components/Chip/CategoryChip';
 
 export default function page() {
   return (
