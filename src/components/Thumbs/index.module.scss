@@ -1,0 +1,40 @@
+@import '@/styles/main';
+
+.likeButton {
+  @include flexbox;
+  padding: 8px 12px;
+  gap: 10px;
+  border-radius: 100px;
+  border: 1px solid $border;
+  background: $comp-bg;
+  transition: background-color 0.3s ease;
+
+  .like {
+    position: relative;
+    width: 18px;
+    height: 18px;
+
+    @include tablet {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .text {
+    font-size: 14px;
+    font-weight: 400;
+    color: $secondary;
+    @include tablet {
+      font-size: 12px;
+    }
+    &.liked {
+      color: $main_indigo;
+    }
+  }
+
+  &:hover {
+    background-color: white;
+    animation: none;
+    transform: scale(1.1);
+  }
+}
