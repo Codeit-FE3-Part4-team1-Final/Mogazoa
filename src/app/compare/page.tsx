@@ -1,14 +1,10 @@
-import ObjectChip from '@/components/Compare/ObjectChip';
-import SubjectChip from '@/components/Compare/SubjectChip';
+import Table from '@/components/Compare/Table';
 
 export default function ComparePage() {
   return (
     <>
       <div>
-        <SubjectChip name={'비교 상품'} />
-      </div>
-      <div>
-        <ObjectChip name={'비교 상품'} />
+        <Table SubjectProduct={'상품 1'} ObjectProduct={'상품 2'} />
       </div>
     </>
   );

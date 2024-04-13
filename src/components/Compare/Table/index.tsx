@@ -1,9 +1,11 @@
+'use client';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import classNames from 'classnames/bind';
-import Result from './Result';
-import TableCompare from './TableCompare';
-import styles from './TableCompare.module.scss';
+import Result from '@/components/Compare/Table/Result';
+import TableCompare from '@/components/Compare/Table/TableCompare';
+import styles from './Table.module.scss';
 
 const cx = classNames.bind(styles);
 interface TableInterface {
