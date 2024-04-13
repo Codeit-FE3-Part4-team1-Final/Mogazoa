@@ -34,4 +34,21 @@ export default function TableCompare({
     SubjectProductRating ?? 0,
     ObjectProductRating ?? 0,
   );
+
+  const count = ['favoriteCount', 'reviewCount', 'rating'].map<number>(
+    (key) => {
+      const SubjectCount = Math.floor(SubjectProduct[key] * 10) / 10;
+      const ObjectCount = Math.floor(ObjectProduct[key] * 10) / 10;
+
+      if (SubjectCount > ObjectCount) {
+        return 1;
+      }
+      if (SubjectCount < ObjectCount) {
+        return -1;
+      }
+      return 0;
+    },
+  );
+
+  const 
 }
