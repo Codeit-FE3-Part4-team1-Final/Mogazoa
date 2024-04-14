@@ -1,0 +1,21 @@
+@import '/src/styles/main.scss';
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.form-input-area {
+  width: 640px;
+  height: 100%;
+  margin-top: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.input-button {
+  margin-top: 15px;
+}

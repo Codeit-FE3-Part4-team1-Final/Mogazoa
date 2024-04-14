@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { ChangeEvent, FocusEvent, useState } from 'react';
 import Image from 'next/image';
 import eyeOn from '../../../../public/images/eyes-open.svg';
 import eyeOff from '../../../../public/images/eyes-close.svg';
+import styles from './PasswordInput.module.scss';
 
 const EYE_ON = {
   src: eyeOn,
@@ -14,21 +15,21 @@ const EYE_OFF = {
   alt: '비밀번호 가리기',
 };
 
-interface PasswordInputProps {
+interface InputProps {
   labelName: string;
-  // error?: string;
-  // value: string;
-  // onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  // onBlur: (e: FocusEvent<HTMLInputElement>) => void;
+  error?: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onBlur: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
 export default function PasswordInput({
   labelName,
-  // error,
-  // value,
-  // onChange,
-  // onBlur,
-}: PasswordInputProps) {
+  error,
+  value,
+  onChange,
+  onBlur,
+}: InputProps) {
   const [eyes, setEyes] = useState(EYE_OFF);
 
   const changeEye = () => {
@@ -40,19 +41,21 @@ export default function PasswordInput({
   };
 
   return (
-    <div>
+    <div className={styles['input-container']}>
       <label htmlFor={labelName}>{labelName}</label>
-      <div>
+      <div className={styles['image-guide']}>
         <input
+          className={styles['input-main']}
           type={eyes.alt === EYE_OFF.alt ? 'text' : 'password'}
           id={labelName}
-          // value={value}
-          // onChange={onChange}
-          // onBlur={onBlur}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
           placeholder='비밀번호를 입력해주세요.'
-          autoComplete='password'
+          autoComplete='off'
         />
         <Image
+          className={styles['input-image']}
           onClick={changeEye}
           src={eyes.src}
           alt={eyes.alt}
@@ -60,7 +63,7 @@ export default function PasswordInput({
           height={24}
         />
       </div>
-      {/* <span>{error}</span> */}
+      <span className={styles[`input-error`]}>{error}</span>
     </div>
   );
 }

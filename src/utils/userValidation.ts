@@ -6,7 +6,7 @@ export const checkSignEmail = (email: string): string => {
     return '이메일을 입력해주세요';
   }
   if (!regexEmail.test(email)) {
-    return '이메일 형식으로 작성해주세요';
+    return '올바른 이메일 형식으로 입력해주세요';
   }
   return '';
 };

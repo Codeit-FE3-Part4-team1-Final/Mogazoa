@@ -1,0 +1,26 @@
+@import '/src/styles/main.scss';
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-main {
+  width: 100%;
+  height: 70px;
+  padding: 23px 20px;
+  background-color: $comp-bg;
+  border-radius: 10px;
+  border: 1px solid transparent;
+
+  &:focus {
+    border-color: $main_indigo;
+  }
+}
+
+.input-error {
+  font-size: 13px;
+  font-weight: 100;
+  color: $tertiary;
+}

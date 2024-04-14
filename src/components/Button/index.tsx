@@ -20,7 +20,7 @@ export default function Button({
 }: Props) {
   return (
     <button
-      className={cx('button', styles[category])}
+      className={cx('button', category)}
       style={{ width, height }}
       {...rest}
     >
