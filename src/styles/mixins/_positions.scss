@@ -14,7 +14,7 @@
   }
 }
 
-@mixin pos-center($type: absoluete) {
+@mixin pos-center($type: absolute) {
   @if ($type == fixed or $type == absolute) {
     position: $type;
     top: 50%;

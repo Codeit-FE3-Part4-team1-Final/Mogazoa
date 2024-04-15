@@ -1,0 +1,83 @@
+@import '/src/styles/main.scss';
+
+.activity-card {
+  @include flexbox;
+  flex-direction: column;
+  width: 300px;
+  gap: 10px;
+  border-radius: 12px;
+  border: 1px solid $border;
+  background: $comp-bg;
+  padding: 30px 0;
+  text-align: center;
+  word-break: keep-all;
+  @include tablet {
+    width: 163px;
+    height: 119px;
+    padding: 20px 21px;
+    gap: 15px;
+    flex-shrink: 0;
+    border-radius: 8px;
+  }
+  @include mobile {
+    width: 105px;
+    height: 119px;
+    padding: 20px 21px;
+    gap: 10px;
+  }
+}
+
+.container {
+  @include flexbox;
+  flex-direction: column;
+  gap: 20px;
+  @include tablet {
+    gap: 15px;
+  }
+  @include mobile {
+    gap: 15px;
+  }
+}
+
+.category {
+  color: $secondary;
+  font-size: 16px;
+  font-weight: 500;
+  @include tablet {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  @include mobile {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.information {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.count {
+  color: $primary;
+  font-size: 24px;
+  font-weight: 400;
+  @include tablet {
+    font-size: 20px;
+  }
+  @include mobile {
+    font-size: 20px;
+  }
+}
+
+.icon {
+  @include tablet {
+    width: 20px;
+    height: 20px;
+  }
+  @include mobile {
+    width: 16px;
+    height: 16px;
+  }
+}

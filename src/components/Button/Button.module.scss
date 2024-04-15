@@ -1,21 +1,16 @@
 @import '/src/styles/main.scss';
 
-@mixin respond($breakpoint) {
-  @media (max-width: $breakpoint) {
-    @content;
-  }
-}
-
 .button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexbox;
   gap: 10px;
   flex-shrink: 0;
   border-radius: 8px;
   font-size: 18px;
   font-weight: 600;
-  @include respond($lg-breakpoint) {
+  @include tablet {
+    font-size: 16px;
+  }
+  @include mobile {
     font-size: 16px;
   }
 }
