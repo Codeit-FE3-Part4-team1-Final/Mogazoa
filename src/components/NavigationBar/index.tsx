@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from './index.module.scss';
+import styles from './NavigationBar.module.scss';
 
 // Todo(송상훈) : UI만 그려놓음, 로그인 기능 후 로직 완성 예정
 export default function NavigationBar() {
