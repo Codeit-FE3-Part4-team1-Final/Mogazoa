@@ -1,4 +1,4 @@
-import Table from '@/components/Compare/Table';
+import Table from '@/components/Table';
 
 export default function ComparePage() {
   return (
