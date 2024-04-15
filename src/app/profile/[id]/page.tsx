@@ -1,16 +1,12 @@
-import Button from '@/components/Button';
 import ActivityCard from '@/components/Card/ActivityCard';
-import CategoryChip from '@/components/Chip/CategoryChip';
 
 export default function page() {
   return (
     <div>
       프로필 페이지
-      <ActivityCard />
-      <Button height='60px' category='primary'>
-        버튼
-      </Button>
-      <CategoryChip productCategory='음악' size='large' />
+      <ActivityCard category='star' rating={4} />
+      <ActivityCard category='review' rating={130} />
+      <ActivityCard category='interest' productCategory={'의류/악세서리'} />
     </div>
   );
 }
