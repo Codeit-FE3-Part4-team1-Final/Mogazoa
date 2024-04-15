@@ -2,9 +2,11 @@
 
 .form-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
+  gap: 60px;
 }
 
 .form-input-area {
@@ -18,4 +20,33 @@
 
 .input-button {
   margin-top: 15px;
+}
+
+.sns-area {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sns-text {
+  color: $tertiary;
+  font-size: 15px;
+}
+
+.sns-images {
+  display: flex;
+  gap: 20px;
+}
+
+.sns-circle {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border: 1px solid;
+  border-radius: 999px;
+  border-color: $tertiary;
+}
+
+.sns-image {
+  @include pos-center;
 }

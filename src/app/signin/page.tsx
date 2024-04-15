@@ -1,12 +1,16 @@
 'use client';
 
-import React, { useState, FormEvent, ChangeEvent } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
+import classNames from 'classnames/bind';
+import Image from 'next/image';
 import NavigationBar from '@/components/NavigationBar';
 import PasswordInput from '@/components/SignInput/PasswordInput';
 import UserInfoInput from '@/components/SignInput/UserInfoInput';
-import { checkSignEmail, checkSignPassword } from '@/utils/userValidation';
 import styles from './signin.module.scss';
 import Button from '@/components/Button';
+import { checkSignEmail, checkSignPassword } from '@/utils/userValidation';
+
+const cx = classNames.bind(styles);
 
 export default function SignInPage() {
   const [email, setEmail] = useState<string>('');
@@ -20,10 +24,6 @@ export default function SignInPage() {
     const passwordErrorMessage = checkSignPassword(password);
     setEmailError(emailErrorMessage);
     setPasswordError(passwordErrorMessage);
-
-    // if (emailErrorMessage !== '' || passwordErrorMessage !== '') {
-    //   return;
-    // }
   };
 
   const handleEmailBlur = () => {
@@ -37,10 +37,10 @@ export default function SignInPage() {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cx('wrapper')}>
       <NavigationBar />
-      <main className={styles['form-container']}>
-        <form className={styles['form-input-area']} onSubmit={onSubmit}>
+      <main className={cx('form-container')}>
+        <form className={cx('form-input-area')} onSubmit={onSubmit}>
           <UserInfoInput
             labelName='이메일'
             error={emailError}
@@ -59,12 +59,35 @@ export default function SignInPage() {
             }
             onBlur={handlePasswordBlur}
           />
-          <div className={styles['input-button']}>
+          <div className={cx('input-button')}>
             <Button height='65px' category='primary' type='submit'>
               로그인
             </Button>
           </div>
         </form>
+        <div className={cx('sns-area')}>
+          <span className={cx('sns-text')}>SNS로 바로 시작하기</span>
+          <div className={cx('sns-images')}>
+            <div className={cx('sns-circle')}>
+              <Image
+                className={cx('sns-image')}
+                src='./images/google-icon.svg'
+                alt='구글아이콘'
+                width={32}
+                height={32}
+              />
+            </div>
+            <div className={cx('sns-circle')}>
+              <Image
+                className={cx('sns-image')}
+                src='./images/kakao-icon.svg'
+                alt='카카오아이콘'
+                width={32}
+                height={32}
+              />
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );

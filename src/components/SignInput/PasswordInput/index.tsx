@@ -46,13 +46,13 @@ export default function PasswordInput({
       <div className={styles['image-guide']}>
         <input
           className={styles['input-main']}
-          type={eyes.alt === EYE_OFF.alt ? 'text' : 'password'}
+          type={eyes.alt === EYE_OFF.alt ? 'password' : 'text'}
           id={labelName}
           value={value}
           onChange={onChange}
           onBlur={onBlur}
           placeholder='비밀번호를 입력해주세요.'
-          autoComplete='off'
+          autoComplete='new-password'
         />
         <Image
           className={styles['input-image']}
