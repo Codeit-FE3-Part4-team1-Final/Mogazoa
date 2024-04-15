@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import cx from './cx.ts';
+import cx from '@/constants/cx.ts';
 import MAX_LENGTH from '@/components/TextBox/constants.ts';
 
 interface Props {

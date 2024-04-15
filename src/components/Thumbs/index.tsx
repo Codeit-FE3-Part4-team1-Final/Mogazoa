@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
-import cx from '@/components/Thumbs/cx.ts';
+import cx from '@/constants/cx.ts';
 
 interface Props {
   likeCount: number;
