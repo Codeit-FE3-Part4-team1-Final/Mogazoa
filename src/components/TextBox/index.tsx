@@ -15,9 +15,9 @@ export default function TextBox({
   const [text, setText] = useState(value);
   const [inputCount, setInputCount] = useState(0);
 
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const elem = e.target as HTMLTextAreaElement;
-    const val = elem.value;
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const element = event.target as HTMLTextAreaElement;
+    const val = element.value;
 
     setInputCount(val.length);
     setText(val);
