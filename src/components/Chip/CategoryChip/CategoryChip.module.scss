@@ -1,11 +1,5 @@
 @import '/src/styles/main.scss';
 
-@mixin respond($breakpoint) {
-  @media (max-width: $breakpoint) {
-    @content;
-  }
-}
-
 @mixin category($background, $text) {
   background: $background;
   color: $text;
@@ -78,10 +72,10 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  @include respond($md-breakpoint) {
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 400;
+  @include tablet {
+    @include small();
+  }
+  @include mobile {
+    @include small();
   }
 }
