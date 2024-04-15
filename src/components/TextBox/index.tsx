@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import cx from './cx.ts';
 import MAX_LENGTH from '@/components/TextBox/constants.ts';
 
