@@ -3,42 +3,44 @@ import React, { useEffect, useState } from 'react';
 interface SubjectInputInterface {
   handleUpdate: (name: string) => void;
   handleClose: () => void;
+  isSubject: boolean;
 }
 
 export default function SubjectInput({
   handleUpdate,
   handleClose,
+  isSubject
 }: SubjectInputInterface) {
-  const [subjectProduct, setSubjectProduct] = useState<string>('');
-  const [subjectProductId, setSubjectProductId] = useState<number>(0);
-  const [subjectChip, setSubjectChip] = useState<string>('');
+  const [product, setProduct] = useState<string>('');
+  const [productId, setProductId] = useState<number>(0);
+  const [chip, setChip] = useState<string>('');
   const [isShow, setIsShow] = useState<boolean>(false);
   const [isChip, setIsChip] = useState<boolean>(false);
   const [isReadable, setIsReadable] = useState<boolean>(false);
 
   useEffect(() => {
-    if (localStorage.getItem('subjectProduct')) {
-      setSubjectProduct(localStorage.getItem('subjectProduct') as string);
-      setSubjectProductId(Number(localStorage.getItem('subjectProductId')));
-      setSubjectChip(localStorage.getItem('subjectProduct') as string);
+    const storedProduct = localStorage.getItem(isSubject ? 'subjectProduct' : 'objectProduct')
+    if (storedProduct) {
+      setProduct(storedProduct);
+      setProductId(Number(localStorage.getItem(`${storedProduct}Id`)));
+      setChip(storedProduct);
       setIsChip(true);
-      setSubjectProduct('');
       setIsReadable(true);
     }
-  }, []);
+  }, [isSubject]);
 
   const handleDelete = () => {
     setIsChip(false);
     setIsReadable(false);
     handleClose();
     handleUpdate('');
-    localStorage.removeItem('subjectProduct');
-    localStorage.removeItem('subjectProductId');
+    localStorage.removeItem(isSubject ? 'subjectProduct' : 'objectProduct');
+    localStorage.removeItem(`${isSubject ? 'subjectProduct' : 'objectProduct'}Id`);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSubjectProduct(event.target.value);
-    setSubjectChip(event.target.value);
+    setProduct(event.target.value);
+    setChip(event.target.value);
     setIsReadable(false);
     if (event.target.value === '') {
       handleDelete();
@@ -47,9 +49,11 @@ export default function SubjectInput({
 
   const handleClick = (event: React.MouseEvent<HTMLLIElement>) => {
     const subjectProductValue = event.currentTarget.innerText;
-    setSubjectProduct('');
-    setSubjectChip(subjectProductValue);
+    setProduct('');
+    setChip(subjectProductValue);
     setIsReadable(true);
     setIsChip(true);
   };
+
+  const handleEnter = (event: React.Keyboard)
 }
