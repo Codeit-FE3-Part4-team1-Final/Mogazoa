@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 
 interface SubjectInputInterface {
@@ -67,4 +68,15 @@ export default function CompareInput({
       setIsChip(true);
     }
   };
+
+  const { data: productData, isSuccess } = useQuery({
+    queryKey: ['products', { keyword: chip }],
+    // queryFn: () => api호출({ keyword: chip }),
+    enabled: !!chip,
+  });
+
+  const { data: productDetail } = useQuery({
+    queryKey: ['productDetail', productId, product],
+    // queryFn: () => api호출(productId),
+  });
 }
