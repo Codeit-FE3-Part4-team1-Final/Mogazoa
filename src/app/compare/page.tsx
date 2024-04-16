@@ -5,7 +5,8 @@ import { useState } from 'react';
 import classNames from 'classnames/bind';
 import CompareInput from '@/components/Input/CompareInput';
 import Table from '@/components/Table';
-import styles from './SubjectChip.module.scss';
+import styles from './ComparePage.module.scss';
+import Button from '@/components/Button';
 
 const cx = classNames.bind(styles);
 
@@ -21,6 +22,8 @@ export default function ComparePage() {
   const handleObject = (data: string) => {
     setObjectProduct(data);
   };
+
+  const handleShow = () => setIsShow(true);
 
   const handleClose = () => setIsShow(false);
 
@@ -38,6 +41,15 @@ export default function ComparePage() {
             handleUpdate={handleObject}
             handleClose={handleClose}
           />
+          <Button
+            disabled={!(subjectProduct && objectProduct)}
+            width={'200px'}
+            height={'56px'}
+            category={'primary'}
+            onClick={handleShow}
+          >
+            비교하기
+          </Button>
         </div>
         {isShow && (
           <Table
