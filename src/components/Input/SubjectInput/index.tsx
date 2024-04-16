@@ -9,7 +9,7 @@ interface SubjectInputInterface {
 export default function SubjectInput({
   handleUpdate,
   handleClose,
-  isSubject
+  isSubject,
 }: SubjectInputInterface) {
   const [product, setProduct] = useState<string>('');
   const [productId, setProductId] = useState<number>(0);
@@ -19,7 +19,9 @@ export default function SubjectInput({
   const [isReadable, setIsReadable] = useState<boolean>(false);
 
   useEffect(() => {
-    const storedProduct = localStorage.getItem(isSubject ? 'subjectProduct' : 'objectProduct')
+    const storedProduct = localStorage.getItem(
+      isSubject ? 'subjectProduct' : 'objectProduct',
+    );
     if (storedProduct) {
       setProduct(storedProduct);
       setProductId(Number(localStorage.getItem(`${storedProduct}Id`)));
@@ -35,7 +37,9 @@ export default function SubjectInput({
     handleClose();
     handleUpdate('');
     localStorage.removeItem(isSubject ? 'subjectProduct' : 'objectProduct');
-    localStorage.removeItem(`${isSubject ? 'subjectProduct' : 'objectProduct'}Id`);
+    localStorage.removeItem(
+      `${isSubject ? 'subjectProduct' : 'objectProduct'}Id`,
+    );
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,5 +59,12 @@ export default function SubjectInput({
     setIsChip(true);
   };
 
-  const handleEnter = (event: React.Keyboard)
+  const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && product.trim() !== '') {
+      setProduct('');
+      setChip(product);
+      setIsReadable(true);
+      setIsChip(true);
+    }
+  };
 }
