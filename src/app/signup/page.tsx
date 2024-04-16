@@ -2,7 +2,6 @@
 
 import { useState, ChangeEvent } from 'react';
 import classNames from 'classnames/bind';
-import NavigationBar from '@/components/NavigationBar';
 import PasswordInput from '@/components/SignInput/PasswordInput';
 import UserInfoInput from '@/components/SignInput/UserInfoInput';
 import styles from './signup.module.scss';
@@ -78,8 +77,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className={cx('wrapper')}>
-      <NavigationBar />
+    <div>
       <main className={cx('form-container')}>
         <form className={cx('form-input-area')} onSubmit={onSubmit}>
           <UserInfoInput

@@ -3,7 +3,6 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
-import NavigationBar from '@/components/NavigationBar';
 import PasswordInput from '@/components/SignInput/PasswordInput';
 import UserInfoInput from '@/components/SignInput/UserInfoInput';
 import styles from './signin.module.scss';
@@ -38,7 +37,6 @@ export default function SignInPage() {
 
   return (
     <div>
-      <NavigationBar />
       <main className={cx('form-container')}>
         <form className={cx('form-input-area')} onSubmit={onSubmit}>
           <UserInfoInput
