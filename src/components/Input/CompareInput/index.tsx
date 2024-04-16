@@ -127,7 +127,21 @@ export default function CompareInput({
           </div>
         )}
       </div>
-      {isSuccess && <ul>{/* productData에서 리스트 map */}</ul>}
+      {isSuccess && (
+        <ul>
+          {productData?.list?.map((values) => (
+            <li
+              key={values.id}
+              onClick={(event) => {
+                handleClick(event as any);
+                setProductId(values.id);
+              }}
+            >
+              {values.name}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
