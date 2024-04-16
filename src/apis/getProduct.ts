@@ -111,7 +111,7 @@ async function Api<T = unknown, U = unknown>({
   }
 }
 
-const getProduct = ({
+export const getProduct = ({
   keyword,
   category,
   order,
@@ -125,4 +125,10 @@ const getProduct = ({
   return Api<ProductListInterface>(requestApi);
 };
 
-const getDetail = productId;
+export const getDetail = (productId: number): Promise<DetailInterface> => {
+  const requestApi: RequestApiInterface = {
+    method: 'get',
+    endPoint: `/products/${productId}`,
+  };
+  return Api<DetailInterface>(requestApi);
+};
