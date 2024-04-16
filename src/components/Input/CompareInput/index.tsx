@@ -132,7 +132,7 @@ export default function CompareInput({
         )}
       </div>
       {isSuccess && (
-        <ul className={cx('wrapper')}>
+        <ul className={cx('list-container')}>
           {productData?.list?.map((values) => (
             <li
               key={values.id}
