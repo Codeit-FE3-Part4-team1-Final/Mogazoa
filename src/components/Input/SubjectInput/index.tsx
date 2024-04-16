@@ -35,4 +35,13 @@ export default function SubjectInput({
     localStorage.removeItem('subjectProduct');
     localStorage.removeItem('subjectProductId');
   };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSubjectProduct(event.target.value);
+    setSubjectChip(event.target.value);
+    setIsReadable(false);
+    if (event.target.value === '') {
+      handleDelete();
+    }
+  };
 }
