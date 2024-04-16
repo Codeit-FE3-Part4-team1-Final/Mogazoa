@@ -23,7 +23,7 @@ export default function ProfileCard() {
             프로쇼핑러! 안녕하세요, 별점의 화신 surisuri마수리입니다!
           </p>
         </div>
-        <div className={cx('user-follow')}>
+        <div className={cx('user-follow-box')}>
           <div className={cx('follow')}>
             <span className={cx('count')}>762</span>
             <span className={cx('text')}>팔로워</span>

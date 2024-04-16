@@ -8,28 +8,75 @@
   border: 1px solid $border;
   background: $comp-bg;
   padding: 40px 20px 30px;
+  @include tablet {
+    padding: 30px;
+    width: 509px;
+    height: 451px;
+  }
+  @include mobile {
+    padding: 30px 20px;
+    width: 335px;
+    height: 466px;
+  }
 }
 
 .container {
   @include inline-flexbox();
   flex-direction: column;
   gap: 40px;
+  @include tablet {
+    width: 449px;
+    height: 391px;
+    gap: 30px;
+    flex-shrink: 0;
+  }
+  @include mobile {
+    @include column-flexbox();
+    width: 295px;
+    height: 406px;
+    gap: 30px;
+    flex-shrink: 0;
+  }
 }
 
 .profile-image {
   border-radius: 50%;
+  @include tablet {
+    width: 120px;
+    height: 120px;
+  }
+  @include mobile {
+    width: 120px;
+    height: 120px;
+  }
 }
 
 .user-information {
   @include column-flexbox();
   width: 300px;
   gap: 20px;
+  @include tablet {
+    width: 449px;
+    gap: 10px;
+  }
+  @include mobile {
+    width: 295px;
+    gap: 10px;
+  }
 }
 
 .user-name {
   color: $primary;
   font-size: 24px;
   font-weight: 600;
+  @include tablet {
+    font-size: 20px;
+    line-height: 28px;
+  }
+  @include mobile {
+    font-size: 20px;
+    line-height: 28px;
+  }
 }
 
 .user-explain {
@@ -37,11 +84,28 @@
   color: $tertiary;
   font-size: 16px;
   line-height: 22px;
+  @include tablet {
+    width: 100%;
+    align-self: stretch;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  @include mobile {
+    width: 295px;
+    font-size: 14px;
+    line-height: 20px;
+  }
 }
 
-.user-follow {
+.user-follow-box {
   @include flexbox($align: start);
   gap: 50px;
+  @include tablet {
+    gap: 80px;
+  }
+  @include mobile {
+    gap: 60px;
+  }
 }
 
 .follow {
@@ -53,10 +117,24 @@
   color: $primary;
   font-size: 20px;
   font-weight: 600;
+  @include tablet {
+    font-size: 18px;
+    line-height: 21px;
+  }
+  @include mobile {
+    font-size: 18px;
+    line-height: 21px;
+  }
 }
 
 .text {
   color: $secondary;
+  @include tablet {
+    font-size: 14px;
+  }
+  @include mobile {
+    font-size: 14px;
+  }
 }
 
 .separator {
@@ -64,4 +142,10 @@
   border: none;
   border-left: 1px solid $border;
   margin: 0;
+  @include tablet {
+    height: 48px;
+  }
+  @include mobile {
+    height: 48px;
+  }
 }
