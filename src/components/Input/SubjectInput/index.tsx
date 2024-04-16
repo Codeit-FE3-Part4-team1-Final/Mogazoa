@@ -44,4 +44,12 @@ export default function SubjectInput({
       handleDelete();
     }
   };
+
+  const handleClick = (event: React.MouseEvent<HTMLLIElement>) => {
+    const subjectProductValue = event.currentTarget.innerText;
+    setSubjectProduct('');
+    setSubjectChip(subjectProductValue);
+    setIsReadable(true);
+    setIsChip(true);
+  };
 }
