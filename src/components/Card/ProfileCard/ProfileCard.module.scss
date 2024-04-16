@@ -79,16 +79,19 @@
   color: $tertiary;
   font-size: 16px;
   line-height: 22px;
+  text-align: center;
   @include tablet {
     width: 100%;
     align-self: stretch;
     font-size: 14px;
     line-height: 20px;
+    text-align: center;
   }
   @include mobile {
     width: 295px;
     font-size: 14px;
     line-height: 20px;
+    text-align: center;
   }
 }
 
