@@ -79,4 +79,17 @@ export default function CompareInput({
     queryKey: ['productDetail', productId, product],
     // queryFn: () => api호출(productId),
   });
+
+  // productDetail 호출 useEffect 필요
+  // productDetail 값으로 localStorage 변경
+
+  useEffect(() => {
+    if (isSuccess) {
+      if (product === '') {
+        setIsChip(false);
+      } else {
+        setIsChip(true);
+      }
+    }
+  }, [isSuccess, product]);
 }
