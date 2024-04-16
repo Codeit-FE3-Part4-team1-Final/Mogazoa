@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface SubjectInputInterface {
   handleUpdate: (name: string) => void;
@@ -26,4 +26,13 @@ export default function SubjectInput({
       setIsReadable(true);
     }
   }, []);
+
+  const handleDelete = () => {
+    setIsChip(false);
+    setIsReadable(false);
+    handleClose();
+    handleUpdate('');
+    localStorage.removeItem('subjectProduct');
+    localStorage.removeItem('subjectProductId');
+  };
 }
