@@ -41,6 +41,46 @@ interface ProductListInterface {
   list: ProductInterface[];
 }
 
+type CategoryType =
+  | '음악'
+  | '영화/드라마'
+  | '강의/책'
+  | '호텔'
+  | '가구/인테리어'
+  | '식당'
+  | '전자기기'
+  | '화장품'
+  | '의류/잡화'
+  | '앱';
+
+interface CategoryMetricInterface {
+  favoriteCount: number;
+  rating: number;
+  reviewCount: number;
+}
+
+interface CategoryInterface {
+  id: number;
+  name: CategoryType;
+}
+
+interface DetailInterface {
+  id: number;
+  name: string;
+  image: string;
+  rating: number;
+  reviewCount: number;
+  categoryId: number;
+  categoryMetric: CategoryMetricInterface;
+  createdAt: string;
+  updatedAt: string;
+  writerId: number;
+  description: string;
+  category: CategoryInterface;
+  isFavorite: boolean;
+  favoriteCount: number;
+}
+
 const axiosInstance = axios.create({
   baseURL: 'https://mogazoa-api.vercel.app/3-1',
 });
@@ -84,3 +124,5 @@ const getProduct = ({
   };
   return Api<ProductListInterface>(requestApi);
 };
+
+const getDetail = productId;
