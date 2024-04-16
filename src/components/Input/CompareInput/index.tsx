@@ -6,7 +6,7 @@ interface SubjectInputInterface {
   isSubject: boolean;
 }
 
-export default function SubjectInput({
+export default function CompareInput({
   handleUpdate,
   handleClose,
   isSubject,
