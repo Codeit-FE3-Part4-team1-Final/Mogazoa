@@ -34,9 +34,7 @@ export default function ProfileCard() {
             <span className={cx('text')}>팔로잉</span>
           </div>
         </div>
-        <Button height={'65px'} category='primary'>
-          팔로우
-        </Button>
+        <Button category='primary'>팔로우</Button>
       </div>
     </div>
   );
