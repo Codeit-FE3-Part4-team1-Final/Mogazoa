@@ -1,5 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import ObjectChip from '@/components/Chip/ObjectChip';
+import SubjectChip from '@/components/Chip/SubjectChip';
 
 interface SubjectInputInterface {
   handleUpdate: (name: string) => void;
@@ -15,7 +17,6 @@ export default function CompareInput({
   const [product, setProduct] = useState<string>('');
   const [productId, setProductId] = useState<number>(0);
   const [chip, setChip] = useState<string>('');
-  const [isShow, setIsShow] = useState<boolean>(false);
   const [isChip, setIsChip] = useState<boolean>(false);
   const [isReadable, setIsReadable] = useState<boolean>(false);
 
@@ -92,4 +93,28 @@ export default function CompareInput({
       }
     }
   }, [isSuccess, product]);
+
+  return (
+    <div>
+      <span>{isSubject ? '상품1' : '상품2'}</span>
+      <div>
+        <input
+          onChange={handleChange}
+          value={product}
+          onKeyDown={handleEnter}
+          readOnly={isReadable}
+        />
+        {isChip && (
+          <div onClick={handleDelete}>
+            {isSubject ? (
+              <SubjectChip name={chip} />
+            ) : (
+              <ObjectChip name={chip} />
+            )}
+          </div>
+        )}
+      </div>
+      {isSuccess && <ul>{/* productData에서 리스트 map */}</ul>}
+    </div>
+  );
 }
