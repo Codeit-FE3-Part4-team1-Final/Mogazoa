@@ -1,4 +1,5 @@
 import ActivityCard from '@/components/Card/ActivityCard';
+import ProfileCard from '@/components/Card/ProfileCard';
 import CategoryChip from '@/components/Chip/CategoryChip';
 
 export default function page() {
@@ -27,6 +28,7 @@ export default function page() {
       <ActivityCard category='star' rating={4} />
       <ActivityCard category='review' rating={130} />
       <ActivityCard category='interest' productCategory={'의류/악세서리'} />
+      <ProfileCard />
     </main>
   );
 }

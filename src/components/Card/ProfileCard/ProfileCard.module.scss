@@ -1,0 +1,67 @@
+@import '/src/styles/main.scss';
+
+.wrapper {
+  width: 340px;
+  height: 603px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  border: 1px solid $border;
+  background: $comp-bg;
+  padding: 40px 20px 30px;
+}
+
+.container {
+  @include inline-flexbox();
+  flex-direction: column;
+  gap: 40px;
+}
+
+.profile-image {
+  border-radius: 50%;
+}
+
+.user-information {
+  @include column-flexbox();
+  width: 300px;
+  gap: 20px;
+}
+
+.user-name {
+  color: $primary;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.user-explain {
+  width: 300px;
+  color: $tertiary;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.user-follow {
+  @include flexbox($align: start);
+  gap: 50px;
+}
+
+.follow {
+  @include column-flexbox();
+  gap: 10px;
+}
+
+.count {
+  color: $primary;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.text {
+  color: $secondary;
+}
+
+.separator {
+  height: 53px;
+  border: none;
+  border-left: 1px solid $border;
+  margin: 0;
+}
