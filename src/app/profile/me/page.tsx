@@ -1,3 +1,4 @@
+import ActivityCard from '@/components/Card/ActivityCard';
 import CategoryChip from '@/components/Chip/CategoryChip';
 
 export default function page() {
@@ -23,6 +24,9 @@ export default function page() {
       <CategoryChip productCategory={'화장품'} />
       <CategoryChip productCategory={'의류/악세서리'} />
       <CategoryChip productCategory={'앱'} />
+      <ActivityCard category='star' rating={4} />
+      <ActivityCard category='review' rating={130} />
+      <ActivityCard category='interest' productCategory={'의류/악세서리'} />
     </main>
   );
 }
