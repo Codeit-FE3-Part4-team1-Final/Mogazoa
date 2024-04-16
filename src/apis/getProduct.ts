@@ -1,4 +1,5 @@
-import { AxiosRequestConfig } from 'axios';
+/* eslint-disable no-useless-catch */
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const httpMethod = {
   GET: 'get',
@@ -7,19 +8,48 @@ const httpMethod = {
   PATCH: 'patch',
 } as const;
 
-interface getProductInterface {
+interface GetProductInterface {
   keyword?: string | null;
   category?: number | null;
   order?: 'recent' | 'rating' | 'reviewCount' | string;
   cursor?: number | null;
-  page?: number;
 }
 
-interface requestInterface<U = any> {
+interface RequestApiInterface<U = unknown> {
   method: (typeof httpMethod)[keyof typeof httpMethod];
-  endpoint: string;
+  endPoint: string;
   data?: U;
   config?: AxiosRequestConfig;
+}
+
+const axiosInstance = axios.create({
+  baseURL: 'https://mogazoa-api.vercel.app/3-1',
+});
+
+axiosInstance.interceptors.request.use(async (config) => {
+  if (config.headers) {
+    config.headers['Content-Type'] = 'application/json';
+  }
+  return config;
+});
+
+async function Api<T = unknown, U = unknown>({
+  method,
+  endPoint,
+  data,
+  config,
+}: RequestApiInterface<U>) {
+  try {
+    const response: AxiosResponse<T> = await axiosInstance({
+      method,
+      url: endPoint,
+      data,
+      ...config,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 }
 
 const getProduct = ({
@@ -27,8 +57,11 @@ const getProduct = ({
   category,
   order,
   cursor,
-  page,
-}: getProductInterface) => {
+}: GetProductInterface) => {
   const queryParams = `?${keyword ? `&keyword=${keyword}` : ''}${category ? `&category=${category}` : ''}${order ? `&order=${order}` : ''}${cursor ? `&cursor=${cursor}` : ''}`;
-  const request: 
+  const requestApi: RequestApiInterface = {
+    method: 'get',
+    endPoint: `/products${queryParams}`,
+  };
+  return;
 };
