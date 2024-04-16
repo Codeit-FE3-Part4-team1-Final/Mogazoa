@@ -2,7 +2,6 @@
 
 .wrapper {
   width: 340px;
-  height: 603px;
   flex-shrink: 0;
   border-radius: 12px;
   border: 1px solid $border;
@@ -11,12 +10,10 @@
   @include tablet {
     padding: 30px;
     width: 509px;
-    height: 451px;
   }
   @include mobile {
     padding: 30px 20px;
     width: 335px;
-    height: 466px;
   }
 }
 
@@ -26,14 +23,12 @@
   gap: 40px;
   @include tablet {
     width: 449px;
-    height: 391px;
     gap: 30px;
     flex-shrink: 0;
   }
   @include mobile {
     @include column-flexbox();
     width: 295px;
-    height: 406px;
     gap: 30px;
     flex-shrink: 0;
   }
