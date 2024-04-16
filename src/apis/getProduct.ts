@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-useless-catch */
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
@@ -20,6 +21,24 @@ interface RequestApiInterface<U = unknown> {
   endPoint: string;
   data?: U;
   config?: AxiosRequestConfig;
+}
+
+interface ProductInterface {
+  updatedAt: string;
+  createdAt: string;
+  writerId: number;
+  categoryId: number;
+  favoriteCount: number;
+  reviewCount: number;
+  rating: number;
+  image: string;
+  name: string;
+  id: number;
+}
+
+interface ProductListInterface {
+  nextCursor: number;
+  list: ProductInterface[];
 }
 
 const axiosInstance = axios.create({
@@ -63,5 +82,5 @@ const getProduct = ({
     method: 'get',
     endPoint: `/products${queryParams}`,
   };
-  return;
+  return Api<ProductListInterface>(requestApi);
 };
