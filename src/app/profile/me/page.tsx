@@ -31,13 +31,7 @@ export default function page() {
         category='interest'
         productCategory={userDetail.mostFavoriteCategory?.name}
       />
-      <ProfileCard
-        image={userDetail.image}
-        nickname={userDetail.nickname}
-        description={userDetail.description}
-        followeesCount={userDetail.followeesCount}
-        followersCount={userDetail.followersCount}
-      />
+      <ProfileCard userDetail={userDetail} />
     </main>
   );
 }
