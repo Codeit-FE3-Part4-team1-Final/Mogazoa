@@ -1,10 +1,18 @@
-import Table from '@/components/Table';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import CompareInput from '@/components/Input/CompareInput';
+
+interface ComparePageInterface {
+  subjectProduct: any;
+  objectProduct: any;
+  handleUpdate: (name: string) => void;
+  handleClose: () => void;
+}
 
 export default function ComparePage() {
   return (
     <>
       <div>
-        <Table SubjectProduct={'상품 1'} ObjectProduct={'상품 2'} />
+        <CompareInput isSubject={true} handleUpdate={} handleClose={} />
       </div>
     </>
   );
