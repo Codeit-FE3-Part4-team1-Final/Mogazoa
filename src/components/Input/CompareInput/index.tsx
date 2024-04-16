@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import ObjectChip from '@/components/Chip/ObjectChip';
 import SubjectChip from '@/components/Chip/SubjectChip';
+import { getDetail, getProduct } from '@/apis/getProduct';
 
 interface SubjectInputInterface {
   handleUpdate: (name: string) => void;
@@ -72,17 +74,28 @@ export default function CompareInput({
 
   const { data: productData, isSuccess } = useQuery({
     queryKey: ['products', { keyword: chip }],
-    // queryFn: () => api호출({ keyword: chip }),
+    queryFn: () => getProduct({ keyword: chip }),
     enabled: !!chip,
   });
 
   const { data: productDetail } = useQuery({
     queryKey: ['productDetail', productId, product],
-    // queryFn: () => api호출(productId),
+    queryFn: () => getDetail(productId),
   });
 
-  // productDetail 호출 useEffect 필요
-  // productDetail 값으로 localStorage 변경
+  useEffect(() => {
+    handleUpdate(productDetail as any);
+    if (productDetail) {
+      localStorage.setItem(
+        isSubject ? 'subjectProduct' : 'objectProduct',
+        productDetail?.name,
+      );
+      localStorage.setItem(
+        `${isSubject ? 'subjectProduct' : 'objectProduct'}Id`,
+        String(productDetail?.id),
+      );
+    }
+  }, [productDetail, isSubject]);
 
   useEffect(() => {
     if (isSuccess) {
