@@ -7,14 +7,14 @@ const cx = classNames.bind(styles);
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   width?: string;
-  height: string;
+  height?: string;
   category: 'primary' | 'secondary' | 'tertiary';
 }
 
 export default function Button({
   children,
   width = '100%',
-  height,
+  height = '100%',
   category,
   ...rest
 }: Props) {

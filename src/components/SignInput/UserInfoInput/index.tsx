@@ -1,6 +1,7 @@
 'use client';
 
 import { ChangeEvent, FocusEvent } from 'react';
+import classNames from 'classnames/bind';
 import styles from './UserInfoInput.module.scss';
 
 interface InputProps {
@@ -11,6 +12,8 @@ interface InputProps {
   onBlur: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
+const cx = classNames.bind(styles);
+
 export default function UserInfoInput({
   labelName,
   error,
@@ -19,10 +22,12 @@ export default function UserInfoInput({
   onBlur,
 }: InputProps) {
   return (
-    <div className={styles['input-container']}>
-      <label htmlFor={labelName}>{labelName}</label>
+    <div className={cx('input-container')}>
+      <label className={cx('input-label')} htmlFor={labelName}>
+        {labelName}
+      </label>
       <input
-        className={styles['input-main']}
+        className={cx('input-main')}
         type='text'
         id={labelName}
         placeholder={`${labelName}을 입력해 주세요`}
@@ -30,7 +35,7 @@ export default function UserInfoInput({
         onChange={onChange}
         onBlur={onBlur}
       />
-      <span className={styles[`input-error`]}>{error}</span>
+      <span className={cx(`input-error`)}>{error}</span>
     </div>
   );
 }

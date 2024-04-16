@@ -32,7 +32,7 @@ interface Errors {
 
 type ValidateFunction = (...args: string[]) => string;
 
-export default function SignInPage() {
+export default function SignUpPage() {
   const [formValues, setFormValues] = useState<FormValues>({
     email: '',
     nickname: '',
@@ -136,7 +136,7 @@ export default function SignInPage() {
             }
           />
           <div className={cx('input-button')}>
-            <Button height='65px' category='primary' type='submit'>
+            <Button category='primary' type='submit'>
               가입하기
             </Button>
           </div>

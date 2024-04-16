@@ -1,6 +1,7 @@
 'use client';
 
 import { ChangeEvent, FocusEvent, useState } from 'react';
+import classNames from 'classnames/bind';
 import Image from 'next/image';
 import eyeOn from '../../../../public/images/eyes-open.svg';
 import eyeOff from '../../../../public/images/eyes-close.svg';
@@ -23,6 +24,8 @@ interface InputProps {
   onBlur: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
+const cx = classNames.bind(styles);
+
 export default function PasswordInput({
   labelName,
   error,
@@ -41,11 +44,13 @@ export default function PasswordInput({
   };
 
   return (
-    <div className={styles['input-container']}>
-      <label htmlFor={labelName}>{labelName}</label>
-      <div className={styles['image-guide']}>
+    <div className={cx('input-container')}>
+      <label className={cx('input-label')} htmlFor={labelName}>
+        {labelName}
+      </label>
+      <div className={cx('image-guide')}>
         <input
-          className={styles['input-main']}
+          className={cx('input-main')}
           type={eyes.alt === EYE_OFF.alt ? 'password' : 'text'}
           id={labelName}
           value={value}
@@ -55,7 +60,7 @@ export default function PasswordInput({
           autoComplete='new-password'
         />
         <Image
-          className={styles['input-image']}
+          className={cx('input-image')}
           onClick={changeEye}
           src={eyes.src}
           alt={eyes.alt}
@@ -63,7 +68,7 @@ export default function PasswordInput({
           height={24}
         />
       </div>
-      <span className={styles[`input-error`]}>{error}</span>
+      <span className={cx(`input-error`)}>{error}</span>
     </div>
   );
 }
