@@ -14,17 +14,23 @@ const userDetail: UserDetail = {
   isFollowing: false,
   followersCount: 873,
   followeesCount: 143,
-  reviewCount: 0,
-  averageRating: 0,
-  mostFavoriteCategory: null,
+  reviewCount: 139,
+  averageRating: 3.8,
+  mostFavoriteCategory: {
+    name: '영화/드라마',
+    id: 2,
+  },
 };
 
 export default function page() {
   return (
     <main>
-      <ActivityCard category='star' rating={4} />
-      <ActivityCard category='review' rating={130} />
-      <ActivityCard category='interest' productCategory={'의류/악세서리'} />
+      <ActivityCard category='star' rating={userDetail.averageRating} />
+      <ActivityCard category='review' rating={userDetail.reviewCount} />
+      <ActivityCard
+        category='interest'
+        productCategory={userDetail.mostFavoriteCategory?.name}
+      />
       <ProfileCard
         image={userDetail.image}
         nickname={userDetail.nickname}
