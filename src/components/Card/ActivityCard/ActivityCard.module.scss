@@ -1,8 +1,7 @@
 @import '/src/styles/main.scss';
 
 .activity-card {
-  @include flexbox;
-  flex-direction: column;
+  @include column-flexbox;
   width: 300px;
   gap: 10px;
   border-radius: 12px;
@@ -28,8 +27,7 @@
 }
 
 .container {
-  @include flexbox;
-  flex-direction: column;
+  @include column-flexbox;
   gap: 20px;
   @include tablet {
     gap: 15px;

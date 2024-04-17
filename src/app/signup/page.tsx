@@ -2,8 +2,8 @@
 
 import { useState, ChangeEvent } from 'react';
 import classNames from 'classnames/bind';
-import PasswordInput from '@/components/SignInput/PasswordInput';
-import UserInfoInput from '@/components/SignInput/UserInfoInput';
+import PasswordInput from '@/components/Input/PasswordInput';
+import UserInfoInput from '@/components/Input/UserInfoInput';
 import styles from './signup.module.scss';
 import Button from '@/components/Button';
 import {
