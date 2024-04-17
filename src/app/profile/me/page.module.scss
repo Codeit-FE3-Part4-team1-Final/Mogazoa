@@ -1,20 +1,49 @@
 @import '/src/styles/main.scss';
 
 .wrapper {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: auto auto;
-  gap: 60px;
-  align-items: center;
-  justify-content: center;
+  @include flexbox;
   padding: 60px 30px;
+  @include tablet {
+    padding: 40px 118px 60px;
+  }
+  @include mobile {
+    padding: 30px 20px 120px;
+  }
+}
+
+.container {
+  @include flexbox;
+  gap: 60px;
+  width: 100%;
+  max-width: 1340px;
+  @include tablet {
+    flex-direction: column;
+  }
+  @include mobile {
+    flex-direction: column;
+  }
 }
 
 .profile-section {
   align-self: start;
+  @include tablet {
+    align-self: center;
+  }
+  @include mobile {
+    align-self: center;
+  }
 }
 
 .activity-section {
   @include column-flexbox;
   gap: 80px;
+  width: 100%;
+  @include tablet {
+    width: 509px;
+    gap: 60px;
+  }
+  @include mobile {
+    width: 335px;
+    gap: 60px;
+  }
 }

@@ -3,6 +3,7 @@
 .wrapper {
   @include column-flexbox($align: start);
   gap: 30px;
+  width: 100%;
 }
 
 .title-container {
@@ -11,26 +12,47 @@
 }
 
 .title {
-  color: var(--gray-gray_6E6E82, #6e6e82);
-  font-family: Pretendard;
+  color: $tertiary;
   font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  font-weight: 600;
+  @include tablet {
+    font-size: 18px;
+  }
+  @include mobile {
+    font-size: 18px;
+  }
 }
 
 .product-card-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
+  width: 100%;
+  justify-items: center;
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  @include mobile {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
 }
 
-// 임시 카드
+// 임시 카드 컴포넌트 완성되면 삭제
 .product-card {
-  width: 300px;
+  display: flex;
+  width: 100%;
+  max-width: 300px;
+  padding: 8px 8px 25px 8px;
   height: 308px;
-  flex-shrink: 0;
   border-radius: 12px;
   border: 1px solid var(--black-black_353542, #353542);
   background: var(--black-black_252530, #252530);
+  @include tablet {
+    height: 256px;
+  }
+  @include mobile {
+    height: 183px;
+  }
 }

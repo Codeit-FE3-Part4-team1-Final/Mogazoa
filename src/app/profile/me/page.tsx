@@ -27,15 +27,17 @@ const userDetail: UserDetail = {
 
 const cx = classNames.bind(styles);
 
-export default function page() {
+export default function profilePage() {
   return (
     <main className={cx('wrapper')}>
-      <div className={cx('profile-section')}>
-        <ProfileCard userDetail={userDetail} />
-      </div>
-      <section className={cx('activity-section')}>
-        <ActivityDetail userDetail={userDetail} />
-        <ProfileProductPanel />
+      <section className={cx('container')}>
+        <div className={cx('profile-section')}>
+          <ProfileCard userDetail={userDetail} />
+        </div>
+        <section className={cx('activity-section')}>
+          <ActivityDetail userDetail={userDetail} />
+          <ProfileProductPanel />
+        </section>
       </section>
     </main>
   );
