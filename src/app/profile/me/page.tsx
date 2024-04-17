@@ -1,4 +1,4 @@
-import ActivityCard from '@/components/Card/ActivityCard';
+import ActivityDetail from '@/components/ActivityDetail';
 import ProfileCard from '@/components/Card/ProfileCard';
 import { UserDetail } from '@/types/types';
 
@@ -25,13 +25,8 @@ const userDetail: UserDetail = {
 export default function page() {
   return (
     <main>
-      <ActivityCard category='star' rating={userDetail.averageRating} />
-      <ActivityCard category='review' rating={userDetail.reviewCount} />
-      <ActivityCard
-        category='interest'
-        productCategory={userDetail.mostFavoriteCategory?.name}
-      />
       <ProfileCard userDetail={userDetail} />
+      <ActivityDetail userDetail={userDetail} />
     </main>
   );
 }

@@ -1,0 +1,17 @@
+@import '/src/styles/main.scss';
+
+.wrapper {
+  @include column-flexbox($align: start);
+  gap: 30px;
+}
+
+.title {
+  color: $primary;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.card-box {
+  @include flexbox;
+  gap: 20px;
+}
