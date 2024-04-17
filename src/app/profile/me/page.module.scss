@@ -7,4 +7,14 @@
   gap: 60px;
   align-items: center;
   justify-content: center;
+  padding: 60px 30px;
+}
+
+.profile-section {
+  align-self: start;
+}
+
+.activity-section {
+  @include column-flexbox;
+  gap: 80px;
 }

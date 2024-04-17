@@ -1,0 +1,36 @@
+@import '/src/styles/main.scss';
+
+.wrapper {
+  @include column-flexbox($align: start);
+  gap: 30px;
+}
+
+.title-container {
+  @include flexbox;
+  gap: 40px;
+}
+
+.title {
+  color: var(--gray-gray_6E6E82, #6e6e82);
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.product-card-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+// 임시 카드
+.product-card {
+  width: 300px;
+  height: 308px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  border: 1px solid var(--black-black_353542, #353542);
+  background: var(--black-black_252530, #252530);
+}

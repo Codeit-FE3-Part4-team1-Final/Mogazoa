@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import ActivityDetail from '@/components/ActivityDetail';
 import ProfileCard from '@/components/Card/ProfileCard';
+import ProfileProductPanel from '@/components/ProfileProductPanel';
 import { UserDetail } from '@/types/types';
 import styles from './page.module.scss';
 
@@ -29,8 +30,13 @@ const cx = classNames.bind(styles);
 export default function page() {
   return (
     <main className={cx('wrapper')}>
-      <ProfileCard userDetail={userDetail} />
-      <ActivityDetail userDetail={userDetail} />
+      <div className={cx('profile-section')}>
+        <ProfileCard userDetail={userDetail} />
+      </div>
+      <section className={cx('activity-section')}>
+        <ActivityDetail userDetail={userDetail} />
+        <ProfileProductPanel />
+      </section>
     </main>
   );
 }
