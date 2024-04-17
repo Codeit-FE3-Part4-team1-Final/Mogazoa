@@ -60,7 +60,7 @@ export default function SignInPage() {
             onBlur={handlePasswordBlur}
           />
           <div className={cx('input-button')}>
-            <Button height='65px' category='primary' type='submit'>
+            <Button category='primary' type='submit'>
               로그인
             </Button>
           </div>

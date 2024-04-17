@@ -4,8 +4,8 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Table.module.scss';
-import Result from './Result';
-import TableCompare from './TableCompare';
+import Result from '@/components/Table/Result';
+import TableCompare from '@/components/Table/TableCompare';
 
 const cx = classNames.bind(styles);
 interface TableInterface {

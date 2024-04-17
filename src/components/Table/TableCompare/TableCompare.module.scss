@@ -1,14 +1,16 @@
+@import '/src/styles/main.scss';
+
 .product-count {
   text-align: center;
-  color: var(--primary, #f1f1f5);
+  color: $primary;
 }
 
 .subject-victory {
   text-align: center;
-  color: var(--green, #05d58b);
+  color: $green;
 }
 
 .object-victory {
   text-align: center;
-  color: var(--pink, #ff2f9f);
+  color: $pink;
 }
