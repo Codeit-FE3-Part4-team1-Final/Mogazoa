@@ -20,7 +20,7 @@
 .form-input-area {
   width: 640px;
   height: 100%;
-  margin-top: 160px;
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -31,7 +31,7 @@
   }
 
   @include mobile {
-    margin-top: 130px;
+    margin-top: 80px;
     width: 335px;
     gap: 30px;
   }
@@ -48,33 +48,4 @@
   @include mobile {
     height: 50px;
   }
-}
-
-.sns-area {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.sns-text {
-  color: $tertiary;
-  font-size: 15px;
-}
-
-.sns-images {
-  display: flex;
-  gap: 20px;
-}
-
-.sns-circle {
-  position: relative;
-  width: 56px;
-  height: 56px;
-  border: 1px solid;
-  border-radius: 999px;
-  border-color: $tertiary;
-}
-
-.sns-image {
-  @include pos-center;
 }
