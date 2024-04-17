@@ -1,0 +1,10 @@
+@import '/src/styles/main.scss';
+
+.wrapper {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: auto auto;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,6 +1,8 @@
+import classNames from 'classnames/bind';
 import ActivityDetail from '@/components/ActivityDetail';
 import ProfileCard from '@/components/Card/ProfileCard';
 import { UserDetail } from '@/types/types';
+import styles from './page.module.scss';
 
 // 임시 데이터
 const userDetail: UserDetail = {
@@ -22,9 +24,11 @@ const userDetail: UserDetail = {
   },
 };
 
+const cx = classNames.bind(styles);
+
 export default function page() {
   return (
-    <main>
+    <main className={cx('wrapper')}>
       <ProfileCard userDetail={userDetail} />
       <ActivityDetail userDetail={userDetail} />
     </main>
