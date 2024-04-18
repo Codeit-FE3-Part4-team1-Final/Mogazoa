@@ -16,7 +16,11 @@ export default function ActivityDetail({ userDetail }: Props) {
       <div className={cx('card-box')}>
         <ActivityCard
           category='star'
-          rating={Number(userDetail.averageRating.toFixed(1))}
+          rating={
+            userDetail.averageRating
+              ? Number(userDetail.averageRating.toFixed(1))
+              : 0
+          }
         />
         <ActivityCard category='review' rating={userDetail.reviewCount} />
         <ActivityCard
