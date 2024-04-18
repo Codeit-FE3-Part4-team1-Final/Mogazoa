@@ -1,9 +1,5 @@
-import classNames from 'classnames/bind';
-import ActivityDetail from '@/components/ActivityDetail';
-import ProfileCard from '@/components/Card/ProfileCard';
-import ProfileProductPanel from '@/components/ProfileProductPanel';
 import { UserDetail } from '@/types/types';
-import styles from './page.module.scss';
+import ProfileSection from '@/components/ProfileSection';
 
 // 임시 데이터
 const userDetail: UserDetail = {
@@ -25,20 +21,6 @@ const userDetail: UserDetail = {
   },
 };
 
-const cx = classNames.bind(styles);
-
-export default function profilePage() {
-  return (
-    <main className={cx('wrapper')}>
-      <section className={cx('container')}>
-        <div className={cx('profile-section')}>
-          <ProfileCard userDetail={userDetail} />
-        </div>
-        <section className={cx('activity-section')}>
-          <ActivityDetail userDetail={userDetail} />
-          <ProfileProductPanel />
-        </section>
-      </section>
-    </main>
-  );
+export default function MyProfilePage() {
+  return <ProfileSection userDetail={userDetail} />;
 }

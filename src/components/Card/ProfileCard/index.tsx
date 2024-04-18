@@ -2,15 +2,12 @@ import classNames from 'classnames/bind';
 import Image from 'next/image';
 import styles from './ProfileCard.module.scss';
 import Button from '@/components/Button';
-import { UserDetail } from '@/types/types';
+import getUserDetail from '@/utils/getUserDetail';
 
 const cx = classNames.bind(styles);
 
-interface Props {
-  userDetail: UserDetail;
-}
-
-export default function ProfileCard({ userDetail }: Props) {
+export default async function ProfileCard() {
+  const userDetail = await getUserDetail(1);
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>

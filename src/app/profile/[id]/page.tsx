@@ -1,3 +1,5 @@
-export default function page() {
-  return <div>프로필 페이지</div>;
+import ProfileSection from '@/components/ProfileSection';
+
+export default function UserProfilePage() {
+  return <ProfileSection />;
 }
