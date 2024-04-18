@@ -1,25 +1,27 @@
 import classNames from 'classnames/bind';
-import { Suspense } from 'react';
 import ProfileProductPanel from '@/components/ProfileProductPanel';
 import ActivityDetail from '@/components/ActivityDetail';
 import ProfileCard from '@/components/Card/ProfileCard';
 import styles from './ProfileSection.module.scss';
+import getUserDetail from '@/utils/getUserDetail';
+import { UserDetail } from '@/types/types';
 
 const cx = classNames.bind(styles);
 
-export default function ProfileSection() {
+interface Props {
+  userId: string;
+}
+
+export default async function ProfileSection({ userId }: Props) {
+  const userDetail: UserDetail = await getUserDetail(userId);
   return (
     <main className={cx('wrapper')}>
       <section className={cx('container')}>
         <div className={cx('profile-section')}>
-          <Suspense fallback={<div>로딩중</div>}>
-            <ProfileCard />
-          </Suspense>
+          <ProfileCard userDetail={userDetail} />
         </div>
         <section className={cx('activity-section')}>
-          <Suspense fallback={<div>로딩중</div>}>
-            <ActivityDetail />
-          </Suspense>
+          <ActivityDetail userDetail={userDetail} />
           <ProfileProductPanel />
         </section>
       </section>

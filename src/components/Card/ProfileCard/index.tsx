@@ -1,14 +1,18 @@
+'use client';
+
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import styles from './ProfileCard.module.scss';
 import Button from '@/components/Button';
-import getUserDetail from '@/utils/getUserDetail';
 import { UserDetail } from '@/types/types';
 
 const cx = classNames.bind(styles);
 
-export default async function ProfileCard() {
-  const userDetail: UserDetail = await getUserDetail(1);
+interface Props {
+  userDetail: UserDetail;
+}
+
+export default function ProfileCard({ userDetail }: Props) {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
@@ -18,6 +22,10 @@ export default async function ProfileCard() {
           width={180}
           height={180}
           className={cx('profile-image')}
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = '/images/profile-image.png';
+          }}
         />
         <div className={cx('user-information')}>
           <span className={cx('user-name')}>{userDetail.nickname}</span>

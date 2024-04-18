@@ -1,4 +1,4 @@
-const getUserDetail = async (id: number) => {
+const getUserDetail = async (id: string) => {
   try {
     const response = await fetch(`${process.env.API_URL_HOST}/users/${id}`);
     const result = await response.json();
