@@ -14,7 +14,10 @@ export default function ActivityDetail({ userDetail }: Props) {
     <section className={cx('wrapper')}>
       <span className={cx('title')}>활동 내역</span>
       <div className={cx('card-box')}>
-        <ActivityCard category='star' rating={userDetail.averageRating} />
+        <ActivityCard
+          category='star'
+          rating={Number(userDetail.averageRating.toFixed(1))}
+        />
         <ActivityCard category='review' rating={userDetail.reviewCount} />
         <ActivityCard
           category='interest'
