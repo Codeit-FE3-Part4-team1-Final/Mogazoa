@@ -3,11 +3,12 @@ import Image from 'next/image';
 import styles from './ProfileCard.module.scss';
 import Button from '@/components/Button';
 import getUserDetail from '@/utils/getUserDetail';
+import { UserDetail } from '@/types/types';
 
 const cx = classNames.bind(styles);
 
 export default async function ProfileCard() {
-  const userDetail = await getUserDetail(1);
+  const userDetail: UserDetail = await getUserDetail(1);
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
