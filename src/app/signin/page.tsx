@@ -3,9 +3,8 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
-import NavigationBar from '@/components/NavigationBar';
-import PasswordInput from '@/components/SignInput/PasswordInput';
-import UserInfoInput from '@/components/SignInput/UserInfoInput';
+import PasswordInput from '@/components/Input/PasswordInput';
+import UserInfoInput from '@/components/Input/UserInfoInput';
 import styles from './signin.module.scss';
 import Button from '@/components/Button';
 import { checkSignEmail, checkSignPassword } from '@/utils/userValidation';
@@ -37,8 +36,7 @@ export default function SignInPage() {
   };
 
   return (
-    <div className={cx('wrapper')}>
-      <NavigationBar />
+    <div>
       <main className={cx('form-container')}>
         <form className={cx('form-input-area')} onSubmit={onSubmit}>
           <UserInfoInput

@@ -2,7 +2,8 @@
 
 .activity-card {
   @include column-flexbox;
-  width: 300px;
+  flex: 1;
+  max-width: 300px;
   gap: 10px;
   border-radius: 12px;
   border: 1px solid $border;
@@ -11,6 +12,7 @@
   text-align: center;
   word-break: keep-all;
   @include tablet {
+    flex: initial;
     width: 163px;
     height: 119px;
     padding: 20px 21px;
@@ -19,6 +21,7 @@
     border-radius: 8px;
   }
   @include mobile {
+    flex: initial;
     width: 105px;
     height: 119px;
     padding: 20px 21px;

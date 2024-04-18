@@ -44,7 +44,6 @@ export default function ComparePage() {
           <Button
             disabled={!(subjectProduct && objectProduct)}
             width={'200px'}
-            height={'56px'}
             category={'primary'}
             onClick={handleShow}
           >
