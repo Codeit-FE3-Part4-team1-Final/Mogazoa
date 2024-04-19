@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { getDetail, getProduct } from '@/apis/getProduct';
-import styles from './CompareInput.module.scss';
+import styles from './ObjectInput.module.scss';
 import ObjectChip from '@/components/Chip/ObjectChip';
 
 const cx = classNames.bind(styles);
@@ -15,7 +15,7 @@ interface ObjectInputInterface {
   handleClose: () => void;
 }
 
-export default function CompareInput({
+export default function ObjectInput({
   handleUpdate,
   handleClose,
 }: ObjectInputInterface) {

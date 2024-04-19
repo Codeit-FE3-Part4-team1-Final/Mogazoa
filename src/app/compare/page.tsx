@@ -3,10 +3,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import classNames from 'classnames/bind';
-import CompareInput from '@/components/Input/CompareInput';
 import Table from '@/components/Table';
 import styles from './ComparePage.module.scss';
 import Button from '@/components/Button';
+import SubjectInput from '@/components/Input/CompareInput/SubjectInput';
+import ObjectInput from '@/components/Input/CompareInput/ObjectInput';
 
 const cx = classNames.bind(styles);
 
@@ -31,16 +32,11 @@ export default function ComparePage() {
     <>
       <div className={cx('container')}>
         <div className={cx('input-container')}>
-          <CompareInput
-            isSubject={true}
+          <SubjectInput
             handleUpdate={handleSubject}
             handleClose={handleClose}
           />
-          <CompareInput
-            isSubject={false}
-            handleUpdate={handleObject}
-            handleClose={handleClose}
-          />
+          <ObjectInput handleUpdate={handleObject} handleClose={handleClose} />
           <Button
             disabled={!(subjectProduct && objectProduct)}
             width={'200px'}

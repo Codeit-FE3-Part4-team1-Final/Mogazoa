@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import SubjectChip from '@/components/Chip/SubjectChip';
 import { getDetail, getProduct } from '@/apis/getProduct';
-import styles from './CompareInput.module.scss';
+import styles from './SubjectInput.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +15,7 @@ interface SubjectInputInterface {
   handleClose: () => void;
 }
 
-export default function CompareInput({
+export default function SubjectInput({
   handleUpdate,
   handleClose,
 }: SubjectInputInterface) {
