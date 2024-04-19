@@ -4,7 +4,6 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
-import ObjectChip from '@/components/Chip/ObjectChip';
 import SubjectChip from '@/components/Chip/SubjectChip';
 import { getDetail, getProduct } from '@/apis/getProduct';
 import styles from './CompareInput.module.scss';
@@ -73,7 +72,7 @@ export default function CompareInput({
     }
   };
 
-  const { data: subjectProduct, isSuccess } = useQuery({
+  const { data: subjectData, isSuccess } = useQuery({
     queryKey: ['products', { keyword: subjectChip }],
     queryFn: () => getProduct({ keyword: subjectChip }),
     enabled: !!subjectChip,
@@ -105,28 +104,24 @@ export default function CompareInput({
 
   return (
     <div className={cx('container')}>
-      <label className={cx('label')}>{isSubject ? '상품1' : '상품2'}</label>
+      <label className={cx('label')}>상품1</label>
       <div className={cx('input-container')}>
         <input
           onChange={handleChange}
-          value={product}
+          value={subjectProduct}
           onKeyDown={handleEnter}
           readOnly={isReadable}
           className={cx('input')}
         />
         {isChip && (
           <div onClick={handleDelete} className={cx('chip-container')}>
-            {isSubject ? (
-              <SubjectChip name={chip} />
-            ) : (
-              <ObjectChip name={chip} />
-            )}
+            <SubjectChip name={subjectChip} />
           </div>
         )}
       </div>
-      {isSuccess && (
+      {isShow && (
         <ul className={cx('list-container')}>
-          {productData?.list?.map((values) => (
+          {subjectData?.list?.map((values) => (
             <li
               key={values.id}
               onClick={(event) => {
