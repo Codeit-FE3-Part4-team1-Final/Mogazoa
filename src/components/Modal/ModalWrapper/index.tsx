@@ -14,7 +14,7 @@ interface Props {
 
 export default function ModalWrapper({ children }: Props) {
   const { toggleModal } = useModalStore((state) => state);
-  const handleWrapperModal = (e: MouseEvent<HTMLDivElement>) => {
+  const handleClickWrapper = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       toggleModal();
     }
@@ -28,7 +28,7 @@ export default function ModalWrapper({ children }: Props) {
   }, []);
 
   return (
-    <div className={cx('wrapper')} onClick={handleWrapperModal}>
+    <div className={cx('wrapper')} onClick={handleClickWrapper}>
       <div className={cx('container')}>
         <Image
           src={'/images/close-icon.svg'}
