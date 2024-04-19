@@ -1,6 +1,6 @@
 'use client';
 
-import { MouseEvent, ReactNode } from 'react';
+import { MouseEvent, ReactNode, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import styles from './ModalWrapper.module.scss';
@@ -19,6 +19,14 @@ export default function ModalWrapper({ children }: Props) {
       toggleModal();
     }
   };
+  useEffect(() => {
+    document.documentElement.style.scrollbarGutter = 'stable';
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
   return (
     <div className={cx('wrapper')} onClick={handleWrapperModal}>
       <div className={cx('container')}>
