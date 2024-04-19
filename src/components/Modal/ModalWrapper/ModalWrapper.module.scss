@@ -9,9 +9,27 @@
 }
 
 .container {
-  width: 500px;
-  height: 453px;
+  position: relative;
   border-radius: 16px;
   background: $background;
   padding: 60px 40px 40px;
+  @include mobile {
+    padding: 40px 20px 20px;
+  }
+}
+
+.close-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  @include tablet {
+    width: 36px;
+    height: 36px;
+  }
+  @include mobile {
+    width: 24px;
+    height: 24px;
+    top: 15px;
+    right: 15px;
+  }
 }

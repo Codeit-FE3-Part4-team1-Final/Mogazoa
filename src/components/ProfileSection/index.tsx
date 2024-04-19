@@ -17,7 +17,7 @@ export default async function ProfileSection({ userId }: Props) {
   const userDetail: UserDetail = await getUserDetail(userId);
   return (
     <main className={cx('wrapper')}>
-      <ModalWrapper>모달</ModalWrapper>
+      <ModalWrapper>모달 모달 모달 모달 모달 모달 </ModalWrapper>
       <section className={cx('container')}>
         <div className={cx('profile-section')}>
           <ProfileCard userDetail={userDetail} />
