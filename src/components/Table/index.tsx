@@ -26,9 +26,11 @@ export default function Table({
     <>
       <div className={cx('container')}>
         <Result count={count} victoryProduct={victoryProduct} />
-        <span className={cx('description')}>
-          3가지 항목 중 {count}가지 항목에서 우세합니다.
-        </span>
+        {count !== 0 && (
+          <span className={cx('description')}>
+            3가지 항목 중 {count}가지 항목에서 우세합니다.
+          </span>
+        )}
       </div>
       <table className={cx('table')}>
         <thead>

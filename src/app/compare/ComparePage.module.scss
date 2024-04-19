@@ -1,9 +1,17 @@
+@import '/src/styles/main.scss';
+
 .container {
-  width: 335px;
-  display: flex;
+  width: 940px;
   justify-content: center;
   text-align: center;
   margin: 0 auto;
+
+  @include tablet {
+    width: 684px;
+  }
+  @include mobile {
+    width: 335px;
+  }
 }
 
 .input-container {
@@ -13,4 +21,8 @@
   justify-content: center;
   gap: 30px;
   margin: 30px auto;
+
+  @include mobile {
+    flex-direction: column;
+  }
 }
