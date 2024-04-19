@@ -20,8 +20,8 @@
 }
 
 .input {
-  width: 335px;
-  height: 55px;
+  width: 350px;
+  height: 70px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -30,9 +30,9 @@
   border-radius: 8px;
   background: $comp-bg;
   color: $primary;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 10px;
+  line-height: 22px;
 
   &:placeholder {
     color: $tertiary;
@@ -40,6 +40,21 @@
 
   &:focus {
     border: 1px solid $main_blue;
+  }
+
+  @include tablet {
+    width: 240px;
+    height: 55px;
+    align-items: flex-start;
+    font-size: 14px;
+    line-height: 10px;
+  }
+
+  @include mobile {
+    width: 335px;
+    height: 55px;
+    font-size: 14px;
+    line-height: 10px;
   }
 }
 
@@ -52,7 +67,7 @@
 
 .list-container {
   z-index: 1;
-  width: 295px;
+  width: 360px;
   display: none;
   position: absolute;
   gap: 5px;
@@ -65,6 +80,10 @@
   &:has(li) {
     display: flex;
   }
+
+  @include mobile {
+    width: 295px;
+  }
 }
 
 .list {
@@ -73,12 +92,22 @@
   padding: 6px 20px;
   border-radius: 6px;
   color: $tertiary;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 20px;
+  line-height: 22px;
 
   &:hover {
     background: $border;
     color: $primary;
+  }
+
+  @include tablet {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  @include mobile {
+    font-size: 14px;
+    line-height: 20px;
   }
 }
