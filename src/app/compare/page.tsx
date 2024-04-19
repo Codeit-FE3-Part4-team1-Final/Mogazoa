@@ -50,12 +50,8 @@ export default function ComparePage() {
             비교하기
           </Button>
         </div>
-        {isShow && (
-          <Table
-            SubjectProduct={subjectProduct}
-            ObjectProduct={objectProduct}
-          />
-        )}
+        <Table SubjectProduct={'상품1'} ObjectProduct={'상품2'} />
+        {isShow && <Table SubjectProduct={'상품1'} ObjectProduct={'상품2'} />}
       </div>
     </>
   );
