@@ -109,6 +109,7 @@
 .follow {
   @include column-flexbox();
   gap: 10px;
+  cursor: pointer;
 }
 
 .count {

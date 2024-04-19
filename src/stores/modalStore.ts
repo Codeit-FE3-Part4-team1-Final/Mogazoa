@@ -1,28 +1,26 @@
 import { createStore } from 'zustand/vanilla';
 
 export type ModalState = {
-  count: number;
+  opened: boolean;
 };
 
 export type ModalActions = {
-  decrementCount: () => void;
-  incrementCount: () => void;
+  toggleModal: () => void;
 };
 
 export type ModalStore = ModalState & ModalActions;
 
 export const initModalStore = (): ModalState => {
-  return { count: new Date().getFullYear() };
+  return { opened: false };
 };
 
 export const defaultInitState: ModalState = {
-  count: 0,
+  opened: false,
 };
 
 export const createModalStore = (initState: ModalState = defaultInitState) => {
   return createStore<ModalStore>()((set) => ({
     ...initState,
-    decrementCount: () => set((state) => ({ count: state.count - 1 })),
-    incrementCount: () => set((state) => ({ count: state.count + 1 })),
+    toggleModal: () => set((state) => ({ opened: !state.opened })),
   }));
 };

@@ -5,7 +5,6 @@ import ProfileCard from '@/components/Card/ProfileCard';
 import styles from './ProfileSection.module.scss';
 import getUserDetail from '@/utils/getUserDetail';
 import { UserDetail } from '@/types/types';
-import ModalWrapper from '../Modal/ModalWrapper';
 
 const cx = classNames.bind(styles);
 
@@ -17,7 +16,6 @@ export default async function ProfileSection({ userId }: Props) {
   const userDetail: UserDetail = await getUserDetail(userId);
   return (
     <main className={cx('wrapper')}>
-      <ModalWrapper>모달 모달 모달 모달 모달 모달 </ModalWrapper>
       <section className={cx('container')}>
         <div className={cx('profile-section')}>
           <ProfileCard userDetail={userDetail} />
