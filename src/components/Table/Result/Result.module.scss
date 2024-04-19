@@ -1,13 +1,22 @@
 @import '/src/styles/main.scss';
 
 .title {
-  width: 179px;
+  width: 100%;
+  text-align: center;
   margin: 0 auto;
   margin-bottom: 20px;
   color: $primary;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
-  line-height: 28px;
+  line-height: 29px;
+
+  @include tablet {
+    width: 179px;
+  }
+
+  @include mobile {
+    width: 179px;
+  }
 }
 
 .product {
