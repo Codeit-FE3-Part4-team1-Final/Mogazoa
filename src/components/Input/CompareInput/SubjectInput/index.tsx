@@ -43,15 +43,13 @@ export default function CompareInput({
     setIsReadable(false);
     handleClose();
     handleUpdate('');
-    localStorage.removeItem(isSubject ? 'subjectProduct' : 'objectProduct');
-    localStorage.removeItem(
-      `${isSubject ? 'subjectProduct' : 'objectProduct'}Id`,
-    );
+    localStorage.removeItem('subjectProduct');
+    localStorage.removeItem('productId');
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProduct(event.target.value);
-    setChip(event.target.value);
+    setSubjectProduct(event.target.value);
+    setSubjectChip(event.target.value);
     setIsReadable(false);
     if (event.target.value === '') {
       handleDelete();
@@ -60,16 +58,16 @@ export default function CompareInput({
 
   const handleClick = (event: React.MouseEvent<HTMLLIElement>) => {
     const subjectProductValue = event.currentTarget.innerText;
-    setProduct('');
-    setChip(subjectProductValue);
+    setSubjectProduct('');
+    setSubjectChip(subjectProductValue);
     setIsReadable(true);
     setIsChip(true);
   };
 
   const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && product.trim() !== '') {
-      setProduct('');
-      setChip(product);
+    if (event.key === 'Enter' && subjectProduct.trim() !== '') {
+      setSubjectProduct('');
+      setSubjectChip(subjectProduct);
       setIsReadable(true);
       setIsChip(true);
     }
