@@ -2,8 +2,16 @@
 
 .container {
   text-align: center;
-  padding: 60px 0 40px;
+  padding: 80px 0 40px;
   color: $primary;
+
+  @include tablet {
+    padding: 100px 0 60px;
+  }
+
+  @include mobile {
+    padding: 60px 0 40px;
+  }
 }
 
 .description {
@@ -15,18 +23,33 @@
 }
 
 .table {
-  width: 100%;
+  width: 940px;
   height: 318px;
   justify-content: center;
+  margin: 0 auto;
   text-align: center;
   border: 1px solid $border;
   border-radius: 12px;
   color: $secondary;
   background: $comp-bg;
   border-collapse: collapse;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 10px;
+  line-height: 19px;
+
+  @include tablet {
+    width: 100%;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 0;
+  }
+
+  @include mobile {
+    width: 100%;
+    font-size: 12px;
+    line-height: 10px;
+    margin: 0;
+  }
 }
 
 .table-head {
