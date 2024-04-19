@@ -1,7 +1,7 @@
 import { createStore } from 'zustand/vanilla';
 
 export type ModalState = {
-  opened: boolean;
+  isOpened: boolean;
 };
 
 export type ModalActions = {
@@ -11,16 +11,16 @@ export type ModalActions = {
 export type ModalStore = ModalState & ModalActions;
 
 export const initModalStore = (): ModalState => {
-  return { opened: false };
+  return { isOpened: false };
 };
 
 export const defaultInitState: ModalState = {
-  opened: false,
+  isOpened: false,
 };
 
 export const createModalStore = (initState: ModalState = defaultInitState) => {
   return createStore<ModalStore>()((set) => ({
     ...initState,
-    toggleModal: () => set((state) => ({ opened: !state.opened })),
+    toggleModal: () => set((state) => ({ isOpened: !state.isOpened })),
   }));
 };

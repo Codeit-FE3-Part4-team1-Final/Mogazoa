@@ -15,10 +15,10 @@ interface Props {
 }
 
 export default function ProfileCard({ userDetail }: Props) {
-  const { opened, toggleModal } = useModalStore((state) => state);
+  const { isOpened, toggleModal } = useModalStore((state) => state);
   return (
     <div className={cx('wrapper')}>
-      {opened ? (
+      {isOpened ? (
         <ModalWrapper>모달 모달 모달 모달 모달 모달 </ModalWrapper>
       ) : null}
       <div className={cx('container')}>
