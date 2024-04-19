@@ -5,6 +5,8 @@ import Image from 'next/image';
 import styles from './ProfileCard.module.scss';
 import Button from '@/components/Button';
 import { UserDetail } from '@/types/types';
+import ModalWrapper from '@/components/Modal/ModalWrapper';
+import { useModalStore } from '../../../../providers/ModalStoreProvider';
 
 const cx = classNames.bind(styles);
 
@@ -13,8 +15,12 @@ interface Props {
 }
 
 export default function ProfileCard({ userDetail }: Props) {
+  const { isOpened, toggleModal } = useModalStore((state) => state);
   return (
     <div className={cx('wrapper')}>
+      {isOpened ? (
+        <ModalWrapper>모달 모달 모달 모달 모달 모달 </ModalWrapper>
+      ) : null}
       <div className={cx('container')}>
         <Image
           src={userDetail.image || '/images/profile-image.png'}
@@ -32,12 +38,12 @@ export default function ProfileCard({ userDetail }: Props) {
           <p className={cx('user-explain')}>{userDetail.description}</p>
         </div>
         <div className={cx('user-follow-box')}>
-          <div className={cx('follow')}>
+          <div className={cx('follow')} onClick={toggleModal}>
             <span className={cx('count')}>{userDetail.followersCount}</span>
             <span className={cx('text')}>팔로워</span>
           </div>
           <hr className={cx('separator')} />
-          <div className={cx('follow')}>
+          <div className={cx('follow')} onClick={toggleModal}>
             <span className={cx('count')}>{userDetail.followeesCount}</span>
             <span className={cx('text')}>팔로잉</span>
           </div>
