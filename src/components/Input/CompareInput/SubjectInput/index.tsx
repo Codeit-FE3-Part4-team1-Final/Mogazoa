@@ -27,22 +27,17 @@ export default function CompareInput({
   const [isReadable, setIsReadable] = useState<boolean>(false);
   const [isShow, setIsShow] = useState<boolean>(false);
 
-  // 로컬 스토리지에 해당 상품이 있을 경우 -> 초기 상태 설정
   useEffect(() => {
-    const storedProduct = localStorage.getItem(
-      isSubject ? 'subjectProduct' : 'objectProduct',
-    );
-    if (storedProduct) {
-      setProduct(storedProduct);
-      setProductId(Number(localStorage.getItem(`${storedProduct}Id`)));
-      setChip(storedProduct);
+    if (localStorage.getItem('subjectProduct')) {
+      setSubjectProduct(localStorage.getItem('subjectProduct') as string);
+      setProductId(Number(localStorage.getItem('productId')));
+      setSubjectChip(localStorage.getItem('subjectProduct') as string);
       setIsChip(true);
       setIsReadable(true);
+      setSubjectProduct('');
     }
-  }, [isSubject]);
+  }, []);
 
-  // chip 제거 로직 -> 해당 상품값과 Id값 제거
-  // 삭제 후 다시 입력 가능
   const handleDelete = () => {
     setIsChip(false);
     setIsReadable(false);
@@ -63,8 +58,6 @@ export default function CompareInput({
     }
   };
 
-  // 리스트 내 상품 값 클릭 이벤트
-  // 상품들 리스트로 보여줌 -> 그 중에서 선택하면 상태 업데이트
   const handleClick = (event: React.MouseEvent<HTMLLIElement>) => {
     const subjectProductValue = event.currentTarget.innerText;
     setProduct('');
@@ -82,11 +75,10 @@ export default function CompareInput({
     }
   };
 
-  // useQuery 비동기 데이터 (아직 더 학습필요)
   const { data: productData, isSuccess } = useQuery({
-    queryKey: ['products', { keyword: chip }], // 식별키 -> 상품 목록 가져오기
-    queryFn: () => getProduct({ keyword: chip }), // 여기서 데이터 실제로 가져옴
-    enabled: !!chip, // 활성화
+    queryKey: ['products', { keyword: chip }],
+    queryFn: () => getProduct({ keyword: chip }),
+    enabled: !!chip,
   });
 
   const { data: productDetail } = useQuery({
