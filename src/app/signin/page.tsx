@@ -8,6 +8,7 @@ import UserInfoInput from '@/components/Input/UserInfoInput';
 import styles from './signin.module.scss';
 import Button from '@/components/Button';
 import { checkSignEmail, checkSignPassword } from '@/utils/userValidation';
+import signInUser from '@/apis/postUserInfo';
 
 const cx = classNames.bind(styles);
 
@@ -23,6 +24,8 @@ export default function SignInPage() {
     const passwordErrorMessage = checkSignPassword(password);
     setEmailError(emailErrorMessage);
     setPasswordError(passwordErrorMessage);
+
+    signInUser({ data: { email, password } });
   };
 
   const handleEmailBlur = () => {
