@@ -30,7 +30,7 @@ export default function CompareInput({
   useEffect(() => {
     if (localStorage.getItem('subjectProduct')) {
       setSubjectProduct(localStorage.getItem('subjectProduct') as string);
-      setProductId(Number(localStorage.getItem('productId')));
+      setProductId(Number(localStorage.getItem('subjectProductId')));
       setSubjectChip(localStorage.getItem('subjectProduct') as string);
       setIsChip(true);
       setIsReadable(true);
@@ -44,7 +44,7 @@ export default function CompareInput({
     handleClose();
     handleUpdate('');
     localStorage.removeItem('subjectProduct');
-    localStorage.removeItem('productId');
+    localStorage.removeItem('subjectProductId');
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,40 +73,35 @@ export default function CompareInput({
     }
   };
 
-  const { data: productData, isSuccess } = useQuery({
-    queryKey: ['products', { keyword: chip }],
-    queryFn: () => getProduct({ keyword: chip }),
-    enabled: !!chip,
+  const { data: subjectProduct, isSuccess } = useQuery({
+    queryKey: ['products', { keyword: subjectChip }],
+    queryFn: () => getProduct({ keyword: subjectChip }),
+    enabled: !!subjectChip,
   });
 
   const { data: productDetail } = useQuery({
-    queryKey: ['productDetail', productId, product],
+    queryKey: ['productDetail', productId, subjectProduct],
     queryFn: () => getDetail(productId),
   });
 
   useEffect(() => {
     handleUpdate(productDetail as any);
     if (productDetail) {
-      localStorage.setItem(
-        isSubject ? 'subjectProduct' : 'objectProduct',
-        productDetail?.name,
-      );
-      localStorage.setItem(
-        `${isSubject ? 'subjectProduct' : 'objectProduct'}Id`,
-        String(productDetail?.id),
-      );
+      localStorage.setItem('subjectProduct', productDetail?.name);
+      localStorage.setItem('subjectProductId', String(productDetail?.id));
     }
-  }, [productDetail, isSubject]);
+  }, [productDetail]);
 
   useEffect(() => {
+    setIsShow(false);
     if (isSuccess) {
-      if (product === '') {
-        setIsChip(false);
+      if (subjectProduct === '') {
+        setIsShow(false);
       } else {
-        setIsChip(true);
+        setIsShow(true);
       }
     }
-  }, [isSuccess, product]);
+  }, [isSuccess, subjectProduct, subjectChip]);
 
   return (
     <div className={cx('container')}>
