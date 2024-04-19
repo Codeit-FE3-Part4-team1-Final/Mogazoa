@@ -32,14 +32,16 @@ export default function ActivityCard({
     },
   };
   const { text, src } = activity[category];
-
   return (
     <div className={cx('activity-card')}>
       <div className={cx('container')}>
         <span className={cx('category')}>{text}</span>
         <div className={cx('information')}>
-          {category === 'interest' && productCategory ? (
-            <CategoryChip productCategory={productCategory} size='large' />
+          {category === 'interest' ? (
+            <CategoryChip
+              productCategory={productCategory || '없음'}
+              size='large'
+            />
           ) : (
             <>
               <Image

@@ -4,56 +4,51 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
-import ObjectChip from '@/components/Chip/ObjectChip';
 import SubjectChip from '@/components/Chip/SubjectChip';
 import { getDetail, getProduct } from '@/apis/getProduct';
-import styles from './CompareInput.module.scss';
+import styles from './SubjectInput.module.scss';
 
 const cx = classNames.bind(styles);
+
 interface SubjectInputInterface {
   handleUpdate: (name: string) => void;
   handleClose: () => void;
-  isSubject: boolean;
 }
 
-export default function CompareInput({
+export default function SubjectInput({
   handleUpdate,
   handleClose,
-  isSubject,
 }: SubjectInputInterface) {
-  const [product, setProduct] = useState<string>('');
+  const [subjectProduct, setSubjectProduct] = useState<string>('');
   const [productId, setProductId] = useState<number>(0);
-  const [chip, setChip] = useState<string>('');
+  const [subjectChip, setSubjectChip] = useState<string>('');
   const [isChip, setIsChip] = useState<boolean>(false);
   const [isReadable, setIsReadable] = useState<boolean>(false);
+  const [isShow, setIsShow] = useState<boolean>(false);
 
   useEffect(() => {
-    const storedProduct = localStorage.getItem(
-      isSubject ? 'subjectProduct' : 'objectProduct',
-    );
-    if (storedProduct) {
-      setProduct(storedProduct);
-      setProductId(Number(localStorage.getItem(`${storedProduct}Id`)));
-      setChip(storedProduct);
+    if (localStorage.getItem('subjectProduct')) {
+      setSubjectProduct(localStorage.getItem('subjectProduct') as string);
+      setProductId(Number(localStorage.getItem('subjectProductId')));
+      setSubjectChip(localStorage.getItem('subjectProduct') as string);
       setIsChip(true);
       setIsReadable(true);
+      setSubjectProduct('');
     }
-  }, [isSubject]);
+  }, []);
 
   const handleDelete = () => {
     setIsChip(false);
     setIsReadable(false);
     handleClose();
     handleUpdate('');
-    localStorage.removeItem(isSubject ? 'subjectProduct' : 'objectProduct');
-    localStorage.removeItem(
-      `${isSubject ? 'subjectProduct' : 'objectProduct'}Id`,
-    );
+    localStorage.removeItem('subjectProduct');
+    localStorage.removeItem('subjectProductId');
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProduct(event.target.value);
-    setChip(event.target.value);
+    setSubjectProduct(event.target.value);
+    setSubjectChip(event.target.value);
     setIsReadable(false);
     if (event.target.value === '') {
       handleDelete();
@@ -62,80 +57,71 @@ export default function CompareInput({
 
   const handleClick = (event: React.MouseEvent<HTMLLIElement>) => {
     const subjectProductValue = event.currentTarget.innerText;
-    setProduct('');
-    setChip(subjectProductValue);
+    setSubjectProduct('');
+    setSubjectChip(subjectProductValue);
     setIsReadable(true);
     setIsChip(true);
   };
 
   const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && product.trim() !== '') {
-      setProduct('');
-      setChip(product);
+    if (event.key === 'Enter' && subjectProduct.trim() !== '') {
+      setSubjectProduct('');
+      setSubjectChip(subjectProduct);
       setIsReadable(true);
       setIsChip(true);
     }
   };
 
-  const { data: productData, isSuccess } = useQuery({
-    queryKey: ['products', { keyword: chip }],
-    queryFn: () => getProduct({ keyword: chip }),
-    enabled: !!chip,
+  const { data: subjectData, isSuccess } = useQuery({
+    queryKey: ['products', { keyword: subjectChip }],
+    queryFn: () => getProduct({ keyword: subjectChip }),
+    enabled: !!subjectChip,
   });
 
   const { data: productDetail } = useQuery({
-    queryKey: ['productDetail', productId, product],
+    queryKey: ['productDetail', productId, subjectProduct],
     queryFn: () => getDetail(productId),
   });
 
   useEffect(() => {
     handleUpdate(productDetail as any);
     if (productDetail) {
-      localStorage.setItem(
-        isSubject ? 'subjectProduct' : 'objectProduct',
-        productDetail?.name,
-      );
-      localStorage.setItem(
-        `${isSubject ? 'subjectProduct' : 'objectProduct'}Id`,
-        String(productDetail?.id),
-      );
+      localStorage.setItem('subjectProduct', productDetail?.name);
+      localStorage.setItem('subjectProductId', String(productDetail?.id));
     }
-  }, [productDetail, isSubject]);
+  }, [productDetail]);
 
   useEffect(() => {
+    setIsShow(false);
     if (isSuccess) {
-      if (product === '') {
-        setIsChip(false);
+      if (subjectProduct === '') {
+        setIsShow(false);
       } else {
-        setIsChip(true);
+        setIsShow(true);
       }
     }
-  }, [isSuccess, product]);
+  }, [isSuccess, subjectProduct, subjectChip]);
 
   return (
     <div className={cx('container')}>
-      <label className={cx('label')}>{isSubject ? '상품1' : '상품2'}</label>
+      <label className={cx('label')}>상품1</label>
       <div className={cx('input-container')}>
         <input
           onChange={handleChange}
-          value={product}
+          value={subjectProduct}
           onKeyDown={handleEnter}
           readOnly={isReadable}
           className={cx('input')}
         />
         {isChip && (
           <div onClick={handleDelete} className={cx('chip-container')}>
-            {isSubject ? (
-              <SubjectChip name={chip} />
-            ) : (
-              <ObjectChip name={chip} />
-            )}
+            <SubjectChip name={subjectChip} />
           </div>
         )}
       </div>
-      {isSuccess && (
+      {isShow && (
         <ul className={cx('list-container')}>
-          {productData?.list?.map((values) => (
+          {subjectData?.list?.map((values) => (
             <li
               key={values.id}
               onClick={(event) => {
