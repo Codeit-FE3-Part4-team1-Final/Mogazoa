@@ -30,7 +30,6 @@
   text-align: center;
   border: 1px solid $border;
   border-radius: 12px;
-  color: $secondary;
   background: $comp-bg;
   border-collapse: collapse;
   font-size: 16px;
@@ -55,8 +54,9 @@
 .table-head {
   padding: 20px 0;
   border-bottom: 1px solid $border;
+  color: $secondary;
 
   @include mobile {
-    padding: 15px 0;
+    padding: 15px;
   }
 }
