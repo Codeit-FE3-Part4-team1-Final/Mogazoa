@@ -59,6 +59,10 @@
   @include category($app-10, $app);
 }
 
+.null {
+  @include category($null-10, $null);
+}
+
 .large {
   @include large();
 }

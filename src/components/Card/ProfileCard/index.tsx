@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import styles from './ProfileCard.module.scss';
@@ -20,6 +22,10 @@ export default function ProfileCard({ userDetail }: Props) {
           width={180}
           height={180}
           className={cx('profile-image')}
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = '/images/profile-image.png';
+          }}
         />
         <div className={cx('user-information')}>
           <span className={cx('user-name')}>{userDetail.nickname}</span>
