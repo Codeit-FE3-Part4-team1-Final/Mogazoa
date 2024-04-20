@@ -5,7 +5,6 @@ import { useState } from 'react';
 import classNames from 'classnames/bind';
 import Table from '@/components/Table';
 import styles from './ComparePage.module.scss';
-import Button from '@/components/Button';
 import SubjectInput from '@/components/Input/CompareInput/SubjectInput';
 import ObjectInput from '@/components/Input/CompareInput/ObjectInput';
 
@@ -37,14 +36,13 @@ export default function ComparePage() {
             handleClose={handleClose}
           />
           <ObjectInput handleUpdate={handleObject} handleClose={handleClose} />
-          <Button
+          <button
+            className={cx('button')}
             disabled={!(subjectProduct && objectProduct)}
-            width={'200px'}
-            category={'primary'}
             onClick={handleShow}
           >
             비교하기
-          </Button>
+          </button>
         </div>
         {isShow && (
           <Table
