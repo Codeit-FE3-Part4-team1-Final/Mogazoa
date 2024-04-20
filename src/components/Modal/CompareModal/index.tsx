@@ -19,4 +19,15 @@ export default function CompareModal({
   const [isObjectSelected, setIsObjectSelected] = useState<boolean>(false);
   const [isChanged, setIsChanged] = useState<boolean>(false);
   const [messsage, setMessage] = useState<string>('');
+
+  const handleChange = () => {
+    if (isSubjectSelected) {
+      localStorage.setItem('objectProductId', String(productId));
+      localStorage.setItem('objectProduct', product);
+    } else {
+      localStorage.setItem('subjectProductId', String(productId));
+      localStorage.setItem('subjectProduct', product);
+    }
+    setIsChanged(true);
+  };
 }
