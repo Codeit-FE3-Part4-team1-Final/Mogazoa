@@ -4,9 +4,10 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
-import { getDetail, getProduct } from '@/apis/getProduct';
+import getProduct from '@/apis/getProduct';
 import styles from './ObjectInput.module.scss';
 import ObjectChip from '@/components/Chip/ObjectChip';
+import getProductDetail from '@/apis/getProductDetail';
 
 const cx = classNames.bind(styles);
 
@@ -80,7 +81,7 @@ export default function ObjectInput({
 
   const { data: productDetail } = useQuery({
     queryKey: ['productDetail', productId, objectProduct],
-    queryFn: () => getDetail(productId),
+    queryFn: () => getProductDetail(productId),
   });
 
   useEffect(() => {
