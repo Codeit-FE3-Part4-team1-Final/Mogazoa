@@ -1,5 +1,5 @@
 /* eslint-disable default-case */
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 type CompareModalType = 'subject' | 'object' | 'exist' | 'changed';
 
@@ -64,4 +64,8 @@ export default function CompareModal({
         break;
     }
   }, []);
+
+  const preventEventBubbling = (event: React.MouseEvent) => {
+    event.stopPropagation();
+  };
 }
