@@ -95,7 +95,7 @@ export const axiosDelete = async (url: string) => {
   }
 };
 
-const requestMethod = async <T = unknown, U = unknown>({
+export const requestMethod = async <T = unknown, U = unknown>({
   method,
   endPoint,
   data,

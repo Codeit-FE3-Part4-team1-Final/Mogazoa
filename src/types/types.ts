@@ -327,3 +327,10 @@ export interface RequestMethodInterface<U = unknown> {
   data?: U;
   config?: AxiosRequestConfig;
 }
+
+export interface GetQueryInterface {
+  keyword?: string | null;
+  category?: number | null;
+  order?: 'recent' | 'rating' | 'reviewCount' | string;
+  cursor?: number | null;
+}

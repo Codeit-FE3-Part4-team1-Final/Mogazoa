@@ -1,9 +1,5 @@
-interface GetProductInterface {
-  keyword?: string | null;
-  category?: number | null;
-  order?: 'recent' | 'rating' | 'reviewCount' | string;
-  cursor?: number | null;
-}
+import { GetQueryInterface, RequestMethodInterface } from '@/types/types';
+import { requestMethod } from '@/utils/fetchUtils';
 
 interface ProductInterface {
   updatedAt: string;
@@ -68,19 +64,19 @@ export const getProduct = ({
   category,
   order,
   cursor,
-}: GetProductInterface) => {
+}: GetQueryInterface) => {
   const queryParams = `?${keyword ? `&keyword=${keyword}` : ''}${category ? `&category=${category}` : ''}${order ? `&order=${order}` : ''}${cursor ? `&cursor=${cursor}` : ''}`;
-  const requestApi: RequestApiInterface = {
+  const requestApi: RequestMethodInterface = {
     method: 'get',
     endPoint: `/products${queryParams}`,
   };
-  return Api<ProductListInterface>(requestApi);
+  return requestMethod<ProductListInterface>(requestApi);
 };
 
 export const getDetail = (productId: number): Promise<DetailInterface> => {
-  const requestApi: RequestApiInterface = {
+  const requestApi: RequestMethodInterface = {
     method: 'get',
     endPoint: `/products/${productId}`,
   };
-  return Api<DetailInterface>(requestApi);
+  return requestMethod<DetailInterface>(requestApi);
 };
