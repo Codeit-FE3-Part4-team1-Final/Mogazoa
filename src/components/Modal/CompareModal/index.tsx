@@ -30,4 +30,14 @@ export default function CompareModal({
     }
     setIsChanged(true);
   };
+
+  const subjectSelected = () => {
+    setIsSubjectSelected(true);
+    setIsObjectSelected(false);
+  };
+
+  const objectSelected = () => {
+    setIsSubjectSelected(false);
+    setIsObjectSelected(true);
+  };
 }
