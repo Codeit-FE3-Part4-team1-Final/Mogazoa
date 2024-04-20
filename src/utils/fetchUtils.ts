@@ -1,6 +1,7 @@
 /* eslint-disable */
 
-import axios from 'axios';
+import { RequestMethodInterface } from '@/types/types';
+import axios, { AxiosResponse } from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: 'https://mogazoa-api.vercel.app/3-1/',
@@ -91,5 +92,24 @@ export const axiosDelete = async (url: string) => {
     return data;
   } catch (e: any) {
     return `api delete error : ${e}`;
+  }
+};
+
+const requestMethod = async <T = unknown, U = unknown>({
+  method,
+  endPoint,
+  data,
+  config,
+}: RequestMethodInterface<U>): Promise<T> => {
+  try {
+    const response: AxiosResponse<T> = await axiosInstance({
+      method,
+      url: endPoint,
+      data,
+      ...config,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
   }
 };
