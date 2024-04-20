@@ -1,6 +1,7 @@
-import { useState } from 'react';
+/* eslint-disable default-case */
+import { useEffect, useState } from 'react';
 
-type CompareModalType = 'subject' | 'object' | 'copy' | 'changed';
+type CompareModalType = 'subject' | 'object' | 'exist' | 'changed';
 
 interface CompareModalInterface {
   product: string;
@@ -40,4 +41,27 @@ export default function CompareModal({
     setIsSubjectSelected(false);
     setIsObjectSelected(true);
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('subjectProduct')) {
+      setSubjectProduct(localStorage.getItem('subjectProduct') as string);
+    } else if (localStorage.getItem('objectProduct')) {
+      setObjectProduct(localStorage.getItem('objectProduct') as string);
+    }
+
+    switch (compareModalType) {
+      case 'subject':
+      case 'object':
+        setMessage(`${product} 항목이 등록되었습니다.`);
+        break;
+
+      case 'exist':
+        setMessage('이미 등록한 상품입니다.');
+        break;
+
+      case 'changed':
+        setMessage(`지금 보고 있는 ${product}`);
+        break;
+    }
+  }, []);
 }
