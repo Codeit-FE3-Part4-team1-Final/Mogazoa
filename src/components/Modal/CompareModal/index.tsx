@@ -3,6 +3,10 @@
 /* eslint-disable default-case */
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import classNames from 'classnames/bind';
+import styles from './CompareModal.module.scss';
+
+const cx = classNames.bind(styles);
 
 type CompareModalType = 'subject' | 'object' | 'exist' | 'changed';
 
@@ -78,53 +82,60 @@ export default function CompareModal({
 
   return (
     compareModalType && (
-      <div onClick={handleClose}>
-        <div onClick={preventEventBubbling}>
-          <header>
-            <div>
-              {!isChanged ? (
-                <>
-                  {message}
-                  {compareModalType === 'changed' && (
-                    <>{'어떤 상품과 비교할까요?'}</>
-                  )}
-                </>
-              ) : (
-                <>
-                  {'비교 상품이 교체되었습니다.'}
-                  {'바로 확인해 보시겠어요?'}
-                </>
-              )}
-            </div>
-          </header>
-          {(compareModalType === 'subject' || compareModalType === 'exist') && (
-            <button onClick={handleClose}>확인</button>
-          )}
-          {compareModalType === 'object' && (
-            <Link href={'/compare'}>
-              <button onClick={handleClose}>비교하기</button>
-            </Link>
-          )}
-          {compareModalType === 'changed' && !isChanged && (
-            <>
-              <div>
-                <button onClick={subjectSelected}>{subjectProduct}</button>
-                <button onClick={objectSelected}>{objectProduct}</button>
-              </div>
-              <button
-                disabled={!isSubjectSelected && !isObjectSelected}
-                onClick={handleChange}
-              >
-                교체하기
+      <div onClick={preventEventBubbling} className={cx('container')}>
+        <header className={cx('header')}>
+          <div className={cx('title')}>
+            {!isChanged ? (
+              <>
+                {message}
+                {compareModalType === 'changed' && (
+                  <>{'어떤 상품과 비교할까요?'}</>
+                )}
+              </>
+            ) : (
+              <>
+                {'비교 상품이 교체되었습니다.'}
+                {'바로 확인해 보시겠어요?'}
+              </>
+            )}
+          </div>
+        </header>
+        {(compareModalType === 'subject' || compareModalType === 'exist') && (
+          <button onClick={handleClose} className={cx('button')}>
+            확인
+          </button>
+        )}
+        {compareModalType === 'object' && (
+          <Link href={'/compare'}>
+            <button onClick={handleClose} className={cx('button')}>
+              비교하기
+            </button>
+          </Link>
+        )}
+        {compareModalType === 'changed' && !isChanged && (
+          <>
+            <div className={cx('button-container')}>
+              <button onClick={subjectSelected} className={cx('button')}>
+                {subjectProduct}
               </button>
-            </>
-          )}
-          {isChanged && (
-            <Link href={'/compare'}>
-              <button>바로가기</button>
-            </Link>
-          )}
-        </div>
+              <button onClick={objectSelected} className={cx('button')}>
+                {objectProduct}
+              </button>
+            </div>
+            <button
+              disabled={!isSubjectSelected && !isObjectSelected}
+              onClick={handleChange}
+              className={cx('button')}
+            >
+              교체하기
+            </button>
+          </>
+        )}
+        {isChanged && (
+          <Link href={'/compare'}>
+            <button className={cx('button')}>바로가기</button>
+          </Link>
+        )}
       </div>
     )
   );
