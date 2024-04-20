@@ -1,21 +1,90 @@
 @import '/src/styles/main.scss';
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.image-box {
   position: relative;
-  width: 87px;
-  height: 84px;
-  overflow: hidden;
+  width: 200px;
+  height: 60px;
+  z-index: 1;
 }
 
-.image {
+@keyframes circle-animation {
+  0% {
+    height: 5px;
+    top: 60px;
+    border-radius: 50px 50px 25px 25px;
+    transform: scaleX(1.7);
+  }
+
+  40% {
+    height: 20px;
+    border-radius: 50%;
+    transform: scaleX(1);
+  }
+
+  100% {
+    top: 0%;
+  }
+}
+
+@keyframes shadow-animation {
+  0% {
+    transform: scaleX(1.5);
+  }
+
+  40% {
+    transform: scaleX(1);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scaleX(0.2);
+    opacity: 0.4;
+  }
+}
+
+.circle {
   position: absolute;
-  top: 0;
-  left: 0;
+  width: 20px;
+  height: 20px;
+  left: 15%;
+  border-radius: 50%;
+  background: $white;
+  transform-origin: 50%;
+  animation: circle-animation 0.5s alternate infinite ease;
+}
+
+.circle:nth-child(2) {
+  left: 45%;
+  animation-delay: 0.2s;
+}
+
+.circle:nth-child(3) {
+  left: auto;
+  right: 15%;
+  animation-delay: 0.3s;
+}
+
+.shadow {
+  position: absolute;
+  width: 20px;
+  height: 4px;
+  top: 62px;
+  left: 15%;
+  z-index: -1;
+  border-radius: 50%;
+  background: rgba(85, 85, 85, 0.9);
+  transform-origin: 50%;
+  filter: blur(1px);
+  animation: shadow-animation 0.5s alternate infinite ease;
+}
+
+.shadow:nth-child(4) {
+  left: 45%;
+  animation-delay: 0.2s;
+}
+
+.shadow:nth-child(5) {
+  left: auto;
+  right: 15%;
+  animation-delay: 0.3s;
 }
