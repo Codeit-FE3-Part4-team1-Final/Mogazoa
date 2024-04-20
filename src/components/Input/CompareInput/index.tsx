@@ -6,8 +6,9 @@ import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import ObjectChip from '@/components/Chip/ObjectChip';
 import SubjectChip from '@/components/Chip/SubjectChip';
-import { getDetail, getProduct } from '@/apis/getProduct';
+import getProduct from '@/apis/getProduct';
 import styles from './CompareInput.module.scss';
+import getProductDetail from '@/apis/getProductDetail';
 
 const cx = classNames.bind(styles);
 interface SubjectInputInterface {
@@ -85,7 +86,7 @@ export default function CompareInput({
 
   const { data: productDetail } = useQuery({
     queryKey: ['productDetail', productId, product],
-    queryFn: () => getDetail(productId),
+    queryFn: () => getProductDetail(productId),
   });
 
   useEffect(() => {
