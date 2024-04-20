@@ -15,7 +15,6 @@ export default function CompareLoading() {
           className={cx('image')}
         />
       </div>
-      <span className={cx('span')}>상품을 등록해 보세요!</span>
     </div>
   );
 }

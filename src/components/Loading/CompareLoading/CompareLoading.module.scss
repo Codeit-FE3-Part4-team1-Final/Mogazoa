@@ -1,0 +1,21 @@
+@import '/src/styles/main.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.image-box {
+  position: relative;
+  width: 87px;
+  height: 84px;
+  overflow: hidden;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

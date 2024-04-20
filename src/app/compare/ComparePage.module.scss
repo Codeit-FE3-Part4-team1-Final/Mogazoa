@@ -63,3 +63,11 @@
     line-height: 18px;
   }
 }
+
+.loading-container {
+  margin-top: 288px;
+
+  @include mobile {
+    margin-top: 112px;
+  }
+}

@@ -51,7 +51,9 @@ export default function ComparePage() {
             ObjectProduct={objectProduct}
           />
         ) : (
-          <CompareLoading />
+          <div className={cx('loading-container')}>
+            <CompareLoading />
+          </div>
         )}
       </div>
     </>
