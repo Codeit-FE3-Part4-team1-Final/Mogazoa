@@ -1,3 +1,11 @@
+'use client';
+
+import useAuthStore from '@/stores/userStore';
+
 export default function Home() {
-  return <main>홈패이지 예정</main>;
+  const { isLoggedIn } = useAuthStore((state) => ({
+    isLoggedIn: state.isLoggedIn,
+  }));
+
+  return <div>{isLoggedIn ? 'yes' : 'no'}</div>;
 }
