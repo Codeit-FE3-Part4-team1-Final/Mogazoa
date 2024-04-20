@@ -7,6 +7,7 @@ import Table from '@/components/Table';
 import styles from './ComparePage.module.scss';
 import SubjectInput from '@/components/Input/CompareInput/SubjectInput';
 import ObjectInput from '@/components/Input/CompareInput/ObjectInput';
+import CompareLoading from '@/components/Loading/CompareLoading';
 
 const cx = classNames.bind(styles);
 
@@ -44,11 +45,13 @@ export default function ComparePage() {
             비교하기
           </button>
         </div>
-        {isShow && (
+        {isShow ? (
           <Table
             SubjectProduct={subjectProduct}
             ObjectProduct={objectProduct}
           />
+        ) : (
+          <CompareLoading />
         )}
       </div>
     </>
