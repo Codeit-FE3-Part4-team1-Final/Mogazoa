@@ -10,12 +10,14 @@ interface CompareModalInterface {
   product: string;
   productId: number;
   compareModalType: CompareModalType;
+  handleOpen: (value: boolean) => void;
 }
 
 export default function CompareModal({
   product,
   productId,
   compareModalType,
+  handleOpen,
 }: CompareModalInterface) {
   const [subjectProduct, setSubjectProduct] = useState<string>('');
   const [isSubjectSelected, setIsSubjectSelected] = useState<boolean>(false);
@@ -72,48 +74,57 @@ export default function CompareModal({
     event.stopPropagation();
   };
 
+  const handleClose = () => handleOpen(false);
+
   return (
     compareModalType && (
-      <div>
-        <header>
-          <div>
-            {!isChanged ? (
-              <>
-                {message}
-                {compareModalType === 'change' && (
-                  <>{'어떤 상품과 비교할까요?'}</>
-                )}
-              </>
-            ) : (
-              <>
-                {'비교 상품이 교체되었습니다.'}
-                {'바로 확인해 보시겠어요?'}
-              </>
-            )}
-          </div>
-        </header>
-        {(compareModalType === 'subject' || compareModalType === 'exist') && (
-          <button>확인</button>
-        )}
-        {compareModalType === 'object' && (
-          <Link href={'/compare'}>
-            <button>비교하기</button>
-          </Link>
-        )}
-        {compareModalType === 'changed' && !isChanged && (
-          <>
+      <div onClick={handleClose}>
+        <div onClick={preventEventBubbling}>
+          <header>
             <div>
-              <button>{subjectProduct}</button>
-              <button>{objectProduct}</button>
+              {!isChanged ? (
+                <>
+                  {message}
+                  {compareModalType === 'changed' && (
+                    <>{'어떤 상품과 비교할까요?'}</>
+                  )}
+                </>
+              ) : (
+                <>
+                  {'비교 상품이 교체되었습니다.'}
+                  {'바로 확인해 보시겠어요?'}
+                </>
+              )}
             </div>
-            <button>교체하기</button>
-          </>
-        )}
-        {isChanged && (
-          <Link href={'/compare'}>
-            <button>바로가기</button>
-          </Link>
-        )}
+          </header>
+          {(compareModalType === 'subject' || compareModalType === 'exist') && (
+            <button onClick={handleClose}>확인</button>
+          )}
+          {compareModalType === 'object' && (
+            <Link href={'/compare'}>
+              <button onClick={handleClose}>비교하기</button>
+            </Link>
+          )}
+          {compareModalType === 'changed' && !isChanged && (
+            <>
+              <div>
+                <button onClick={subjectSelected}>{subjectProduct}</button>
+                <button onClick={objectSelected}>{objectProduct}</button>
+              </div>
+              <button
+                disabled={!isSubjectSelected && !isObjectSelected}
+                onClick={handleChange}
+              >
+                교체하기
+              </button>
+            </>
+          )}
+          {isChanged && (
+            <Link href={'/compare'}>
+              <button>바로가기</button>
+            </Link>
+          )}
+        </div>
       </div>
     )
   );
