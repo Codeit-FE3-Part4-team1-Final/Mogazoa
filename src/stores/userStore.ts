@@ -7,12 +7,19 @@ interface AuthState {
   setLogout: () => void;
 }
 
-const useAuthStore = create<AuthState>((set) => ({
-  isLoggedIn: false,
-  accessToken: null,
-  setLogin: (token: string) =>
-    set(() => ({ isLoggedIn: true, accessToken: token })),
-  setLogout: () => set(() => ({ isLoggedIn: false, accessToken: null })),
-}));
+const useAuthStore = create<AuthState>((set) => {
+  const token = localStorage.getItem('accessToken');
+
+  return {
+    isLoggedIn: !!token,
+    accessToken: token,
+    setLogin: (newToken: string) =>
+      set(() => ({ isLoggedIn: true, accessToken: newToken })),
+    setLogout: () => {
+      localStorage.removeItem('accessToken');
+      set(() => ({ isLoggedIn: false, accessToken: null }));
+    },
+  };
+});
 
 export default useAuthStore;
