@@ -1,8 +1,9 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import {
   CreateProductRequestBody,
   CreateReviewRequestBody,
   FollowRequestBody,
+  RequestMethodInterface,
   SignInRequestBody,
   SignInWithOauthRequestBody,
   SignUpRequestBody,
@@ -126,5 +127,25 @@ export const axiosDelete = async (url: UrlType, body?: FollowRequestBody) => {
   } catch (e) {
     const error = e as AxiosError;
     return error.response;
+  }
+};
+
+export const requestMethod = async <T = unknown, U = unknown>({
+  method,
+  endPoint,
+  data,
+  config,
+}: RequestMethodInterface<U>): Promise<T> => {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    const response: AxiosResponse<T> = await axiosInstance({
+      method,
+      url: endPoint,
+      data,
+      ...config,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
   }
 };

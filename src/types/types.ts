@@ -1,3 +1,5 @@
+import { AxiosRequestConfig } from 'axios';
+
 export type ProductCategory =
   | '음악'
   | '영화/드라마'
@@ -310,4 +312,25 @@ export interface SignUpWithOauthRequestBody {
   nickname: Nickname;
   redirectUri: string;
   token: OauthToken;
+}
+
+export const httpMethod = {
+  GET: 'get',
+  POST: 'post',
+  DELETE: 'delete',
+  PATCH: 'patch',
+} as const;
+
+export interface RequestMethodInterface<U = unknown> {
+  method: (typeof httpMethod)[keyof typeof httpMethod];
+  endPoint: string;
+  data?: U;
+  config?: AxiosRequestConfig;
+}
+
+export interface GetQueryInterface {
+  keyword?: string | null;
+  category?: number | null;
+  order?: 'recent' | 'rating' | 'reviewCount' | string;
+  cursor?: number | null;
 }

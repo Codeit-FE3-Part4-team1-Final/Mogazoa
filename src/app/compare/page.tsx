@@ -5,9 +5,9 @@ import { useState } from 'react';
 import classNames from 'classnames/bind';
 import Table from '@/components/Table';
 import styles from './ComparePage.module.scss';
-import Button from '@/components/Button';
 import SubjectInput from '@/components/Input/CompareInput/SubjectInput';
 import ObjectInput from '@/components/Input/CompareInput/ObjectInput';
+import CompareLoading from '@/components/Loading/CompareLoading';
 
 const cx = classNames.bind(styles);
 
@@ -37,17 +37,24 @@ export default function ComparePage() {
             handleClose={handleClose}
           />
           <ObjectInput handleUpdate={handleObject} handleClose={handleClose} />
-          <Button
+          <button
+            className={cx('button')}
             disabled={!(subjectProduct && objectProduct)}
-            width={'200px'}
-            category={'primary'}
             onClick={handleShow}
           >
             비교하기
-          </Button>
+          </button>
         </div>
-        <Table SubjectProduct={'상품1'} ObjectProduct={'상품2'} />
-        {isShow && <Table SubjectProduct={'상품1'} ObjectProduct={'상품2'} />}
+        {isShow ? (
+          <Table
+            SubjectProduct={subjectProduct}
+            ObjectProduct={objectProduct}
+          />
+        ) : (
+          <div className={cx('loading-container')}>
+            <CompareLoading />
+          </div>
+        )}
       </div>
     </>
   );
