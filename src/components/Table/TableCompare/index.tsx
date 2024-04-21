@@ -83,7 +83,7 @@ export default function TableCompare({
   return (
     <tbody>
       <tr>
-        <td>찜 개수</td>
+        <td className={cx('td')}>찜 개수</td>
         <td className={cx('product-count')}>{SubjectProductFavorite}</td>
         <td className={cx('product-count')}>{ObjectProductFavorite}</td>
         {favorite === 1 ? (
@@ -95,7 +95,7 @@ export default function TableCompare({
         )}
       </tr>
       <tr>
-        <td>리뷰 개수</td>
+        <td className={cx('td')}>리뷰 개수</td>
         <td className={cx('product-count')}>{SubjectProductReview}</td>
         <td className={cx('product-count')}>{ObjectProductReview}</td>
         {review === 1 ? (
@@ -107,7 +107,7 @@ export default function TableCompare({
         )}
       </tr>
       <tr>
-        <td>별점</td>
+        <td className={cx('td')}>별점</td>
         <td className={cx('product-count')}>{SubjectProductRating}</td>
         <td className={cx('product-count')}>{ObjectProductRating}</td>
         {rating === 1 ? (
