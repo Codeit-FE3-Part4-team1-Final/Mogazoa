@@ -118,6 +118,11 @@
     cursor: not-allowed;
   }
 
+  &.selected {
+    border: 1px solid $pink;
+    color: $pink;
+  }
+
   @include tablet {
     height: 55px;
     flex-shrink: 1;

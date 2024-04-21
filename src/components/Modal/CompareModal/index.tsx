@@ -14,6 +14,7 @@ interface CompareModalInterface {
   product: string;
   productId: number;
   compareModalType: CompareModalType;
+  isSelected: boolean;
   handleOpen: (value: boolean) => void;
 }
 
@@ -21,6 +22,7 @@ export default function CompareModal({
   product,
   productId,
   compareModalType,
+  isSelected,
   handleOpen,
 }: CompareModalInterface) {
   const [subjectProduct, setSubjectProduct] = useState<string>('');
@@ -121,11 +123,14 @@ export default function CompareModal({
             <div className={cx('button-container')}>
               <button
                 onClick={subjectSelected}
-                className={cx('button-product')}
+                className={cx('button-product', isSelected ? 'selected' : '')}
               >
                 {subjectProduct}
               </button>
-              <button onClick={objectSelected} className={cx('button-product')}>
+              <button
+                onClick={objectSelected}
+                className={cx('button-product', isSelected ? 'selected' : '')}
+              >
                 {objectProduct}
               </button>
             </div>
