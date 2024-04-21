@@ -80,7 +80,7 @@ export default function SignUpPage() {
 
     const success = await signUpUser({ data: formValues });
     if (success) {
-      router.push('/home');
+      router.push('/');
     } else {
       console.log('회원가입 실패');
     }

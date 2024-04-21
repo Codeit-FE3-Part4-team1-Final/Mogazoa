@@ -30,7 +30,7 @@ export default function SignInPage() {
 
     const success = await signInUser({ data: { email, password } });
     if (success) {
-      router.push('/home');
+      router.push('/');
     } else {
       console.log('로그인실패');
     }

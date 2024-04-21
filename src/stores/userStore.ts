@@ -8,7 +8,10 @@ interface AuthState {
 }
 
 const useAuthStore = create<AuthState>((set) => {
-  const token = localStorage.getItem('accessToken');
+  let token: string | null = null;
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem('accessToken') ?? null;
+  }
 
   return {
     isLoggedIn: !!token,
