@@ -89,12 +89,16 @@ export default function CompareModal({
               <>
                 {message}
                 {compareModalType === 'changed' && (
-                  <>{'어떤 상품과 비교할까요?'}</>
+                  <>
+                    <br />
+                    {'어떤 상품과 비교할까요?'}
+                  </>
                 )}
               </>
             ) : (
               <>
                 {'비교 상품이 교체되었습니다.'}
+                <br />
                 {'바로 확인해 보시겠어요?'}
               </>
             )}

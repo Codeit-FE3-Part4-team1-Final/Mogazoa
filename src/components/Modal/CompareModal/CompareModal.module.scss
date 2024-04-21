@@ -5,6 +5,14 @@
   padding: 20px;
   border-radius: 12px;
   background: $background;
+
+  @include tablet {
+    padding: 40px;
+  }
+
+  @include mobile {
+    width: 335px;
+  }
 }
 
 .header {
@@ -22,6 +30,16 @@
   font-size: 24px;
   font-weight: 600;
   line-height: 28.6px;
+
+  @include tablet {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  @include mobile {
+    font-size: 20px;
+    line-height: 28px;
+  }
 }
 
 .button {
