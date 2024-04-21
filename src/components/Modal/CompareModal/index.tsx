@@ -115,10 +115,13 @@ export default function CompareModal({
         {compareModalType === 'changed' && !isChanged && (
           <>
             <div className={cx('button-container')}>
-              <button onClick={subjectSelected} className={cx('button')}>
+              <button
+                onClick={subjectSelected}
+                className={cx('button-product')}
+              >
                 {subjectProduct}
               </button>
-              <button onClick={objectSelected} className={cx('button')}>
+              <button onClick={objectSelected} className={cx('button-product')}>
                 {objectProduct}
               </button>
             </div>
