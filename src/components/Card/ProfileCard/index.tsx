@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import styles from './ProfileCard.module.scss';
@@ -16,10 +17,17 @@ interface Props {
 
 export default function ProfileCard({ userDetail }: Props) {
   const { isOpened, toggleModal } = useModalStore((state) => state);
+  const [modalType, setModalType] = useState('');
+  const handleToggleModal = (type: string) => {
+    setModalType(type);
+    toggleModal();
+  };
   return (
     <div className={cx('wrapper')}>
       {isOpened ? (
-        <ModalWrapper>모달 모달 모달 모달 모달 모달 </ModalWrapper>
+        <ModalWrapper>
+          {modalType === 'follower' ? '팔로워 목록' : '팔로잉 목록'}
+        </ModalWrapper>
       ) : null}
       <div className={cx('container')}>
         <Image
@@ -38,12 +46,18 @@ export default function ProfileCard({ userDetail }: Props) {
           <p className={cx('user-explain')}>{userDetail.description}</p>
         </div>
         <div className={cx('user-follow-box')}>
-          <div className={cx('follow')} onClick={toggleModal}>
+          <div
+            className={cx('follow')}
+            onClick={() => handleToggleModal('follower')}
+          >
             <span className={cx('count')}>{userDetail.followersCount}</span>
             <span className={cx('text')}>팔로워</span>
           </div>
           <hr className={cx('separator')} />
-          <div className={cx('follow')} onClick={toggleModal}>
+          <div
+            className={cx('follow')}
+            onClick={() => handleToggleModal('following')}
+          >
             <span className={cx('count')}>{userDetail.followeesCount}</span>
             <span className={cx('text')}>팔로잉</span>
           </div>
