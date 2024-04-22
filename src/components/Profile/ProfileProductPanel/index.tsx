@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './ProfileProductPanel.module.scss';
+import ProductCard from '@/components/Card/ProductCard';
 
 const cx = classNames.bind(styles);
 
@@ -14,12 +15,13 @@ export default function ProfileProductPanel() {
       </span>
       <div className={cx('product-card-container')}>
         {/* 임시 카드 */}
-        <div className={cx('product-card')}></div>
-        <div className={cx('product-card')}></div>
-        <div className={cx('product-card')}></div>
-        <div className={cx('product-card')}></div>
-        <div className={cx('product-card')}></div>
-        <div className={cx('product-card')}></div>
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
       </div>
     </section>
   );
