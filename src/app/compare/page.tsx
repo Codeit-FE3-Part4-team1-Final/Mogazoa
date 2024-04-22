@@ -3,10 +3,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import classNames from 'classnames/bind';
-import CompareInput from '@/components/Input/CompareInput';
 import Table from '@/components/Table';
 import styles from './ComparePage.module.scss';
-import Button from '@/components/Button';
+import SubjectInput from '@/components/Input/CompareInput/SubjectInput';
+import ObjectInput from '@/components/Input/CompareInput/ObjectInput';
+import CompareLoading from '@/components/Loading/CompareLoading';
 
 const cx = classNames.bind(styles);
 
@@ -31,30 +32,28 @@ export default function ComparePage() {
     <>
       <div className={cx('container')}>
         <div className={cx('input-container')}>
-          <CompareInput
-            isSubject={true}
+          <SubjectInput
             handleUpdate={handleSubject}
             handleClose={handleClose}
           />
-          <CompareInput
-            isSubject={false}
-            handleUpdate={handleObject}
-            handleClose={handleClose}
-          />
-          <Button
+          <ObjectInput handleUpdate={handleObject} handleClose={handleClose} />
+          <button
+            className={cx('button')}
             disabled={!(subjectProduct && objectProduct)}
-            width={'200px'}
-            category={'primary'}
             onClick={handleShow}
           >
             비교하기
-          </Button>
+          </button>
         </div>
-        {isShow && (
+        {isShow ? (
           <Table
             SubjectProduct={subjectProduct}
             ObjectProduct={objectProduct}
           />
+        ) : (
+          <div className={cx('loading-container')}>
+            <CompareLoading />
+          </div>
         )}
       </div>
     </>

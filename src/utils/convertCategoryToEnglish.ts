@@ -22,6 +22,8 @@ const convertCategoryToEnglish = (category: ProductCategory): string => {
       return 'cloth';
     case '앱':
       return 'app';
+    case '없음':
+      return 'null';
     default:
       return '';
   }

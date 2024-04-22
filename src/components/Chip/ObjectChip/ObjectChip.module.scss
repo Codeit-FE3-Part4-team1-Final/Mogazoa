@@ -7,8 +7,14 @@
   padding: 8px 10px;
   border-radius: 6px;
   color: $pink;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
+  line-height: 18px;
+
+  @include mobile {
+    font-size: 14px;
+    line-height: 16px;
+  }
 }
 
 .close-container {

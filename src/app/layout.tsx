@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import '../styles/globals.scss';
 import ReactQueryProvider from '../../providers/ReactQueryProvider';
 import NavigationBar from '@/components/NavigationBar';
+import { ModalStoreProvider } from '../../providers/ModalStoreProvider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,8 +18,10 @@ export default function RootLayout({
     <html lang='ko'>
       <body>
         <ReactQueryProvider>
-          <NavigationBar />
-          {children}
+          <ModalStoreProvider>
+            <NavigationBar />
+            {children}
+          </ModalStoreProvider>
         </ReactQueryProvider>
       </body>
     </html>

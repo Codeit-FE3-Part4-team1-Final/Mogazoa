@@ -1,9 +1,17 @@
+@import '/src/styles/main.scss';
+
 .container {
-  width: 335px;
-  display: flex;
+  width: 940px;
   justify-content: center;
   text-align: center;
   margin: 0 auto;
+
+  @include tablet {
+    width: 684px;
+  }
+  @include mobile {
+    width: 335px;
+  }
 }
 
 .input-container {
@@ -13,4 +21,56 @@
   justify-content: center;
   gap: 30px;
   margin: 30px auto;
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+.button {
+  width: 200px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 10px;
+  padding: 24px;
+  border-radius: 8px;
+  background: $main_gradient;
+  text-align: cetner;
+  color: $primary;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 20px;
+
+  &:disabled {
+    color: $tertiary;
+    background: $border;
+    cursor: not-allowed;
+  }
+
+  @include tablet {
+    width: 164px;
+    height: 55px;
+    flex-shrink: 1;
+  }
+
+  @include mobile {
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    line-height: 18px;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 288px;
+
+  @include mobile {
+    margin-top: 112px;
+  }
 }
