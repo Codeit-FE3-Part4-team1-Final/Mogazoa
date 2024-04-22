@@ -1,24 +1,17 @@
-'use client';
+/* eslint-disable*/
 
-import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './NavigationBar.module.scss';
-import useAuthStore from '@/stores/userStore';
+import { cookies } from 'next/headers';
 
 // Todo(송상훈) : UI만 그려놓음, 로그인 기능 후 로직 완성 예정
 export default function NavigationBar() {
-  const { isLoggedIn, setLogin } = useAuthStore((state) => ({
-    isLoggedIn: state.isLoggedIn,
-    setLogin: state.setLogin,
-  }));
+  const cookieStore = cookies();
+  const theme = cookieStore.get('accessToken');
+  console.log(theme);
 
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      setLogin(token);
-    }
-  }, [setLogin]);
+  const isLoggedIn = !!theme;
 
   return (
     <div className={styles.container}>
