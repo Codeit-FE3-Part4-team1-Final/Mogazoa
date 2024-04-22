@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import ProfileProductPanel from '@/components/ProfileProductPanel';
+import ProfileProductPanel from '@/components/Profile/ProfileProductPanel';
 import ActivityDetail from '@/components/ActivityDetail';
 import ProfileCard from '@/components/Card/ProfileCard';
 import styles from './ProfileSection.module.scss';
