@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import cx from './cx.ts';
 
-const filledStarImg = '/images/star-icon.svg';
-const emptyStarImg = '/images/star-empty-icon.svg';
+const FILL_STAR_IMG = '/images/star-icon.svg';
+const EMPTY_STAR_IMG = '/images/star-empty-icon.svg';
+const TOTAL_STARS = 5;
+
 interface Props {
   Rating: number;
 }
@@ -10,7 +12,7 @@ interface Props {
 const Star = ({ filled }: { filled: boolean }) => {
   return (
     <Image
-      src={filled ? filledStarImg : emptyStarImg}
+      src={filled ? FILL_STAR_IMG : EMPTY_STAR_IMG}
       alt='별'
       width={18}
       height={18}
@@ -19,16 +21,13 @@ const Star = ({ filled }: { filled: boolean }) => {
 };
 
 export default function Rating({ Rating: value }: Readonly<Props>) {
-  const totalStars = 5;
   const stars = [];
 
-  // 채워진 별을 렌더링합니다.
   for (let i = 0; i < value; i += 1) {
     stars.push(<Star key={`filled-${i}`} filled={true} />);
   }
 
-  // 남은 별은 비워진 별로 렌더링합니다.
-  for (let i = value; i < totalStars; i += 1) {
+  for (let i = value; i < TOTAL_STARS; i += 1) {
     stars.push(<Star key={`empty-${i}`} filled={false} />);
   }
 
