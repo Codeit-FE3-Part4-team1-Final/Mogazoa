@@ -49,20 +49,24 @@ export interface User {
   id: Id;
 }
 
+export interface FollweeList {
+  id: number;
+  followee: User;
+}
+
+export interface FollowerList {
+  id: number;
+  follower: User;
+}
+
 export interface UserFolloweeList {
   nextCursor: number | null;
-  list: {
-    id: number;
-    followee: User;
-  }[];
+  list: FollweeList[];
 }
 
 export interface UserFollowerList {
   nextCursor: number | null;
-  list: {
-    id: number;
-    follower: User;
-  }[];
+  list: FollowerList[];
 }
 
 export interface UserDetail {

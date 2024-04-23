@@ -2,12 +2,13 @@ import Image from 'next/image';
 import classNames from 'classnames/bind';
 import styles from './FollowUserList.module.scss';
 import { User } from '@/types/types';
+import { ModalType } from '@/components/Card/ProfileCard';
 
 const cx = classNames.bind(styles);
 
 interface Props {
   user: User;
-  modalType: 'follower' | 'followee';
+  modalType: ModalType;
 }
 
 export default function FollowUserList({ user }: Props) {

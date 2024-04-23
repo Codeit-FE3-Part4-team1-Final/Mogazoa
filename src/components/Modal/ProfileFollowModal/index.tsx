@@ -1,6 +1,12 @@
 import classNames from 'classnames/bind';
 import styles from './ProfileFollowModal.module.scss';
-import { Nickname, UserFolloweeList, UserFollowerList } from '@/types/types';
+import {
+  FollowerList,
+  FollweeList,
+  Nickname,
+  UserFolloweeList,
+  UserFollowerList,
+} from '@/types/types';
 import FollowUserList from '../FollowUserList';
 import { ModalType } from '@/components/Card/ProfileCard';
 
@@ -20,16 +26,28 @@ export default function ProfileFollowModal({
   return (
     <div className={cx('wrapper')}>
       <span className={cx('category')}>
-        {userName}님{modalType === 'follower' ? '을' : '이'} 팔로우하는 유저
+        {userName}님{modalType === 'followers' ? '을' : '이'} 팔로우하는 유저
       </span>
-      {data?.list.map((user) => {
-        return (
-          <FollowUserList
-            user={user[modalType]}
-            modalType={modalType}
-            key={user.id}
-          />
-        );
+      {data?.list.map((user: FollowerList | FollweeList) => {
+        if ('follower' in user) {
+          return (
+            <FollowUserList
+              user={user.follower}
+              modalType={modalType}
+              key={user.id}
+            />
+          );
+        }
+        if ('followee' in user) {
+          return (
+            <FollowUserList
+              user={user.followee}
+              modalType={modalType}
+              key={user.id}
+            />
+          );
+        }
+        return null;
       })}
     </div>
   );

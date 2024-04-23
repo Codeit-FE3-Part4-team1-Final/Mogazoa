@@ -16,7 +16,7 @@ interface Props {
   userDetail: UserDetail;
 }
 
-export type ModalType = 'follower' | 'followee';
+export type ModalType = 'followers' | 'followees';
 
 // 임시 팔로우, 팔로잉 목록
 const follower: UserFollowerList = {
@@ -136,7 +136,7 @@ const followee: UserFolloweeList = {
 export default function ProfileCard({ userDetail }: Props) {
   // TODO: 팔로워 or 팔로잉 목록 data react-query
   const { isOpened, toggleModal } = useModalStore((state) => state);
-  const [modalType, setModalType] = useState<ModalType>('follower');
+  const [modalType, setModalType] = useState<ModalType>('followers');
   const [followData, setFollowData] = useState<
     UserFollowerList | UserFolloweeList
   >();
@@ -144,10 +144,10 @@ export default function ProfileCard({ userDetail }: Props) {
   const handleToggleModal = (type: ModalType) => {
     setModalType(type);
 
-    if (type === 'follower') {
+    if (type === 'followers') {
       setFollowData(follower);
     }
-    if (type === 'followee') {
+    if (type === 'followees') {
       setFollowData(followee);
     }
 
@@ -184,7 +184,7 @@ export default function ProfileCard({ userDetail }: Props) {
         <div className={cx('user-follow-box')}>
           <div
             className={cx('follow')}
-            onClick={() => handleToggleModal('follower')}
+            onClick={() => handleToggleModal('followers')}
           >
             <span className={cx('count')}>{userDetail.followersCount}</span>
             <span className={cx('text')}>팔로워</span>
@@ -192,7 +192,7 @@ export default function ProfileCard({ userDetail }: Props) {
           <hr className={cx('separator')} />
           <div
             className={cx('follow')}
-            onClick={() => handleToggleModal('followee')}
+            onClick={() => handleToggleModal('followees')}
           >
             <span className={cx('count')}>{userDetail.followeesCount}</span>
             <span className={cx('text')}>팔로잉</span>
