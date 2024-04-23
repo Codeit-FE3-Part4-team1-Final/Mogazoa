@@ -68,7 +68,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 288px;
+  margin-top: 250px;
+  margin-bottom: 100px;
 
   @include mobile {
     margin-top: 112px;
