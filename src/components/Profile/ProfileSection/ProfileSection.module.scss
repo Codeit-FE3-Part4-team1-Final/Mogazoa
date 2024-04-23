@@ -25,6 +25,8 @@
 }
 
 .profile-section {
+  position: sticky;
+  top: 50px;
   align-self: start;
   @include tablet {
     align-self: center;
