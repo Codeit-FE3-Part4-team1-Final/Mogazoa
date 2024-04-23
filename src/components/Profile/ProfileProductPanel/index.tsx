@@ -6,7 +6,7 @@ import { ProductListType } from '@/types/types';
 const cx = classNames.bind(styles);
 
 // 임시 product 데이터
-const productItem: ProductListType = {
+const productItem1: ProductListType = {
   updatedAt: '2024-04-23T04:03:04.169Z',
   createdAt: '2024-04-23T04:03:04.169Z',
   writerId: 1,
@@ -16,6 +16,19 @@ const productItem: ProductListType = {
   rating: 0,
   image: '/images/product-example.png',
   name: '제품 이름은 1자 부터 20자 입니다',
+  id: 1,
+};
+
+const productItem2: ProductListType = {
+  updatedAt: '2024-04-23T04:03:04.169Z',
+  createdAt: '2024-04-23T04:03:04.169Z',
+  writerId: 1,
+  categoryId: 1,
+  favoriteCount: 0,
+  reviewCount: 0,
+  rating: 0,
+  image: '/images/product-example.png',
+  name: '짧은 제품 이름',
   id: 1,
 };
 
@@ -31,17 +44,17 @@ export default function ProfileProductPanel() {
       </span>
       <div className={cx('product-card-container')}>
         {/* 임시 카드 */}
-        <ProductCard productItem={productItem} />
-        <ProductCard productItem={productItem} />
-        <ProductCard productItem={productItem} />
-        <ProductCard productItem={productItem} />
-        <ProductCard productItem={productItem} />
-        <ProductCard productItem={productItem} />
-        <ProductCard productItem={productItem} />
-        <ProductCard productItem={productItem} />
-        <ProductCard productItem={productItem} />
-        <ProductCard productItem={productItem} />
-        <ProductCard productItem={productItem} />
+        <ProductCard productItem={productItem1} />
+        <ProductCard productItem={productItem2} />
+        <ProductCard productItem={productItem1} />
+        <ProductCard productItem={productItem1} />
+        <ProductCard productItem={productItem1} />
+        <ProductCard productItem={productItem2} />
+        <ProductCard productItem={productItem2} />
+        <ProductCard productItem={productItem1} />
+        <ProductCard productItem={productItem2} />
+        <ProductCard productItem={productItem2} />
+        <ProductCard productItem={productItem1} />
       </div>
     </section>
   );
