@@ -1,10 +1,15 @@
 import Image from 'next/image';
 import classNames from 'classnames/bind';
 import styles from './ProductCard.module.scss';
+import { ProductListType } from '@/types/types';
 
 const cx = classNames.bind(styles);
 
-export default function ProductCard() {
+interface Props {
+  productItem: ProductListType;
+}
+
+export default function ProductCard({ productItem }: Props) {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
@@ -18,18 +23,20 @@ export default function ProductCard() {
           />
         </div>
         <div className={cx('product-description')}>
-          <span className={cx('product-title')}>
-            다이슨 슈퍼소닉 블루 아아아아아아아아
-          </span>
+          <span className={cx('product-title')}>{productItem.name}</span>
           <div className={cx('product-rating')}>
             <div className={cx('product-reply-like-box')}>
               <div className={cx('product-reply-like')}>
                 <span className={cx('reply-like-text')}>리뷰</span>
-                <span className={cx('reply-like-text')}>129</span>
+                <span className={cx('reply-like-text')}>
+                  {productItem.reviewCount}
+                </span>
               </div>
               <div className={cx('product-reply-like')}>
                 <span className={cx('reply-like-text')}>찜</span>
-                <span className={cx('reply-like-text')}>34</span>
+                <span className={cx('reply-like-text')}>
+                  {productItem.favoriteCount}
+                </span>
               </div>
             </div>
             <div className={cx('product-star-rating-box')}>
@@ -40,7 +47,7 @@ export default function ProductCard() {
                 height={16}
                 className={cx('star-icon')}
               />
-              <span className={cx('star-rating')}>4.7</span>
+              <span className={cx('star-rating')}>{productItem.rating}</span>
             </div>
           </div>
         </div>
