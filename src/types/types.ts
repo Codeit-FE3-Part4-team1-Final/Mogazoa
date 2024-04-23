@@ -161,7 +161,6 @@ export interface ProductDetailType {
   name: string;
   id: Id;
   categoryMetric: {
-    description: string;
     reviewCount: number;
     favoriteCount: number;
     rating: Rating;
