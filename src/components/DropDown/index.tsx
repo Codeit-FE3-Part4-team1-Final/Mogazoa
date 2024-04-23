@@ -22,10 +22,10 @@ export default function DropDown({
   const toggleDropdown = () => setIsOpen(!isOpen);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  function findLabelByKey(key: string): string | undefined {
+  const findLabelByKey = (key: string) => {
     const findItem = dropItems.find((item) => item.key === key);
     return findItem ? findItem.label : undefined;
-  }
+  };
 
   const handleItemClick = (value: string) => {
     onSelect(value);
