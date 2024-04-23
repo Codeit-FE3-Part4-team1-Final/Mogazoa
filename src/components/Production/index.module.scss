@@ -18,10 +18,15 @@
   }
   .image-wrap {
     position: relative;
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 355px;
     border-radius: 8px;
     overflow: hidden;
+
+    @include tablet {
+      height: 180px;
+      width: 240px;
+    }
   }
   .content-wrap {
     @include column-flexbox(start, between);
