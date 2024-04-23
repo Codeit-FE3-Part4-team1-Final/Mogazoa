@@ -3,6 +3,7 @@
 .wrapper {
   @include flexbox;
   position: fixed;
+  z-index: 99;
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(2px);
