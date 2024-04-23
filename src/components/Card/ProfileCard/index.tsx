@@ -27,7 +27,10 @@ export default function ProfileCard({ userDetail }: Props) {
     <div className={cx('wrapper')}>
       {isOpened ? (
         <ModalWrapper>
-          <ProfileFollowModal modalType={modalType} />
+          <ProfileFollowModal
+            modalType={modalType}
+            userName={userDetail.nickname}
+          />
         </ModalWrapper>
       ) : null}
       <div className={cx('container')}>
