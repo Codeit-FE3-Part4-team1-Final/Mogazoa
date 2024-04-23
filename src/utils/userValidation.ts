@@ -37,14 +37,14 @@ export const checkNewPassword = (
   return '';
 };
 
-export const checkPasswordConfirmed = (
+export const checkPasswordConfirmation = (
   password: string,
-  passwordConfirmed: string,
+  passwordConfirmation: string,
 ): string => {
-  if (passwordConfirmed === '') {
+  if (passwordConfirmation === '') {
     return '비밀번호를 입력해주세요!';
   }
-  if (password !== passwordConfirmed) {
+  if (password !== passwordConfirmation) {
     return '비밀번호가 일치하지 않습니다.';
   }
   return '';

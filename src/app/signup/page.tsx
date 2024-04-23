@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, ChangeEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import classNames from 'classnames/bind';
 import PasswordInput from '@/components/Input/PasswordInput';
 import UserInfoInput from '@/components/Input/UserInfoInput';
@@ -8,10 +9,11 @@ import styles from './signup.module.scss';
 import Button from '@/components/Button';
 import {
   checkNickname,
-  checkPasswordConfirmed,
+  checkPasswordConfirmation,
   checkSignEmail,
   checkSignPassword,
 } from '@/utils/userValidation';
+import { signUpUser } from '@/apis/postUserInfo';
 
 const cx = classNames.bind(styles);
 
@@ -19,30 +21,32 @@ interface FormValues {
   email: string;
   nickname: string;
   password: string;
-  passwordConfirmed: string;
+  passwordConfirmation: string;
 }
 
 interface Errors {
   emailError: string;
   nicknameError: string;
   passwordError: string;
-  passwordConfirmedError: string;
+  passwordConfirmationError: string;
 }
 
 type ValidateFunction = (...args: string[]) => string;
 
 export default function SignUpPage() {
+  const router = useRouter();
+
   const [formValues, setFormValues] = useState<FormValues>({
     email: '',
     nickname: '',
     password: '',
-    passwordConfirmed: '',
+    passwordConfirmation: '',
   });
   const [errors, setErrors] = useState<Errors>({
     emailError: '',
     nicknameError: '',
     passwordError: '',
-    passwordConfirmedError: '',
+    passwordConfirmationError: '',
   });
 
   const handleBlur = (
@@ -65,15 +69,23 @@ export default function SignUpPage() {
     e: React.FormEvent<HTMLFormElement>,
   ): Promise<void> => {
     e.preventDefault();
-    const message = checkPasswordConfirmed(
+    const message = checkPasswordConfirmation(
       formValues.password,
-      formValues.passwordConfirmed,
+      formValues.passwordConfirmation,
     );
     if (message !== '') {
       setErrors((prev) => ({ ...prev, passwordConfirmedError: message }));
       return;
     }
-    console.log('미완');
+
+    const result = await signUpUser({ data: formValues });
+
+    if (result.success === true) {
+      router.push('/signin');
+    } else {
+      // todo(송상훈):회원가입 실패했을때 error 사용해서 로직 처리할것
+      console.log(result.error);
+    }
   };
 
   return (
@@ -119,17 +131,17 @@ export default function SignUpPage() {
           />
           <PasswordInput
             labelName='비밀번호 확인'
-            error={errors.passwordConfirmedError}
-            value={formValues.passwordConfirmed}
+            error={errors.passwordConfirmationError}
+            value={formValues.passwordConfirmation}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              onChange('passwordConfirmed', e.target.value)
+              onChange('passwordConfirmation', e.target.value)
             }
             onBlur={() =>
               handleBlur(
-                checkPasswordConfirmed,
-                'passwordConfirmedError',
+                checkPasswordConfirmation,
+                'passwordConfirmationError',
                 formValues.password,
-                formValues.passwordConfirmed,
+                formValues.passwordConfirmation,
               )
             }
           />

@@ -1,8 +1,17 @@
+/* eslint-disable*/
+
+import Link from 'next/link';
 import Image from 'next/image';
 import styles from './NavigationBar.module.scss';
+import { cookies } from 'next/headers';
 
-// Todo(송상훈) : UI만 그려놓음, 로그인 기능 후 로직 완성 예정
+// Todo(송상훈)
 export default function NavigationBar() {
+  const cookieStore = cookies();
+  const theme = cookieStore.get('accessToken');
+
+  const isLoggedIn = !!theme;
+
   return (
     <div className={styles.container}>
       <div className={styles['menu-icon']}>
@@ -30,8 +39,25 @@ export default function NavigationBar() {
           />
         </div>
         <div className={styles['navigation-user-menu']}>
-          <p>로그인</p>
-          <p>회원가입</p>
+          {isLoggedIn ? (
+            <>
+              <Link href='/compare'>
+                <button className={styles.button}>비교하기</button>
+              </Link>
+              <Link href='/mypage'>
+                <button className={styles.button}>내프로필</button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link href='/signin'>
+                <button className={styles.button}>로그인</button>
+              </Link>
+              <Link href='/signup'>
+                <button className={styles.button}>회원가입</button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

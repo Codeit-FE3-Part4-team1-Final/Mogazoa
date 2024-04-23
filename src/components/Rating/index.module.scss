@@ -1,0 +1,14 @@
+@import '@/styles/main';
+
+.container {
+  @include flexbox(center, center);
+  position: relative;
+  gap: 10px;
+
+  img {
+    @include mobile {
+      height: 12px;
+      width: 12px;
+    }
+  }
+}

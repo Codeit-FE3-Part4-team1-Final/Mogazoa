@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, FormEvent, ChangeEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import PasswordInput from '@/components/Input/PasswordInput';
@@ -8,24 +9,34 @@ import UserInfoInput from '@/components/Input/UserInfoInput';
 import styles from './signin.module.scss';
 import Button from '@/components/Button';
 import { checkSignEmail, checkSignPassword } from '@/utils/userValidation';
-import signInUser from '@/apis/postUserInfo';
+import { signInUser } from '@/apis/postUserInfo';
 
 const cx = classNames.bind(styles);
 
 export default function SignInPage() {
+  const router = useRouter();
+
   const [email, setEmail] = useState<string>('');
   const [emailError, setEmailError] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordError, setPasswordError] = useState<string>('');
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const emailErrorMessage = checkSignEmail(email);
     const passwordErrorMessage = checkSignPassword(password);
     setEmailError(emailErrorMessage);
     setPasswordError(passwordErrorMessage);
 
-    signInUser({ data: { email, password } });
+    const result = await signInUser({ data: { email, password } });
+
+    if (result.success === true && result.accessToken) {
+      localStorage.setItem('accessToken', result.accessToken);
+      router.push('/');
+    } else {
+      // todo(송상훈):로그인 실패했을때 error 사용해서 로직 처리할것
+      console.log(result.error);
+    }
   };
 
   const handleEmailBlur = () => {

@@ -1,0 +1,18 @@
+@import '@/styles/main';
+@import '@/styles/layouts/grids';
+
+.card-container {
+  @include flexbox(between, center);
+  padding: 10px;
+  gap: 10px;
+
+  @include tablet {
+    padding: 0;
+    width: 100%;
+  }
+
+  @include mobile {
+    @include column-flexbox;
+    gap: 10px;
+  }
+}

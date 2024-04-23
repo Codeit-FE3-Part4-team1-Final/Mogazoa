@@ -1,7 +1,19 @@
-/* eslint-disable */
-
-import { RequestMethodInterface } from '@/types/types';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import {
+  CreateProductRequestBody,
+  CreateReviewRequestBody,
+  FollowRequestBody,
+  RequestMethodInterface,
+  SignInRequestBody,
+  SignInWithOauthRequestBody,
+  SignUpRequestBody,
+  SignUpWithOauthRequestBody,
+  UpdateProductRequestBody,
+  UpdateReviewRequestBody,
+  UpdateUserRequestBody,
+  UpsertOauthAppRequestBody,
+  UrlType,
+} from '@/types/types';
 
 const axiosInstance = axios.create({
   baseURL: 'https://mogazoa-api.vercel.app/3-1/',
@@ -14,6 +26,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
+    if (typeof localStorage === 'undefined') {
+      return config;
+    }
+
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
       // eslint-disable-next-line no-param-reassign
@@ -37,16 +53,28 @@ axiosInstance.interceptors.response.use(
 
 export default axiosInstance;
 
-export const axiosGet = async (url: string) => {
+export const axiosGet = async (url: UrlType) => {
   try {
     const { data } = await axiosInstance.get(url);
     return data;
-  } catch (e: any) {
-    return e.response;
+  } catch (e) {
+    const error = e as AxiosError;
+    return error.response;
   }
 };
 
-export const axiosPostJson = async (url: string, body: any) => {
+export const axiosPostJson = async (
+  url: UrlType,
+  body:
+    | CreateReviewRequestBody
+    | CreateProductRequestBody
+    | UpsertOauthAppRequestBody
+    | FollowRequestBody
+    | SignUpRequestBody
+    | SignInRequestBody
+    | SignInWithOauthRequestBody
+    | SignUpWithOauthRequestBody,
+) => {
   try {
     const { data } = await axiosInstance.post(url, body, {
       headers: {
@@ -54,13 +82,14 @@ export const axiosPostJson = async (url: string, body: any) => {
       },
     });
     return data;
-  } catch (e: any) {
-    return e.response;
+  } catch (e) {
+    const error = e as AxiosError;
+    return error.response;
   }
 };
 
 // FormData를 사용하여 멀티파트 폼 데이터를 보내는 요청
-export const axiosPostFormData = async (url: string, body: any) => {
+export const axiosPostFormData = async (url: UrlType, body: FormData) => {
   try {
     const { data } = await axiosInstance.post(url, body, {
       headers: {
@@ -68,12 +97,19 @@ export const axiosPostFormData = async (url: string, body: any) => {
       },
     });
     return data;
-  } catch (e: any) {
-    return e.response;
+  } catch (e) {
+    const error = e as AxiosError;
+    return error.response;
   }
 };
 
-export const axiosPut = async (url: string, body: any) => {
+export const axiosPut = async (
+  url: UrlType,
+  body:
+    | UpdateUserRequestBody
+    | UpdateProductRequestBody
+    | UpdateReviewRequestBody,
+) => {
   try {
     const { data } = await axiosInstance.put(url, body, {
       headers: {
@@ -81,17 +117,20 @@ export const axiosPut = async (url: string, body: any) => {
       },
     });
     return data;
-  } catch (e: any) {
-    return e.response;
+  } catch (e) {
+    const error = e as AxiosError;
+    return error.response;
   }
 };
 
-export const axiosDelete = async (url: string) => {
+export const axiosDelete = async (url: UrlType, body?: FollowRequestBody) => {
   try {
-    const { data } = await axiosInstance.delete(url);
+    const config = body ? { data: body } : {};
+    const { data } = await axiosInstance.delete(url, config);
     return data;
-  } catch (e: any) {
-    return `api delete error : ${e}`;
+  } catch (e) {
+    const error = e as AxiosError;
+    return error.response;
   }
 };
 
@@ -101,6 +140,7 @@ export const requestMethod = async <T = unknown, U = unknown>({
   data,
   config,
 }: RequestMethodInterface<U>): Promise<T> => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const response: AxiosResponse<T> = await axiosInstance({
       method,
