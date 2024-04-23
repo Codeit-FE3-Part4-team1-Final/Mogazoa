@@ -1,16 +1,16 @@
 @import '/src/styles/main.scss';
 
 .wrapper {
-  @include column-flexbox($align: start);
+  @include column-flexbox($align: start, $justify: start);
   gap: 40px;
   width: 420px;
-  max-height: 560px;
+  height: 560px;
   @include tablet {
-    max-height: 500px;
+    height: 500px;
   }
   @include mobile {
     width: 295px;
-    max-height: 490px;
+    height: 490px;
     gap: 20px;
   }
 }
@@ -35,7 +35,7 @@
   @include column-flexbox($align: start, $justify: start);
   width: 100%;
   gap: 25px;
-  overflow-y: auto;
+  overflow-y: scroll;
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
