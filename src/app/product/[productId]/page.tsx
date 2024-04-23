@@ -1,10 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import Production from '@/components/Production';
 import ProductionStatics from '../../../components/ProductionStatics';
 import { ProductDetailType } from '@/types/types.ts';
 import ProductionReview from '@/components/ProductionReview';
 import cx from '@/app/product/[productId]/cx.ts';
+import DropDown from '@/components/DropDown';
 
 const productData: ProductDetailType = {
   id: 1,
@@ -30,8 +32,24 @@ const productData: ProductDetailType = {
     reviewCount: 100,
   },
 };
+interface MenuItem {
+  key: string;
+  label: string;
+}
+
+const menuItems: MenuItem[] = [
+  { key: 'recent', label: '최신순' },
+  { key: 'ratingDesc', label: '별점 높은순' },
+  { key: 'ratingAsc', label: '별점 낮은순' },
+  { key: 'likeCount', label: '좋아요순' },
+];
 
 export default function ProductPage() {
+  const [order, setOrder] = useState('recent');
+
+  const handleSelect = (newValue: string) => {
+    setOrder(newValue);
+  };
   return (
     <main>
       <section className={cx('section-container')}>
@@ -44,7 +62,14 @@ export default function ProductPage() {
       </section>
 
       <section className={cx('section-container')}>
-        <div className={cx('section-header')}>상품 리뷰</div>
+        <div className={cx('section-header')}>
+          상품 리뷰
+          <DropDown
+            buttonLabel={order}
+            dropItems={menuItems}
+            onSelect={handleSelect}
+          />
+        </div>
         <ProductionReview />
       </section>
     </main>

@@ -17,6 +17,7 @@
   }
 
   .section-header {
+    @include flexbox(between, center);
     color: $primary;
     padding: 30px 0;
     font-size: 20px;
