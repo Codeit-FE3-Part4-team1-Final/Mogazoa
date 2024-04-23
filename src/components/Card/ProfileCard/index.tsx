@@ -8,6 +8,7 @@ import Button from '@/components/Button';
 import { UserDetail } from '@/types/types';
 import ModalWrapper from '@/components/Modal/ModalWrapper';
 import { useModalStore } from '../../../../providers/ModalStoreProvider';
+import ProfileFollowModal from '@/components/Modal/ProfileFollowModal';
 
 const cx = classNames.bind(styles);
 
@@ -26,7 +27,7 @@ export default function ProfileCard({ userDetail }: Props) {
     <div className={cx('wrapper')}>
       {isOpened ? (
         <ModalWrapper>
-          {modalType === 'follower' ? '팔로워 목록' : '팔로잉 목록'}
+          <ProfileFollowModal modalType={modalType} />
         </ModalWrapper>
       ) : null}
       <div className={cx('container')}>
