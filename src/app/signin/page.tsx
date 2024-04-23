@@ -28,11 +28,14 @@ export default function SignInPage() {
     setEmailError(emailErrorMessage);
     setPasswordError(passwordErrorMessage);
 
-    const success = await signInUser({ data: { email, password } });
-    if (success) {
+    const result = await signInUser({ data: { email, password } });
+
+    if (result.success === true && result.accessToken) {
+      localStorage.setItem('accessToken', result.accessToken);
       router.push('/');
     } else {
-      console.log('로그인실패');
+      // todo(송상훈):로그인 실패했을때 error 사용해서 로직 처리할것
+      console.log(result.error);
     }
   };
 

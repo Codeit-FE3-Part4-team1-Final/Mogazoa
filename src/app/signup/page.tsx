@@ -78,11 +78,13 @@ export default function SignUpPage() {
       return;
     }
 
-    const success = await signUpUser({ data: formValues });
-    if (success) {
-      router.push('/');
+    const result = await signUpUser({ data: formValues });
+
+    if (result.success === true) {
+      router.push('/signin');
     } else {
-      console.log('회원가입 실패');
+      // todo(송상훈):회원가입 실패했을때 error 사용해서 로직 처리할것
+      console.log(result.error);
     }
   };
 

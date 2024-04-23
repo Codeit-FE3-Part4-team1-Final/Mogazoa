@@ -26,6 +26,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
+    if (typeof localStorage === 'undefined') {
+      return config;
+    }
+
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
       // eslint-disable-next-line no-param-reassign

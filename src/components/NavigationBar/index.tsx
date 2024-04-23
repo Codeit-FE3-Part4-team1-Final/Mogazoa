@@ -5,11 +5,10 @@ import Image from 'next/image';
 import styles from './NavigationBar.module.scss';
 import { cookies } from 'next/headers';
 
-// Todo(송상훈) : UI만 그려놓음, 로그인 기능 후 로직 완성 예정
+// Todo(송상훈)
 export default function NavigationBar() {
   const cookieStore = cookies();
   const theme = cookieStore.get('accessToken');
-  console.log(theme);
 
   const isLoggedIn = !!theme;
 
