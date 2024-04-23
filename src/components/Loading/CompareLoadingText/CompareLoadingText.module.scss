@@ -1,0 +1,102 @@
+.container {
+  text-align: center;
+  vertical-align: middle;
+  text-shadow: grey 1px 1px 1px;
+  font-size: 52px;
+}
+
+.text-container {
+  float: left;
+  width: 35px;
+  height: 60px;
+  position: relative;
+  animation: flip 2s infinite;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.text-container:nth-child(1) {
+  width: 60px;
+}
+
+.text-container div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform: translate(0);
+  backface-visibility: hidden;
+  animation: color 8s infinite;
+}
+
+.text-container div.text {
+  transform: rotateY(180deg);
+}
+
+.text-container:nth-child(1),
+.text-container:nth-child(1) div {
+  animation-delay: 0.125s;
+}
+.text-container:nth-child(2),
+.text-container:nth-child(2) div {
+  animation-delay: 0.25s;
+}
+.text-container:nth-child(3),
+.text-container:nth-child(3) div {
+  animation-delay: 0.375s;
+}
+.text-container:nth-child(4),
+.text-container:nth-child(4) div {
+  animation-delay: 0.5s;
+}
+.text-container:nth-child(5),
+.text-container:nth-child(5) div {
+  animation-delay: 0.625s;
+}
+.text-container:nth-child(6),
+.text-container:nth-child(6) div {
+  animation-delay: 0.75s;
+}
+.text-container:nth-child(7),
+.text-container:nth-child(7) div {
+  animation-delay: 0.875s;
+}
+.text-container:nth-child(8),
+.text-container:nth-child(8) div {
+  animation-delay: 1s;
+}
+.text-container:nth-child(9),
+.text-container:nth-child(9) div {
+  animation-delay: 1.125s;
+}
+.text-container:nth-child(10),
+.text-container:nth-child(10) div {
+  animation-delay: 1.25s;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateY(0deg) translate(0);
+  }
+  40%,
+  100% {
+    transform: rotateY(180deg) translate(0);
+  }
+}
+
+@keyframes color {
+  0% {
+    color: #88e488;
+  }
+  25% {
+    color: #eeadb7;
+  }
+  50% {
+    color: #90c9db;
+  }
+  75% {
+    color: #f3b034;
+  }
+  100% {
+    color: #828282;
+  }
+}
