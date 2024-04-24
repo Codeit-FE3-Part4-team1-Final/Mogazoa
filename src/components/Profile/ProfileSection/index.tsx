@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import ProfileProductPanel from '@/components/ProfileProductPanel';
+import ProfileProductPanel from '@/components/Profile/ProfileProductPanel';
 import ActivityDetail from '@/components/ActivityDetail';
 import ProfileCard from '@/components/Card/ProfileCard';
 import styles from './ProfileSection.module.scss';
@@ -18,7 +18,7 @@ export default async function ProfileSection({ userId }: Props) {
     <main className={cx('wrapper')}>
       <section className={cx('container')}>
         <div className={cx('profile-section')}>
-          <ProfileCard userDetail={userDetail} />
+          <ProfileCard userDetail={userDetail} userId={userId} />
         </div>
         <section className={cx('activity-section')}>
           <ActivityDetail userDetail={userDetail} />
