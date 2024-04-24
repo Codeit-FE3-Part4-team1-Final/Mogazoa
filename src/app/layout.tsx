@@ -3,6 +3,7 @@ import '../styles/globals.scss';
 import ReactQueryProvider from '../../providers/ReactQueryProvider';
 import NavigationBar from '@/components/NavigationBar';
 import { ModalStoreProvider } from '../../providers/ModalStoreProvider';
+import ProgressBar from '@/components/Loading/Nprogress';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body>
+        <ProgressBar />
         <ReactQueryProvider>
           <ModalStoreProvider>
             <NavigationBar />
