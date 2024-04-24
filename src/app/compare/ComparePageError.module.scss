@@ -2,7 +2,7 @@
 
 .container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   top: 0;
   position: relative;
 
@@ -30,7 +30,7 @@
         align-items: center;
         padding: 10px 16px;
         border-radius: 20px;
-        background: $secondary;
+        background: $main_gradient;
         color: $white;
         cursor: pointer;
       }
