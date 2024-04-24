@@ -28,27 +28,29 @@ export default function ProfileFollowModal({
       <span className={cx('category')}>
         {userName}님{modalType === 'followers' ? '을' : '이'} 팔로우하는 유저
       </span>
-      {data?.list.map((user: FollowerList | FolloweeList) => {
-        if ('follower' in user) {
-          return (
-            <FollowUserList
-              user={user.follower}
-              modalType={modalType}
-              key={user.id}
-            />
-          );
-        }
-        if ('followee' in user) {
-          return (
-            <FollowUserList
-              user={user.followee}
-              modalType={modalType}
-              key={user.id}
-            />
-          );
-        }
-        return null;
-      })}
+      <div className={cx('user-list')}>
+        {data?.list.map((user: FollowerList | FolloweeList) => {
+          if ('follower' in user) {
+            return (
+              <FollowUserList
+                user={user.follower}
+                modalType={modalType}
+                key={user.id}
+              />
+            );
+          }
+          if ('followee' in user) {
+            return (
+              <FollowUserList
+                user={user.followee}
+                modalType={modalType}
+                key={user.id}
+              />
+            );
+          }
+          return null;
+        })}
+      </div>
     </div>
   );
 }

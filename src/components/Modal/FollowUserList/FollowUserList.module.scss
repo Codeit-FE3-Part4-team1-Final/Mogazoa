@@ -1,22 +1,5 @@
 @import '/src/styles/main.scss';
 
-.user-list {
-  @include column-flexbox($align: start, $justify: start);
-  width: 100%;
-  gap: 25px;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  @include tablet {
-    gap: 20px;
-  }
-  @include mobile {
-    gap: 20px;
-  }
-}
-
 .user-information {
   @include flexbox;
   gap: 20px;

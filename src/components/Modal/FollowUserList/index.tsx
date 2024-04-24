@@ -13,21 +13,19 @@ interface Props {
 
 export default function FollowUserList({ user }: Props) {
   return (
-    <div className={cx('user-list')}>
-      <div className={cx('user-information')}>
-        <Image
-          src={user.image || '/images/profile-image.png'}
-          alt='user-image'
-          width={52}
-          height={52}
-          className={cx('user-image')}
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = '/images/profile-image.png';
-          }}
-        />
-        <span className={cx('user-name')}>{user.nickname}</span>
-      </div>
+    <div className={cx('user-information')}>
+      <Image
+        src={user.image || '/images/profile-image.png'}
+        alt='user-image'
+        width={52}
+        height={52}
+        className={cx('user-image')}
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.src = '/images/profile-image.png';
+        }}
+      />
+      <span className={cx('user-name')}>{user.nickname}</span>
     </div>
   );
 }

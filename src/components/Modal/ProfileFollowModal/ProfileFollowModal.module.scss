@@ -20,6 +20,7 @@
   font-size: 24px;
   font-weight: 600;
   padding-right: 76px;
+  word-break: keep-all;
   @include tablet {
     font-size: 20px;
     line-height: 28px;
@@ -28,5 +29,22 @@
     font-size: 20px;
     line-height: 28px;
     padding-right: 8px;
+  }
+}
+
+.user-list {
+  @include column-flexbox($align: start, $justify: start);
+  width: 100%;
+  gap: 25px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  @include tablet {
+    gap: 20px;
+  }
+  @include mobile {
+    gap: 20px;
   }
 }
