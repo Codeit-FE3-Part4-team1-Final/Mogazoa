@@ -14,7 +14,7 @@ interface CompareModalInterface {
   product: string;
   productId: number;
   compareModalType: CompareModalType;
-  isSelected: boolean;
+  isSelected?: boolean;
   handleOpen: (value: boolean) => void;
 }
 

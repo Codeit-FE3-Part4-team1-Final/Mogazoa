@@ -4,6 +4,7 @@ import cx from '@/components/Production/cx.ts';
 import CategoryChip from '@/components/Chip/CategoryChip';
 import Button from '@/components/Button';
 import { ProductDetailType } from '@/types/types.ts';
+import CompareModal from '../Modal/CompareModal';
 
 interface Props {
   productData: ProductDetailType;
@@ -13,7 +14,7 @@ type CompareModalType = 'subject' | 'object' | 'exist' | 'changed';
 
 export default function Production({ productData }: Readonly<Props>) {
   const { id, image, name, description } = productData;
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [modalType, setModalType] = useState<CompareModalType | null>(null);
 
   const handleClick = () => {
@@ -33,7 +34,7 @@ export default function Production({ productData }: Readonly<Props>) {
     } else {
       setModalType('changed');
     }
-    setModalOpen(true);
+    setIsOpen(true);
   };
 
   return (
@@ -74,10 +75,20 @@ export default function Production({ productData }: Readonly<Props>) {
             <Button category={'primary'}>리뷰 작성하기</Button>
           </div>
           <div className={cx('button-2')}>
-            <Button category={'secondary'}>비교하기</Button>
+            <Button category={'secondary'} onClick={handleClick}>
+              비교하기
+            </Button>
           </div>
         </div>
       </div>
+      {isOpen && (
+        <CompareModal
+          product={name}
+          productId={id}
+          compareModalType={modalType as CompareModalType}
+          handleOpen={setIsOpen}
+        />
+      )}
     </div>
   );
 }
