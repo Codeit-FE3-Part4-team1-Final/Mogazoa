@@ -25,11 +25,16 @@
 }
 
 .profile-section {
+  position: sticky;
+  z-index: 1;
+  top: 50px;
   align-self: start;
   @include tablet {
+    position: static;
     align-self: center;
   }
   @include mobile {
+    position: static;
     align-self: center;
   }
 }

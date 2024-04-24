@@ -1,4 +1,4 @@
-import ProfileSection from '@/components/ProfileSection';
+import ProfileSection from '@/components/Profile/ProfileSection';
 
 interface Props {
   params: { id: string };
