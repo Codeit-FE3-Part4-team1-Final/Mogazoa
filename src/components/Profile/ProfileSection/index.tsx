@@ -18,7 +18,7 @@ export default async function ProfileSection({ userId }: Props) {
     <main className={cx('wrapper')}>
       <section className={cx('container')}>
         <div className={cx('profile-section')}>
-          <ProfileCard userDetail={userDetail} />
+          <ProfileCard userDetail={userDetail} userId={userId} />
         </div>
         <section className={cx('activity-section')}>
           <ActivityDetail userDetail={userDetail} />

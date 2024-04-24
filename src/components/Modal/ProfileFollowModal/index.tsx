@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './ProfileFollowModal.module.scss';
 import {
   FollowerList,
-  FollweeList,
+  FolloweeList,
   Nickname,
   UserFolloweeList,
   UserFollowerList,
@@ -28,7 +28,7 @@ export default function ProfileFollowModal({
       <span className={cx('category')}>
         {userName}님{modalType === 'followers' ? '을' : '이'} 팔로우하는 유저
       </span>
-      {data?.list.map((user: FollowerList | FollweeList) => {
+      {data?.list.map((user: FollowerList | FolloweeList) => {
         if ('follower' in user) {
           return (
             <FollowUserList
