@@ -1,0 +1,20 @@
+@import '/src/styles/main.scss';
+
+.sideBar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sideBar-header {
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.sideBar-list {
+  display: flex;
+  margin: 24px 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: $tertiary;
+}

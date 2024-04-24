@@ -1,16 +1,14 @@
-/* eslint-disable*/
-
 import Link from 'next/link';
+import { cookies } from 'next/headers';
 import Image from 'next/image';
 import styles from './NavigationBar.module.scss';
-import { cookies } from 'next/headers';
 
 // Todo(송상훈)
 export default function NavigationBar() {
   const cookieStore = cookies();
-  const theme = cookieStore.get('accessToken');
+  const accessToken = cookieStore.get('accessToken');
 
-  const isLoggedIn = !!theme;
+  const isLoggedIn = !!accessToken;
 
   return (
     <div className={styles.container}>

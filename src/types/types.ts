@@ -10,8 +10,7 @@ export type ProductCategory =
   | '전자기기'
   | '화장품'
   | '의류/악세서리'
-  | '앱'
-  | '없음';
+  | '앱';
 
 /**
  *  example: 1
