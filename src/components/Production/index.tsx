@@ -5,6 +5,7 @@ import CategoryChip from '@/components/Chip/CategoryChip';
 import Button from '@/components/Button';
 import { ProductDetailType } from '@/types/types.ts';
 import CompareModal from '../Modal/CompareModal';
+import ModalWrapper from '../Modal/ModalWrapper';
 
 interface Props {
   productData: ProductDetailType;
@@ -82,12 +83,14 @@ export default function Production({ productData }: Readonly<Props>) {
         </div>
       </div>
       {isOpen && (
-        <CompareModal
-          product={name}
-          productId={id}
-          compareModalType={modalType as CompareModalType}
-          handleOpen={setIsOpen}
-        />
+        <ModalWrapper>
+          <CompareModal
+            product={name}
+            productId={id}
+            compareModalType={modalType as CompareModalType}
+            handleOpen={setIsOpen}
+          />
+        </ModalWrapper>
       )}
     </div>
   );
