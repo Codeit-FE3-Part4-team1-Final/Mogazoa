@@ -1,19 +1,13 @@
 'use client';
 
-import { useLayoutEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import styles from './ProfileCard.module.scss';
 import Button from '@/components/Button';
-import { UserDetail, UserFolloweeList, UserFollowerList } from '@/types/types';
+import { UserDetail } from '@/types/types';
 import ModalWrapper from '@/components/Modal/ModalWrapper';
-import { useModalStore } from '../../../../providers/ModalStoreProvider';
 import ProfileFollowModal from '@/components/Modal/ProfileFollowModal';
-import {
-  getUserFolloweeList,
-  getUserFollowerList,
-} from '@/utils/getUserFollowList';
+import useUserFollowData from '@/hooks/useUserFollowData';
 
 const cx = classNames.bind(styles);
 
@@ -25,38 +19,8 @@ interface Props {
 export type ModalType = 'followers' | 'followees';
 
 export default function ProfileCard({ userDetail, userId }: Props) {
-  // TODO: 팔로워 or 팔로잉 목록 data react-query
-  const { isOpened, toggleModal } = useModalStore((state) => state);
-  const [modalType, setModalType] = useState<ModalType>('followers');
-  const [followData, setFollowData] = useState<
-    UserFollowerList | UserFolloweeList
-  >();
-
-  const { data: follower } = useQuery<UserFollowerList | UserFolloweeList>({
-    queryKey: ['user-follower-list', userId],
-    queryFn: () => getUserFollowerList(userId),
-    staleTime: 60 * 5 * 1000,
-  });
-  const { data: followee } = useQuery<UserFollowerList | UserFolloweeList>({
-    queryKey: ['user-followee-list', userId],
-    queryFn: () => getUserFolloweeList(userId),
-    staleTime: 60 * 5 * 1000,
-  });
-
-  const handleToggleModal = async (type: ModalType) => {
-    setModalType(type);
-
-    toggleModal();
-  };
-
-  useLayoutEffect(() => {
-    if (modalType === 'followers') {
-      setFollowData(follower);
-    }
-    if (modalType === 'followees') {
-      setFollowData(followee);
-    }
-  }, [modalType, follower, followee]);
+  const { isOpened, followData, modalType, handleToggleModal } =
+    useUserFollowData(userId);
 
   return (
     <div className={cx('wrapper')}>
