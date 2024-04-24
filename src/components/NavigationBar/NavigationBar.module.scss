@@ -1,21 +1,26 @@
 @import '/src/styles/main.scss';
 
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid $comp-bg-10;
+}
+
 .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  margin: 0 120px;
+  width: 1600px;
   height: 100px;
-  padding: 0 120px;
 
   @include tablet {
     height: 80px;
-    padding: 0 80px;
   }
 
   @include mobile {
     height: 70px;
-    padding: 0 20px;
   }
 }
 
@@ -92,4 +97,8 @@
   @include mobile {
     display: none;
   }
+}
+
+.button {
+  color: white;
 }

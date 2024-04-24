@@ -17,7 +17,7 @@ export default function ProductCard({ productItem }: Props) {
           <Image
             fill
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            src={'/images/product-example.png'}
+            src={productItem.image}
             alt='product-image'
             style={{ objectFit: 'contain' }}
           />
