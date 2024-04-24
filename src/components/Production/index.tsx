@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import cx from '@/components/Production/cx.ts';
 import CategoryChip from '@/components/Chip/CategoryChip';
 import Button from '@/components/Button';
@@ -11,7 +12,30 @@ interface Props {
 type CompareModalType = 'subject' | 'object' | 'exist' | 'changed';
 
 export default function Production({ productData }: Readonly<Props>) {
-  const { image, name, description } = productData;
+  const { id, image, name, description } = productData;
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalType, setModalType] = useState<CompareModalType | null>(null);
+
+  const handleClick = () => {
+    const subjectProductId = localStorage.getItem('subjectProductId');
+    const objectProductId = localStorage.getItem('objectProductId');
+
+    if (String(id) === subjectProductId || String(id) === objectProductId) {
+      setModalType('exist');
+    } else if (!subjectProductId) {
+      setModalType('subject');
+      localStorage.setItem('subjectProductId', String(id));
+      localStorage.setItem('subjectProduct', name);
+    } else if (!objectProductId) {
+      setModalType('object');
+      localStorage.setItem('obejctProductId', String(id));
+      localStorage.setItem('objectProduct', name);
+    } else {
+      setModalType('changed');
+    }
+    setModalOpen(true);
+  };
+
   return (
     <div className={cx('container')}>
       <div className={cx('image-wrap', 'col-sm-4', 'col-md-4', 'col-lg-4')}>
