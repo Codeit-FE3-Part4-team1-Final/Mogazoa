@@ -8,6 +8,8 @@ interface Props {
   productData: ProductDetailType;
 }
 
+type CompareModalType = 'subject' | 'object' | 'exist' | 'changed';
+
 export default function Production({ productData }: Readonly<Props>) {
   const { image, name, description } = productData;
   return (
