@@ -1,5 +1,16 @@
 @import '/src/styles/main.scss';
 
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+}
+
 .container {
   width: 500px;
   padding: 20px;
@@ -39,6 +50,29 @@
   @include mobile {
     font-size: 20px;
     line-height: 28px;
+  }
+}
+
+.close-container {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: -20px;
+  right: -20px;
+  cursor: pointer;
+
+  @include tablet {
+    width: 36px;
+    height: 36px;
+    top: -18px;
+    right: -18px;
+  }
+
+  @include mobile {
+    width: 24px;
+    height: 24px;
+    top: 0;
+    right: 0;
   }
 }
 

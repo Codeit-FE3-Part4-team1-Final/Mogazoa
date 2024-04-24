@@ -4,6 +4,7 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
+import Image from 'next/image';
 import styles from './CompareModal.module.scss';
 
 const cx = classNames.bind(styles);
@@ -84,70 +85,75 @@ export default function CompareModal({
 
   return (
     compareModalType && (
-      <div onClick={preventEventBubbling} className={cx('container')}>
-        <header className={cx('header')}>
-          <div className={cx('title')}>
-            {!isChanged ? (
-              <>
-                {message}
-                {compareModalType === 'changed' && (
-                  <>
-                    <br />
-                    {'어떤 상품과 비교할까요?'}
-                  </>
-                )}
-              </>
-            ) : (
-              <>
-                {'비교 상품이 교체되었습니다.'}
-                <br />
-                {'바로 확인해 보시겠어요?'}
-              </>
-            )}
-          </div>
-        </header>
-        {(compareModalType === 'subject' || compareModalType === 'exist') && (
-          <button onClick={handleClose} className={cx('button')}>
-            확인
-          </button>
-        )}
-        {compareModalType === 'object' && (
-          <Link href={'/compare'}>
-            <button onClick={handleClose} className={cx('button')}>
-              비교하기
-            </button>
-          </Link>
-        )}
-        {compareModalType === 'changed' && !isChanged && (
-          <>
-            <div className={cx('button-container')}>
-              <button
-                onClick={subjectSelected}
-                className={cx('button-product', isSelected ? 'selected' : '')}
-              >
-                {subjectProduct}
-              </button>
-              <button
-                onClick={objectSelected}
-                className={cx('button-product', isSelected ? 'selected' : '')}
-              >
-                {objectProduct}
-              </button>
+      <div onClick={handleClose} className={cx('background')}>
+        <div onClick={preventEventBubbling} className={cx('container')}>
+          <header className={cx('header')}>
+            <div className={cx('title')}>
+              {!isChanged ? (
+                <>
+                  {message}
+                  {compareModalType === 'changed' && (
+                    <>
+                      <br />
+                      {'어떤 상품과 비교할까요?'}
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  {'비교 상품이 교체되었습니다.'}
+                  <br />
+                  {'바로 확인해 보시겠어요?'}
+                </>
+              )}
             </div>
-            <button
-              disabled={!isSubjectSelected && !isObjectSelected}
-              onClick={handleChange}
-              className={cx('button')}
-            >
-              교체하기
+            <div onClick={handleClose} className={cx('close-container')}>
+              <Image fill src='/images/close-icon.svg' alt='닫기 아이콘' />
+            </div>
+          </header>
+          {(compareModalType === 'subject' || compareModalType === 'exist') && (
+            <button onClick={handleClose} className={cx('button')}>
+              확인
             </button>
-          </>
-        )}
-        {isChanged && (
-          <Link href={'/compare'}>
-            <button className={cx('button')}>바로가기</button>
-          </Link>
-        )}
+          )}
+          {compareModalType === 'object' && (
+            <Link href={'/compare'}>
+              <button onClick={handleClose} className={cx('button')}>
+                비교하기
+              </button>
+            </Link>
+          )}
+          {compareModalType === 'changed' && !isChanged && (
+            <>
+              <div className={cx('button-container')}>
+                <button
+                  onClick={subjectSelected}
+                  className={cx('button-product', isSelected ? 'selected' : '')}
+                >
+                  {subjectProduct}
+                </button>
+                <button
+                  onClick={objectSelected}
+                  className={cx('button-product', isSelected ? 'selected' : '')}
+                >
+                  {objectProduct}
+                </button>
+              </div>
+              <button
+                disabled={!isSubjectSelected && !isObjectSelected}
+                onClick={handleChange}
+                className={cx('button')}
+              >
+                교체하기
+              </button>
+            </>
+          )}
+          {isChanged && (
+            <Link href={'/compare'}>
+              <button className={cx('button')}>바로가기</button>
+            </Link>
+          )}
+        </div>
       </div>
     )
   );
