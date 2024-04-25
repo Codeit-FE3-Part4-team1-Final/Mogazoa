@@ -1,5 +1,12 @@
 @import '/src/styles/main.scss';
 
+.home-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .home-container {
   display: flex;
   gap: 25px;

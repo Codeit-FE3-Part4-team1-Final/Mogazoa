@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind';
 import SideBar from '@/components/SideBar';
 import styles from './page.module.scss';
+import ProductCard from '@/components/Card/ProductCard';
 import productItems from './test.ts';
-import ProductCard from '@/components/Card/ProductCard/index.tsx';
 
 export default function Home() {
   const cx = classNames.bind(styles);
