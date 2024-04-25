@@ -6,20 +6,32 @@ import styles from './ProfileCard.module.scss';
 import Button from '@/components/Button';
 import { UserDetail } from '@/types/types';
 import ModalWrapper from '@/components/Modal/ModalWrapper';
-import { useModalStore } from '../../../../providers/ModalStoreProvider';
+import ProfileFollowModal from '@/components/Modal/ProfileFollowModal';
+import useUserFollowData from '@/hooks/useUserFollowData';
 
 const cx = classNames.bind(styles);
 
 interface Props {
   userDetail: UserDetail;
+  userId: string;
 }
 
-export default function ProfileCard({ userDetail }: Props) {
-  const { isOpened, toggleModal } = useModalStore((state) => state);
+export type ModalType = 'followers' | 'followees';
+
+export default function ProfileCard({ userDetail, userId }: Props) {
+  const { isOpened, followData, modalType, handleToggleModal } =
+    useUserFollowData(userId);
+
   return (
     <div className={cx('wrapper')}>
       {isOpened ? (
-        <ModalWrapper>모달 모달 모달 모달 모달 모달 </ModalWrapper>
+        <ModalWrapper>
+          <ProfileFollowModal
+            data={followData}
+            modalType={modalType}
+            userName={userDetail.nickname}
+          />
+        </ModalWrapper>
       ) : null}
       <div className={cx('container')}>
         <Image
@@ -38,12 +50,18 @@ export default function ProfileCard({ userDetail }: Props) {
           <p className={cx('user-explain')}>{userDetail.description}</p>
         </div>
         <div className={cx('user-follow-box')}>
-          <div className={cx('follow')} onClick={toggleModal}>
+          <div
+            className={cx('follow')}
+            onClick={() => handleToggleModal('followers')}
+          >
             <span className={cx('count')}>{userDetail.followersCount}</span>
             <span className={cx('text')}>팔로워</span>
           </div>
           <hr className={cx('separator')} />
-          <div className={cx('follow')} onClick={toggleModal}>
+          <div
+            className={cx('follow')}
+            onClick={() => handleToggleModal('followees')}
+          >
             <span className={cx('count')}>{userDetail.followeesCount}</span>
             <span className={cx('text')}>팔로잉</span>
           </div>

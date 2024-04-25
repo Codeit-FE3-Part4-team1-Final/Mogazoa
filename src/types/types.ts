@@ -48,6 +48,26 @@ export interface User {
   id: Id;
 }
 
+export interface FolloweeList {
+  id: number;
+  followee: User;
+}
+
+export interface FollowerList {
+  id: number;
+  follower: User;
+}
+
+export interface UserFolloweeList {
+  nextCursor: number | null;
+  list: FolloweeList[];
+}
+
+export interface UserFollowerList {
+  nextCursor: number | null;
+  list: FollowerList[];
+}
+
 export interface UserDetail {
   updatedAt: string; // date-time
   createdAt: string; // date-time
@@ -160,7 +180,6 @@ export interface ProductDetailType {
   name: string;
   id: Id;
   categoryMetric: {
-    description: string;
     reviewCount: number;
     favoriteCount: number;
     rating: Rating;
