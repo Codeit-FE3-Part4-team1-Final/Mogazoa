@@ -11,8 +11,8 @@ export default async function MyProfilePage() {
     redirect('/signin');
   }
 
-  const userDetail: UserDetail = await getMyDetail(token.value);
-  const id = userDetail.id.toString();
+  const myDetail: UserDetail = await getMyDetail(token.value);
+  const id = myDetail.id.toString();
 
-  return <ProfileSection userId={id} userDetail={userDetail} />;
+  return <ProfileSection userId={id} userDetail={myDetail} />;
 }

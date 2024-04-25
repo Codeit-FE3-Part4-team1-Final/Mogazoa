@@ -9,6 +9,7 @@ import { UserDetail } from '@/types/types';
 import ModalWrapper from '@/components/Modal/ModalWrapper';
 import ProfileFollowModal from '@/components/Modal/ProfileFollowModal';
 import useUserFollowData from '@/hooks/useUserFollowData';
+import logout from '@/utils/logout';
 
 const cx = classNames.bind(styles);
 
@@ -72,7 +73,9 @@ export default function ProfileCard({ userDetail, userId }: Props) {
           {pathname === '/mypage' ? (
             <>
               <Button category='primary'>프로필 편집</Button>
-              <Button category='tertiary'>로그아웃</Button>
+              <Button category='tertiary' onClick={() => logout()}>
+                로그아웃
+              </Button>
             </>
           ) : (
             <Button category='primary'>팔로우</Button>

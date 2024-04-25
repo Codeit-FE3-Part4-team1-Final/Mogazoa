@@ -4,8 +4,7 @@ const getUserDetail = async (id: string) => {
     const result = await response.json();
     return result;
   } catch (error) {
-    console.log(error);
-    return null;
+    throw new Error('failed to get user data');
   }
 };
 
@@ -18,8 +17,7 @@ const getMyDetail = async (token: string) => {
     const result = await response.json();
     return result;
   } catch (error) {
-    console.log(error);
-    return null;
+    throw new Error('failed to get user data');
   }
 };
 
