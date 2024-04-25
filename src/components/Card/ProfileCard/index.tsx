@@ -27,6 +27,17 @@ export default function ProfileCard({ userDetail, userId }: Props) {
 
   return (
     <div className={cx('wrapper')}>
+      <Image
+        src={userDetail.image || '/images/profile-image.png'}
+        alt='profile-image'
+        width={180}
+        height={180}
+        className={cx('blur-image')}
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.src = '/images/profile-image.png';
+        }}
+      />
       {isOpened ? (
         <ModalWrapper>
           <ProfileFollowModal

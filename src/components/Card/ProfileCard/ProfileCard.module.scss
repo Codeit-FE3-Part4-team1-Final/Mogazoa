@@ -16,6 +16,28 @@
   }
 }
 
+.blur-image {
+  border-radius: 50%;
+  position: absolute;
+  z-index: 0;
+  top: -160px;
+  left: -300px;
+  width: 800px;
+  height: 800px;
+  opacity: 0.15;
+  filter: blur(100px);
+  @include tablet {
+    width: 580px;
+    height: 580px;
+    top: 0;
+    left: 0;
+  }
+  @include mobile {
+    width: 300px;
+    height: 300px;
+  }
+}
+
 .container {
   @include inline-flexbox;
   flex-direction: column;
@@ -95,6 +117,8 @@
 }
 
 .user-follow-box {
+  position: relative;
+  z-index: 1;
   @include flexbox($align: start);
   gap: 50px;
   @include tablet {
@@ -149,6 +173,8 @@
 }
 
 .button-box {
+  position: relative;
+  z-index: 1;
   @include column-flexbox;
   width: 100%;
   gap: 20px;
