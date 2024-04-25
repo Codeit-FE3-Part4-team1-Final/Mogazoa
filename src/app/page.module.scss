@@ -1,70 +1,59 @@
 @import '/src/styles/main.scss';
 
 .home-wrapper {
+  width: 100%;
   display: flex;
   justify-content: center;
-  width: 100%;
+  align-items: center;
 }
 
 .home-container {
   display: flex;
-  padding: 0 120px;
-  gap: 50px;
-  max-width: 1690px;
-  width: 100%;
+  gap: 15px;
+  width: 1300px;
+  margin: 0 120px;
 }
 
 .aside {
-  padding-top: 40px;
-  flex-shrink: 0;
-  height: 100%;
-  min-width: 160px;
+  width: 180px;
   border-right: 1px solid $comp-bg-10;
+  padding-top: 30px;
+  flex-shrink: 0;
 }
 
 .main {
-  padding-top: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-  overflow-x: auto;
+  flex-grow: 1;
+  background-color: gray;
+  padding-top: 30px;
+  max-width: 910px;
 }
 
 .hot-item-section {
-  display: flex;
-  flex-direction: column;
-  border-radius: 12px;
-  gap: 30px;
+  max-width: 910px;
+  background-color: beige;
 }
 
 .hot-item-header {
-  font-size: 20px;
-  font-weight: 500;
 }
 
 .hot-item-header-point {
-  color: transparent;
-  background: $main_gradient;
-  background-clip: text;
 }
 
 .hot-itemList {
+  max-width: 910px;
   display: flex;
-  overflow: auto; // 수정된 부분: scroll에서 auto로 변경하여 필요할 때만 스크롤바 표시
-  gap: 20px;
-  max-width: 100%; // 수정된 부분
-  white-space: nowrap; // 추가된 부분
+  gap: 10px;
+  background-color: red;
+  overflow-x: auto;
 }
 
 .hot-item {
   min-width: 250px;
-  display: inline-block; // 추가된 부분
 }
 
 .ranking-section {
-  padding-top: 40px;
-  flex-shrink: 0;
-  padding-left: 35px;
+  width: 180px;
   border-left: 1px solid $comp-bg-10;
-  width: 160px;
+  padding-top: 30px;
+  flex-shrink: 0;
 }

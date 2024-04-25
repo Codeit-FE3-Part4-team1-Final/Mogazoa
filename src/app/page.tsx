@@ -13,6 +13,7 @@ export default function Home() {
         <aside className={cx('aside')}>
           <SideBar />
         </aside>
+
         <main className={cx('main')}>
           <section className={cx('hot-item-section')}>
             <p className={cx('hot-item-header')}>
@@ -26,7 +27,7 @@ export default function Home() {
               ))}
             </div>
           </section>
-          <section className={cx('hot-item-section')}>
+          {/* <section className={cx('hot-item-section')}>
             <p className={cx('hot-item-header')}>
               별점 <span className={cx('hot-item-header-point')}>TOP</span> 상품
             </p>
@@ -49,7 +50,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </section>
+          </section> */}
         </main>
         <section className={cx('ranking-section')}>랭킹 정보 구역</section>
       </div>
