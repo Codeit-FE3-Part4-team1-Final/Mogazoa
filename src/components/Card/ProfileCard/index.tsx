@@ -2,6 +2,7 @@
 
 import classNames from 'classnames/bind';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import styles from './ProfileCard.module.scss';
 import Button from '@/components/Button';
 import { UserDetail } from '@/types/types';
@@ -19,6 +20,7 @@ interface Props {
 export type ModalType = 'followers' | 'followees';
 
 export default function ProfileCard({ userDetail, userId }: Props) {
+  const pathname = usePathname();
   const { isOpened, followData, modalType, handleToggleModal } =
     useUserFollowData(userId);
 
@@ -66,7 +68,16 @@ export default function ProfileCard({ userDetail, userId }: Props) {
             <span className={cx('text')}>팔로잉</span>
           </div>
         </div>
-        <Button category='primary'>팔로우</Button>
+        <div className={cx('button-box')}>
+          {pathname === '/mypage' ? (
+            <>
+              <Button category='primary'>프로필 편집</Button>
+              <Button category='tertiary'>로그아웃</Button>
+            </>
+          ) : (
+            <Button category='primary'>팔로우</Button>
+          )}
+        </div>
       </div>
     </div>
   );
