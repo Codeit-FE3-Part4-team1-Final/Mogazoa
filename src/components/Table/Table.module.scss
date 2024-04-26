@@ -53,13 +53,13 @@
     border-radius: 6px;
     background: conic-gradient(
         from var(--rotate) at 50% 50%,
-        #1d7afc 6%,
+        $green 6%,
         transparent 30%,
         transparent 70%,
-        #f8e6a0 90%,
-        #1d7afc 100%
+        $pink 90%,
+        $green 100%
       ),
-      #8bdbe5;
+      $tertiary;
     top: -5%;
     left: -2%;
     animation: spin 2s linear infinite;

@@ -1,5 +1,19 @@
 @import '/src/styles/main.scss';
 
+@keyframes weight {
+  from {
+    font-weight: 100;
+  }
+
+  50% {
+    font-weight: 900;
+  }
+
+  to {
+    font-weight: 100;
+  }
+}
+
 .title {
   width: 100%;
   text-align: center;
@@ -21,4 +35,7 @@
 
 .product {
   color: $main_blue;
+  text-decoration: none;
+  animation: weight 2s infinite;
+  animation-delay: calc(var(--char-index) * 150ms);
 }
