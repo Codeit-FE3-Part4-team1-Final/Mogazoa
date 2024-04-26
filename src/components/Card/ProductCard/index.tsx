@@ -47,7 +47,9 @@ export default function ProductCard({ productItem }: Props) {
                 height={16}
                 className={cx('star-icon')}
               />
-              <span className={cx('star-rating')}>{productItem.rating}</span>
+              <span className={cx('star-rating')}>
+                {Number(productItem.rating.toFixed(1))}
+              </span>
             </div>
           </div>
         </div>
