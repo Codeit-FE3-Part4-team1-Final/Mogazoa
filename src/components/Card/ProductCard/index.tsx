@@ -20,7 +20,11 @@ export default function ProductCard({ productItem }: Props) {
           <Image
             fill
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            src={productItem.image}
+            src={
+              productItem.image.includes('example')
+                ? '/images/profile-image.png'
+                : productItem.image
+            }
             alt='product-image'
             style={{ objectFit: 'contain' }}
             onError={(e) => handleErrorImage(e)}
