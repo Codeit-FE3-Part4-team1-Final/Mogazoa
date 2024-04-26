@@ -67,8 +67,9 @@
 
 .list-container {
   z-index: 1;
-  width: 360px;
+  width: 350px;
   display: none;
+  flex-direction: column;
   position: absolute;
   gap: 5px;
   padding: 10px;
