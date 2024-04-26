@@ -41,7 +41,7 @@ const useUserProductData = (userId: string) => {
     }
   }, [userProductCategory, reviewedProduct, createdProduct, favoriteProduct]);
 
-  return { productCardItem, handleClickTitle };
+  return { userProductCategory, productCardItem, handleClickTitle };
 };
 
 export default useUserProductData;

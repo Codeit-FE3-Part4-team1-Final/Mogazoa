@@ -19,25 +19,35 @@ export type UserProductCategory =
 export default function ProfileProductPanel({ userId }: Props) {
   // TODO(이시열): 모바일 사이즈 타이틀 드롭다운
   // react-query: 무한스크롤
-  const { productCardItem, handleClickTitle } = useUserProductData(userId);
+  const { userProductCategory, productCardItem, handleClickTitle } =
+    useUserProductData(userId);
 
   return (
     <section className={cx('wrapper')}>
       <span className={cx('title-container')}>
         <span
-          className={cx('title')}
+          className={cx(
+            'title',
+            userProductCategory === 'reviewed-products' ? 'selected' : '',
+          )}
           onClick={() => handleClickTitle('reviewed-products')}
         >
           리뷰 남긴 상품
         </span>
         <span
-          className={cx('title')}
+          className={cx(
+            'title',
+            userProductCategory === 'created-products' ? 'selected' : '',
+          )}
           onClick={() => handleClickTitle('created-products')}
         >
           등록한 상품
         </span>
         <span
-          className={cx('title')}
+          className={cx(
+            'title',
+            userProductCategory === 'favorite-products' ? 'selected' : '',
+          )}
           onClick={() => handleClickTitle('favorite-products')}
         >
           찜한 상품
