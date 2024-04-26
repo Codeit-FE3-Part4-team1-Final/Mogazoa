@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import classNames from 'classnames/bind';
 import styles from './ProductCard.module.scss';
 import { ProductListType } from '@/types/types';
@@ -14,7 +15,7 @@ interface Props {
 
 export default function ProductCard({ productItem }: Props) {
   return (
-    <div className={cx('wrapper')}>
+    <Link href={`/product/${productItem.id}`} className={cx('wrapper')}>
       <div className={cx('container')}>
         <div className={cx('product-thumbnail-box')}>
           <Image
@@ -62,6 +63,6 @@ export default function ProductCard({ productItem }: Props) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
