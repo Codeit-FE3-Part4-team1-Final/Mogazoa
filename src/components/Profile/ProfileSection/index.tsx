@@ -21,7 +21,7 @@ export default function ProfileSection({ userId, userDetail }: Props) {
         </div>
         <section className={cx('activity-section')}>
           <ActivityDetail userDetail={userDetail} />
-          <ProfileProductPanel />
+          <ProfileProductPanel userId={userId} />
         </section>
       </section>
     </main>

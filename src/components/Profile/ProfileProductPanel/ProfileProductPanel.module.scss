@@ -7,6 +7,8 @@
 }
 
 .title-container {
+  position: relative;
+  z-index: 1;
   @include flexbox;
   gap: 40px;
 }
@@ -15,44 +17,11 @@
   color: $tertiary;
   font-size: 20px;
   font-weight: 600;
+  cursor: pointer;
   @include tablet {
     font-size: 18px;
   }
   @include mobile {
     font-size: 18px;
-  }
-}
-
-.product-card-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
-  width: 100%;
-  justify-items: center;
-  @include tablet {
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-  }
-  @include mobile {
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-  }
-}
-
-// 임시 카드 컴포넌트 완성되면 삭제
-.product-card {
-  display: flex;
-  width: 100%;
-  max-width: 300px;
-  padding: 8px 8px 25px 8px;
-  height: 308px;
-  border-radius: 12px;
-  border: 1px solid var(--black-black_353542, #353542);
-  background: var(--black-black_252530, #252530);
-  @include tablet {
-    height: 256px;
-  }
-  @include mobile {
-    height: 183px;
   }
 }
