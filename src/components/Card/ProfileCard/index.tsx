@@ -10,6 +10,7 @@ import ModalWrapper from '@/components/Modal/ModalWrapper';
 import ProfileFollowModal from '@/components/Modal/ProfileFollowModal';
 import useUserFollowData from '@/hooks/useUserFollowData';
 import logout from '@/utils/logout';
+import handleErrorImage from '@/utils/handleErrorImage';
 
 const cx = classNames.bind(styles);
 
@@ -33,10 +34,7 @@ export default function ProfileCard({ userDetail, userId }: Props) {
         width={180}
         height={180}
         className={cx('blur-image')}
-        onError={(e) => {
-          const target = e.target as HTMLImageElement;
-          target.src = '/images/profile-image.png';
-        }}
+        onError={(e) => handleErrorImage(e)}
       />
       {isOpened ? (
         <ModalWrapper>
@@ -54,10 +52,7 @@ export default function ProfileCard({ userDetail, userId }: Props) {
           width={180}
           height={180}
           className={cx('profile-image')}
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = '/images/profile-image.png';
-          }}
+          onError={(e) => handleErrorImage(e)}
         />
         <div className={cx('user-information')}>
           <span className={cx('user-name')}>{userDetail.nickname}</span>

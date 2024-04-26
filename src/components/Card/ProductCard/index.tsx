@@ -1,7 +1,10 @@
+'use client';
+
 import Image from 'next/image';
 import classNames from 'classnames/bind';
 import styles from './ProductCard.module.scss';
 import { ProductListType } from '@/types/types';
+import handleErrorImage from '@/utils/handleErrorImage';
 
 const cx = classNames.bind(styles);
 
@@ -20,6 +23,7 @@ export default function ProductCard({ productItem }: Props) {
             src={productItem.image}
             alt='product-image'
             style={{ objectFit: 'contain' }}
+            onError={(e) => handleErrorImage(e)}
           />
         </div>
         <div className={cx('product-description')}>
