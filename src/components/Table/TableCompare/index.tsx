@@ -87,7 +87,7 @@ export default function TableCompare({
         <td className={cx('product-count')}>{SubjectProductFavorite}</td>
         <td className={cx('product-count')}>{ObjectProductFavorite}</td>
         {favorite === 1 ? (
-          <td className={cx('subejct-victory')}>상품 1 승리</td>
+          <td className={cx('subject-victory')}>상품 1 승리</td>
         ) : favorite === -1 ? (
           <td className={cx('object-victory')}>상품 2 승리</td>
         ) : (
@@ -99,7 +99,7 @@ export default function TableCompare({
         <td className={cx('product-count')}>{SubjectProductReview}</td>
         <td className={cx('product-count')}>{ObjectProductReview}</td>
         {review === 1 ? (
-          <td className={cx('subejct-victory')}>상품 1 승리</td>
+          <td className={cx('subject-victory')}>상품 1 승리</td>
         ) : review === -1 ? (
           <td className={cx('object-victory')}>상품 2 승리</td>
         ) : (
@@ -111,7 +111,7 @@ export default function TableCompare({
         <td className={cx('product-count')}>{SubjectProductRating}</td>
         <td className={cx('product-count')}>{ObjectProductRating}</td>
         {rating === 1 ? (
-          <td className={cx('subejct-victory')}>상품 1 승리</td>
+          <td className={cx('subject-victory')}>상품 1 승리</td>
         ) : rating === -1 ? (
           <td className={cx('object-victory')}>상품 2 승리</td>
         ) : (
