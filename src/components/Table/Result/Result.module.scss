@@ -37,5 +37,4 @@
   color: $main_blue;
   text-decoration: none;
   animation: weight 2s infinite;
-  animation-delay: calc(var(--char-index) * 150ms);
 }

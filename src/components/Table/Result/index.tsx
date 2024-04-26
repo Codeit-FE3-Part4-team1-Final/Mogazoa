@@ -13,10 +13,8 @@ export default function Result({ count, victoryProduct }: ResultInterface) {
     <div className={cx('title')}>무승부입니다!</div>
   ) : (
     <div className={cx('title')}>
-      <span data-splitting='chars' className={cx('product')}>
-        {victoryProduct}
-      </span>{' '}
-      상품이 승리하였습니다!
+      <span className={cx('product')}>{victoryProduct}</span> 상품이
+      승리하였습니다!
     </div>
   );
 }
