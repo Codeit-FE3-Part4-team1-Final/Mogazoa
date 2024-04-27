@@ -14,5 +14,12 @@ export default async function MyProfilePage() {
   const myDetail: UserDetail = await getMyDetail(token.value);
   const id = myDetail.id.toString();
 
-  return <ProfileSection userId={id} userDetail={myDetail} />;
+  return (
+    <ProfileSection
+      userId={id}
+      userDetail={myDetail}
+      isLoggedIn
+      token={token.value}
+    />
+  );
 }
