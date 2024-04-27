@@ -28,6 +28,7 @@
   height: 800px;
   opacity: 0.15;
   filter: blur(100px);
+  pointer-events: none;
   @include tablet {
     width: 580px;
     height: 580px;
@@ -70,6 +71,8 @@
 }
 
 .user-information {
+  position: relative;
+  z-index: 1;
   @include column-flexbox();
   width: 300px;
   gap: 20px;
