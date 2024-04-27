@@ -2,7 +2,6 @@
 
 import classNames from 'classnames/bind';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 import styles from './ProfileCard.module.scss';
 import Button from '@/components/Button';
 import { UserDetail } from '@/types/types';
@@ -17,14 +16,29 @@ const cx = classNames.bind(styles);
 interface Props {
   userDetail: UserDetail;
   userId: string;
+  isLoggedIn: boolean;
+  token: string;
 }
 
 export type ModalType = 'followers' | 'followees';
 
-export default function ProfileCard({ userDetail, userId }: Props) {
-  const pathname = usePathname();
-  const { isOpened, followData, modalType, handleToggleModal } =
-    useUserFollowData(userId);
+export default function ProfileCard({
+  userDetail,
+  userId,
+  isLoggedIn,
+  token,
+}: Props) {
+  const {
+    pathname,
+    followMutation,
+    unfollowMutation,
+    isOpened,
+    followData,
+    modalType,
+    handleToggleModal,
+    handleClickFollow,
+    handleClickUnFollow,
+  } = useUserFollowData(userId, token, isLoggedIn);
 
   return (
     <div className={cx('wrapper')}>
@@ -84,7 +98,17 @@ export default function ProfileCard({ userDetail, userId }: Props) {
               </Button>
             </>
           ) : (
-            <Button category='primary'>팔로우</Button>
+            <Button
+              category={userDetail.isFollowing ? 'tertiary' : 'primary'}
+              onClick={
+                userDetail.isFollowing
+                  ? (e) => handleClickUnFollow(e)
+                  : (e) => handleClickFollow(e)
+              }
+              disabled={followMutation.isPending || unfollowMutation.isPending}
+            >
+              {userDetail.isFollowing ? '팔로우 취소' : '팔로우'}
+            </Button>
           )}
         </div>
       </div>

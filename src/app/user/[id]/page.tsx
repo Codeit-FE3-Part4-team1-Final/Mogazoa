@@ -10,7 +10,7 @@ interface Props {
 
 export default async function UserProfilePage({ params: { id } }: Props) {
   const token = cookies().get('accessToken');
-  const userDetail: UserDetail = await getUserDetail(id);
+  const userDetail: UserDetail = await getUserDetail(id, token?.value);
 
   if (token) {
     const myDetail = await getMyDetail(token.value);
@@ -20,5 +20,12 @@ export default async function UserProfilePage({ params: { id } }: Props) {
     }
   }
 
-  return <ProfileSection userId={id} userDetail={userDetail} />;
+  return (
+    <ProfileSection
+      userId={id}
+      userDetail={userDetail}
+      isLoggedIn={!!token?.value}
+      token={token?.value || ''}
+    />
+  );
 }
