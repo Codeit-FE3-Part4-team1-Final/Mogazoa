@@ -10,6 +10,7 @@ import ProfileFollowModal from '@/components/Modal/ProfileFollowModal';
 import useUserFollowData from '@/hooks/useUserFollowData';
 import logout from '@/utils/logout';
 import handleErrorImage from '@/utils/handleErrorImage';
+import EditProfile from '@/components/Modal/EditProfile';
 
 const cx = classNames.bind(styles);
 
@@ -20,7 +21,7 @@ interface Props {
   token: string;
 }
 
-export type ModalType = 'followers' | 'followees';
+export type ModalType = 'followers' | 'followees' | 'edit';
 
 export default function ProfileCard({
   userDetail,
@@ -52,11 +53,15 @@ export default function ProfileCard({
       />
       {isOpened ? (
         <ModalWrapper>
-          <ProfileFollowModal
-            data={followData}
-            modalType={modalType}
-            userName={userDetail.nickname}
-          />
+          {modalType === 'edit' ? (
+            <EditProfile />
+          ) : (
+            <ProfileFollowModal
+              data={followData}
+              modalType={modalType}
+              userName={userDetail.nickname}
+            />
+          )}
         </ModalWrapper>
       ) : null}
       <div className={cx('container')}>
@@ -92,7 +97,12 @@ export default function ProfileCard({
         <div className={cx('button-box')}>
           {pathname === '/mypage' ? (
             <>
-              <Button category='primary'>프로필 편집</Button>
+              <Button
+                category='primary'
+                onClick={() => handleToggleModal('edit')}
+              >
+                프로필 편집
+              </Button>
               <Button category='tertiary' onClick={() => logout()}>
                 로그아웃
               </Button>
