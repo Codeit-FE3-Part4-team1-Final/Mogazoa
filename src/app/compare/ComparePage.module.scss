@@ -37,12 +37,19 @@
   gap: 10px;
   padding: 24px;
   border-radius: 8px;
-  background: $main_gradient;
+  background: $compare_gradient;
+  background-size: 400%;
+  background-position: 90% 0;
+  transition: background 0.8s;
   text-align: cetner;
   color: $primary;
   font-size: 18px;
   font-weight: 600;
   line-height: 20px;
+
+  &:hover {
+    background-position: 185% 50%;
+  }
 
   &:disabled {
     color: $tertiary;
