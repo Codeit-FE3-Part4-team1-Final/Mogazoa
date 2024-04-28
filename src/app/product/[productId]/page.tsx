@@ -1,37 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import Production from '@/components/Production';
 import ProductionStatics from '../../../components/ProductionStatics';
-import { ProductDetailType } from '@/types/types.ts';
 import ProductionReview from '@/components/ProductionReview';
 import cx from '@/app/product/[productId]/cx.ts';
 import DropDown from '@/components/DropDown';
+import { ProductDetailType } from '@/types/types.ts';
 
-const productData: ProductDetailType = {
-  id: 1,
-  name: '소니 블루투스 헤드셋 WH-CH720N',
-  description: '노이즈 캔슬링이 잘 되는 이어폰',
-  image:
-    'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MWP22?wid=1144&hei=1144&fmt=jpeg&qlt=80&.v=1591634795000',
-  rating: 4.6,
-  reviewCount: 90,
-  favoriteCount: 1000,
-  categoryId: 1,
-  createdAt: '2024-04-04T03:55:14.623Z',
-  updatedAt: '2024-04-04T03:55:14.623Z',
-  writerId: 1,
-  isFavorite: false,
-  category: {
-    id: 1,
-    name: '전자기기',
-  },
-  categoryMetric: {
-    rating: 4.5,
-    favoriteCount: 1000,
-    reviewCount: 100,
-  },
-};
 interface MenuItem {
   key: string;
   label: string;
@@ -44,12 +21,45 @@ const menuItems: MenuItem[] = [
   { key: 'likeCount', label: '좋아요순' },
 ];
 
-export default function ProductPage() {
+const fetchProductData = async (
+  productId: string,
+): Promise<ProductDetailType> => {
+  const response = await fetch(
+    `https://mogazoa-api.vercel.app/3-1/products/${productId}`,
+  );
+  if (!response.ok) {
+    throw new Error('Server error occurred');
+  }
+  return response.json();
+};
+
+export default function ProductPage({
+  params,
+}: Readonly<{
+  params: { productId: string };
+}>) {
   const [order, setOrder] = useState('recent');
+  const {
+    data: productData,
+    isLoading,
+    error,
+  } = useQuery<ProductDetailType, Error>({
+    queryKey: ['productData', params.productId],
+    queryFn: () => fetchProductData(params.productId),
+    staleTime: 1000 * 60 * 5,
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error || !productData) {
+    return <div>An error occurred</div>;
+  }
 
   const handleSelect = (newValue: string) => {
     setOrder(newValue);
   };
+
   return (
     <main>
       <section className={cx('section-container')}>
