@@ -13,9 +13,10 @@ const cx = classNames.bind(styles);
 
 interface Props {
   userDetail: UserDetail;
+  token: string;
 }
 
-export default function EditProfile({ userDetail }: Props) {
+export default function EditProfile({ userDetail, token }: Props) {
   const {
     userImage,
     userName,
@@ -29,7 +30,7 @@ export default function EditProfile({ userDetail }: Props) {
     register,
     handleSubmit,
     errors,
-  } = useEditProfile(userDetail);
+  } = useEditProfile(userDetail, token);
 
   return (
     <div className={cx('wrapper')}>

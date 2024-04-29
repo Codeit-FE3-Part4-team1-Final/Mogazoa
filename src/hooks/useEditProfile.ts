@@ -1,20 +1,27 @@
 import { ChangeEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { UserDetail } from '@/types/types';
+import uploadImage from '@/utils/uploadImage';
+import patchProfile from '@/utils/patchProfile';
+import { useModalStore } from '../../providers/ModalStoreProvider';
 
 interface Form {
   description: string | null;
   nickname: string;
-  image: string | null;
+  image: File | string | null;
 }
 
-const useEditProfile = (userDetail: UserDetail) => {
+const useEditProfile = (userDetail: UserDetail, token: string) => {
   const FILE_MAX_SIZE = 5 * 1024 * 1024;
   const [userImage, setUserImage] = useState(userDetail.image);
+  const [selectedImage, setSelectedImage] = useState<File>();
   const [userName, setUserName] = useState(userDetail.nickname);
   const [userDescription, setUserDescription] = useState(
     userDetail.description,
   );
+  const { toggleModal } = useModalStore((state) => state);
+  const router = useRouter();
 
   const {
     register,
@@ -37,10 +44,17 @@ const useEditProfile = (userDetail: UserDetail) => {
     setUserDescription(e.target.value);
   };
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file: File | null = event.target.files ? event.target.files[0] : null;
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files ? event.target.files[0] : null;
 
     if (!file) {
+      return;
+    }
+
+    const fileExtension = file.name.split('.').pop(); // 파일 확장자 추출
+
+    if (fileExtension === 'svg') {
+      alert('.svg 확장자는 업로드할 수 없습니다.');
       return;
     }
 
@@ -49,11 +63,8 @@ const useEditProfile = (userDetail: UserDetail) => {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-      setUserImage(e.target?.result as string);
-    };
-    reader.readAsDataURL(file);
+    setSelectedImage(file);
+    setUserImage(URL.createObjectURL(file));
   };
 
   const handleOnBlurUserName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -65,11 +76,29 @@ const useEditProfile = (userDetail: UserDetail) => {
   const resetFile = () => {
     reset({ image: null });
     setUserImage(null);
-    console.log(userImage);
   };
 
-  const onSubmit: SubmitHandler<Form> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Form> = async ({
+    description,
+    nickname,
+    image,
+  }) => {
+    try {
+      let body = { description, nickname, image };
+      if (image && selectedImage) {
+        const url = await uploadImage(selectedImage, token);
+        body = { ...body, image: url };
+        console.log(body);
+      }
+      const response = await patchProfile(body, token);
+      console.log(response);
+      if (response.ok) {
+        toggleModal();
+        router.refresh();
+      }
+    } catch (error) {
+      throw new Error('프로필 변경 실패');
+    }
   };
 
   return {
