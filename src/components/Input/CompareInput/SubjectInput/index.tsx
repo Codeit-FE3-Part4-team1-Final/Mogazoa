@@ -34,7 +34,7 @@ export default function SubjectInput({
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        handleClose();
+        setIsShow(false);
       }
     };
 
@@ -139,7 +139,7 @@ export default function SubjectInput({
         )}
       </div>
       {isShow && (
-        <ul className={cx('list-container')}>
+        <ul ref={dropdownRef} className={cx('list-container')}>
           {subjectData?.list?.map((values) => (
             <li
               key={values.id}
