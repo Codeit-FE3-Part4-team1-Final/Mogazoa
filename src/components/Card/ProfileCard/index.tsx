@@ -54,7 +54,7 @@ export default function ProfileCard({
       {isOpened ? (
         <ModalWrapper>
           {modalType === 'edit' ? (
-            <EditProfile />
+            <EditProfile userDetail={userDetail} />
           ) : (
             <ProfileFollowModal
               data={followData}

@@ -4,7 +4,12 @@ import styles from './ImageInput.module.scss';
 
 const cx = classNames.bind(styles);
 
-export default function ImageInput() {
+interface Props {
+  userImage: string | null;
+  handleSetUserImage: (e) => void;
+}
+
+export default function ImageInput({ userImage, handleSetUserImage }: Props) {
   return (
     <>
       <label className={cx('input-label')} htmlFor='profile-image'>
