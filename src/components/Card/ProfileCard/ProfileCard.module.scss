@@ -1,6 +1,8 @@
 @import '/src/styles/main.scss';
 
 .wrapper {
+  position: relative;
+  z-index: 2;
   width: 340px;
   border-radius: 12px;
   border: 1px solid $border;
@@ -16,8 +18,31 @@
   }
 }
 
+.blur-image {
+  border-radius: 50%;
+  position: absolute;
+  z-index: 0;
+  top: -160px;
+  left: -400px;
+  width: 800px;
+  height: 800px;
+  opacity: 0.15;
+  filter: blur(100px);
+  pointer-events: none;
+  @include tablet {
+    width: 580px;
+    height: 580px;
+    top: -40px;
+    left: -120px;
+  }
+  @include mobile {
+    width: 300px;
+    height: 300px;
+  }
+}
+
 .container {
-  @include inline-flexbox();
+  @include inline-flexbox;
   flex-direction: column;
   gap: 40px;
   @include tablet {
@@ -26,7 +51,7 @@
     flex-shrink: 0;
   }
   @include mobile {
-    @include column-flexbox();
+    @include column-flexbox;
     width: 295px;
     gap: 30px;
     flex-shrink: 0;
@@ -46,6 +71,8 @@
 }
 
 .user-information {
+  position: relative;
+  z-index: 1;
   @include column-flexbox();
   width: 300px;
   gap: 20px;
@@ -95,6 +122,8 @@
 }
 
 .user-follow-box {
+  position: relative;
+  z-index: 1;
   @include flexbox($align: start);
   gap: 50px;
   @include tablet {
@@ -106,7 +135,7 @@
 }
 
 .follow {
-  @include column-flexbox();
+  @include column-flexbox;
   gap: 10px;
   cursor: pointer;
 }
@@ -145,5 +174,19 @@
   }
   @include mobile {
     height: 48px;
+  }
+}
+
+.button-box {
+  position: relative;
+  z-index: 1;
+  @include column-flexbox;
+  width: 100%;
+  gap: 20px;
+  @include tablet {
+    gap: 15px;
+  }
+  @include mobile {
+    gap: 10px;
   }
 }
