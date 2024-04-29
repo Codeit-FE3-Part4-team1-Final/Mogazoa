@@ -5,6 +5,7 @@ import { UserDetail } from '@/types/types';
 import uploadImage from '@/utils/uploadImage';
 import patchProfile from '@/utils/patchProfile';
 import { useModalStore } from '../../providers/ModalStoreProvider';
+import generateRandomEnglishName from '@/utils/generateRandomEnglishName';
 
 interface Form {
   description: string | null;
@@ -63,8 +64,19 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
       return;
     }
 
-    setSelectedImage(file);
-    setUserImage(URL.createObjectURL(file));
+    // 이미지 업로드 시 파일이름 영어 & 숫자만 있어야 에러나지 않음
+    if (!/^[a-zA-Z0-9_\-.]+$/.test(file.name)) {
+      const randomEnglishName = generateRandomEnglishName();
+      const newFileName = `${randomEnglishName}.${fileExtension}`;
+
+      const renamedFile = new File([file], newFileName, { type: file.type });
+
+      setSelectedImage(renamedFile);
+      setUserImage(URL.createObjectURL(renamedFile));
+    } else {
+      setSelectedImage(file);
+      setUserImage(URL.createObjectURL(file));
+    }
   };
 
   const handleOnBlurUserName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -85,9 +97,15 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
   }) => {
     try {
       let body = { description, nickname, image };
+      if (!image && process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL) {
+        body = { ...body, image: process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL };
+      }
       if (image && selectedImage) {
         const url = await uploadImage(selectedImage, token);
         body = { ...body, image: url };
+      }
+      if (!selectedImage && userImage) {
+        body = { ...body, image: userImage };
       }
       const response = await patchProfile(body, token);
 
