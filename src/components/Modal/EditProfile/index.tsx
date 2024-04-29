@@ -32,6 +32,7 @@ export default function EditProfile({ userDetail }: Props) {
     register,
     handleSubmit,
     setError,
+    reset,
     formState: { errors },
   } = useForm<Form>({
     mode: 'onBlur',
@@ -73,6 +74,12 @@ export default function EditProfile({ userDetail }: Props) {
     }
   };
 
+  const resetFile = () => {
+    reset({ image: null });
+    setUserImage(null);
+    console.log(userImage);
+  };
+
   const onSubmit: SubmitHandler<Form> = (data) => {
     console.log(data);
   };
@@ -89,6 +96,7 @@ export default function EditProfile({ userDetail }: Props) {
           register={register('image', {
             onChange: handleFileChange,
           })}
+          resetFile={resetFile}
         />
         <TextFieldInput
           register={register('nickname', {

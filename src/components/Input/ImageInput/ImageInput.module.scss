@@ -1,5 +1,17 @@
 @import '/src/styles/main.scss';
 
+.wrapper {
+  position: relative;
+}
+
+.close-icon {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 1;
+  cursor: pointer;
+}
+
 .input-label {
   position: relative;
   overflow: hidden;
