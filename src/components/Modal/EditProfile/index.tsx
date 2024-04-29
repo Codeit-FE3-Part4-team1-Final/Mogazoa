@@ -1,7 +1,5 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import styles from './EditProfile.module.scss';
 import Button from '@/components/Button';
@@ -9,6 +7,7 @@ import TextFieldInput from '@/components/Input/TextFieldInput';
 import ImageInput from '@/components/Input/ImageInput';
 import TextBoxInput from '@/components/Input/TextBoxInput';
 import { UserDetail } from '@/types/types';
+import useEditProfile from '@/hooks/useEditProfile';
 
 const cx = classNames.bind(styles);
 
@@ -16,73 +15,21 @@ interface Props {
   userDetail: UserDetail;
 }
 
-interface Form {
-  description: string | null;
-  nickname: string;
-  image: string | null;
-}
-
 export default function EditProfile({ userDetail }: Props) {
-  const FILE_MAX_SIZE = 5 * 1024 * 1024;
-  const [userImage, setUserImage] = useState(userDetail.image);
-  const [userName, setUserName] = useState(userDetail.nickname);
-  const [description, setDescription] = useState(userDetail.description);
-
   const {
+    userImage,
+    userName,
+    userDescription,
+    handleChangeUserName,
+    handleChangeDescription,
+    handleFileChange,
+    handleOnBlurUserName,
+    resetFile,
+    onSubmit,
     register,
     handleSubmit,
-    setError,
-    reset,
-    formState: { errors },
-  } = useForm<Form>({
-    mode: 'onBlur',
-  });
-
-  const handleChangeUserName = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > 10) {
-      return;
-    }
-    setUserName(e.target.value);
-  };
-
-  const handleChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(e.target.value);
-  };
-
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file: File | null = event.target.files ? event.target.files[0] : null;
-
-    if (!file) {
-      return;
-    }
-
-    if (file?.size > FILE_MAX_SIZE) {
-      alert('파일의 용량은 최대 5MB 입니다.');
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-      setUserImage(e.target?.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleOnBlurUserName = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length === 0) {
-      setError('nickname', { message: '닉네임은 필수 입력입니다.' });
-    }
-  };
-
-  const resetFile = () => {
-    reset({ image: null });
-    setUserImage(null);
-    console.log(userImage);
-  };
-
-  const onSubmit: SubmitHandler<Form> = (data) => {
-    console.log(data);
-  };
+    errors,
+  } = useEditProfile(userDetail);
 
   return (
     <div className={cx('wrapper')}>
@@ -118,7 +65,7 @@ export default function EditProfile({ userDetail }: Props) {
             onChange: handleChangeDescription,
           })}
           placeholder='프로필 소개를 입력해 주세요.'
-          value={description}
+          value={userDescription}
         />
         <Button category='primary' type='submit'>
           저장하기
