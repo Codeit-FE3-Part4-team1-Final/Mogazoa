@@ -6,6 +6,7 @@ import styles from './EditProfile.module.scss';
 import Button from '@/components/Button';
 import TextFieldInput from '@/components/Input/TextFieldInput';
 import ImageInput from '@/components/Input/ImageInput';
+import TextBoxInput from '@/components/Input/TextBoxInput';
 
 const cx = classNames.bind(styles);
 
@@ -29,6 +30,7 @@ export default function EditProfile() {
           onChange={handleChangeUserName}
           placeholder='닉네임을 입력해 주세요'
         />
+        <TextBoxInput />
       </form>
       <Button category='primary'>저장하기</Button>
     </div>
