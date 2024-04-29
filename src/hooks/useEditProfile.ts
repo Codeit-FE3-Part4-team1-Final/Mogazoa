@@ -88,10 +88,9 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
       if (image && selectedImage) {
         const url = await uploadImage(selectedImage, token);
         body = { ...body, image: url };
-        console.log(body);
       }
       const response = await patchProfile(body, token);
-      console.log(response);
+
       if (response.ok) {
         toggleModal();
         router.refresh();

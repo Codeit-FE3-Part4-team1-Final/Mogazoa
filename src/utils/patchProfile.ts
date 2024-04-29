@@ -5,7 +5,6 @@ interface Props {
 }
 
 const patchProfile = async (body: Props, token: string) => {
-  console.log(body);
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL_HOST}/users/me`,
@@ -18,8 +17,8 @@ const patchProfile = async (body: Props, token: string) => {
         body: JSON.stringify(body),
       },
     );
-    const result = await response.json();
-    return result;
+
+    return response;
   } catch (error) {
     throw new Error('프로필 변경 실패');
   }
