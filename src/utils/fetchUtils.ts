@@ -16,7 +16,7 @@ import {
 } from '@/types/types';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://mogazoa-api.vercel.app/2-4/',
+  baseURL: 'https://mogazoa-api.vercel.app/3-1/',
   timeout: 5000,
   headers: {
     Accept: 'application/json',

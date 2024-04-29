@@ -1,35 +1,71 @@
+/* eslint-disable */
+
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import classNames from 'classnames/bind';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import SideBar from '@/components/SideBar';
 import styles from './page.module.scss';
-import ProductCard from '@/components/Card/ProductCard';
 import getProduct from '@/apis/getProduct.ts';
 import { Category } from '@/types/types';
+import HomeProductCard from '@/components/Card/HomeProductCard';
+import DropDown from '@/components/DropDown';
+
+interface MenuItem {
+  key: string;
+  label: string;
+}
 
 export default function Home() {
   const cx = classNames.bind(styles);
 
+  const [sortTitle, setSortTitle] = useState<string>('HOT');
+  const [selectedSort, setSelectedSort] = useState<string>('reviewCount');
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null,
   );
 
-  const { data: hotProducts } = useQuery({
-    queryKey: ['hotProducts'],
-    queryFn: () => getProduct({ order: 'reviewCount' }),
+  const { data: sortProducts } = useQuery({
+    queryKey: [`${selectedCategory?.name}${selectedSort}`],
+    queryFn: () =>
+      getProduct({ category: selectedCategory?.id, order: selectedSort }),
   });
 
-  const { data: topProducts } = useQuery({
-    queryKey: ['topProducts'],
-    queryFn: () => getProduct({ order: 'rating' }),
+  const { data: categoryProducts } = useQuery({
+    queryKey: [`${selectedCategory?.name}Product`],
+    queryFn: () => getProduct({ category: selectedCategory?.id }),
   });
 
-  const { data: newProducts } = useQuery({
-    queryKey: ['newProducts'],
-    queryFn: () => getProduct({ order: 'recent' }),
-  });
+  const handleSortChange = (sortType: string) => {
+    setSelectedSort(sortType);
+
+    if (sortType === 'recent') {
+      setSortTitle('NEW');
+    } else if (sortType === 'reviewCount') {
+      setSortTitle('HOT');
+    } else {
+      setSortTitle('TOP');
+    }
+  };
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4.3,
+    slidesToScroll: 1,
+    initialSlide: 0,
+  };
+
+  const menuItems: MenuItem[] = [
+    { key: 'reviewCount', label: '리뷰순' },
+    { key: 'rating', label: '별점순' },
+    { key: 'recent', label: '최신순' },
+  ];
 
   return (
     <div className={cx('home-wrapper')}>
@@ -39,46 +75,56 @@ export default function Home() {
         </aside>
         <main className={cx('main')}>
           {selectedCategory === null ? (
-            <div>
-              <section className={cx('item-section')}>
-                <p className={cx('item-header')}>
-                  지금 <span className={cx('item-header-point')}>HOT</span> 상품
-                </p>
-                <div className={cx('itemList')}>
-                  {hotProducts?.list.map((productItem) => (
-                    <div className={cx('item')} key={productItem.id}>
-                      <ProductCard productItem={productItem} />
-                    </div>
-                  ))}
-                </div>
-              </section>
-              <section className={cx('item-section')}>
-                <p className={cx('item-header')}>
-                  별점 <span className={cx('item-header-point')}>TOP</span> 상품
-                </p>
-                <div className={cx('itemList')}>
-                  {topProducts?.list?.map((productItem) => (
-                    <div className={cx('item')} key={productItem.id}>
-                      <ProductCard productItem={productItem} />
-                    </div>
-                  ))}
-                </div>
-              </section>
-              <section className={cx('item-section')}>
-                <p className={cx('item-header')}>
-                  <span className={cx('item-header-point')}>NEW </span>등록 상품
-                </p>
-                <div className={cx('itemList')}>
-                  {newProducts?.list?.map((productItem) => (
-                    <div className={cx('item')} key={productItem.id}>
-                      <ProductCard productItem={productItem} />
-                    </div>
-                  ))}
-                </div>
-              </section>
-            </div>
+            '바보'
           ) : (
-            <div>{selectedCategory.id}</div>
+            <>
+              <section className={cx('product-info')}>
+                <div className={cx('header')}>
+                  <p className={cx('title')}>
+                    <span className={cx('title-point')}>{sortTitle} </span>
+                    상품
+                  </p>
+                  <DropDown
+                    buttonLabel={selectedSort}
+                    dropItems={menuItems}
+                    onSelect={handleSortChange}
+                  />
+                </div>
+                {sortProducts?.list ? (
+                  <div className={cx('itemList')}>
+                    <Slider
+                      {...settings}
+                      key={selectedCategory ? selectedCategory.name : 'default'}
+                    >
+                      {sortProducts?.list.map((productItem) => (
+                        <HomeProductCard
+                          key={productItem.id}
+                          productItem={productItem}
+                        />
+                      ))}
+                    </Slider>
+                  </div>
+                ) : (
+                  <div>Loading...</div>
+                )}
+              </section>
+              <section className={cx('all-product')}>
+                <p className={cx('title')}>
+                  <span className={cx('title-point')}>
+                    {selectedCategory.name}{' '}
+                  </span>
+                  전체 상품
+                </p>
+                <div className={cx('product-list-grid')}>
+                  {categoryProducts?.list.map((productItem) => (
+                    <HomeProductCard
+                      key={productItem.id}
+                      productItem={productItem}
+                    />
+                  ))}
+                </div>
+              </section>
+            </>
           )}
         </main>
         <section className={cx('ranking-section')}>리뷰어 랭킹</section>

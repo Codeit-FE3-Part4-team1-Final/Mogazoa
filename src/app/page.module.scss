@@ -1,83 +1,53 @@
 @import '/src/styles/main.scss';
 
 .home-wrapper {
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  padding: 0 30px;
 }
 
 .home-container {
   display: flex;
-  gap: 25px;
-  max-width: 1460px;
-  width: 100%;
-
-  @include tablet {
-    display: grid;
-    grid-template-areas:
-      'sidebar ranking'
-      'sidebar main';
-  }
-
-  @include mobile {
-    display: flex;
-    flex-direction: column;
-  }
+  width: 1200px;
+  gap: 20px;
 }
 
 .sidebar {
   width: 180px;
-  border-right: 1px solid $comp-bg-10;
   padding-top: 30px;
   flex-shrink: 0;
-  margin-left: 80px;
-
-  @include laptop {
-    width: 130px;
-    margin-left: 60px;
-  }
-
-  @include tablet {
-    grid-area: sidebar;
-    width: 130px;
-  }
-
-  @include mobile {
-    display: none;
-  }
+  border-right: 1px solid $comp-bg-10;
 }
 
 .main {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  align-items: center;
   padding-top: 30px;
-  overflow-x: auto;
-
-  @include tablet {
-    grid-area: main;
-    margin-right: 60px;
-  }
-
-  @include mobile {
-    order: 2;
-    margin: 0 20px;
-  }
+  flex-shrink: 0;
+  width: 800px;
 }
 
-.item-section {
+.product-info {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.item-header {
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
   font-size: 20px;
   font-weight: 300;
 }
 
-.item-header-point {
+.title-point {
   color: transparent;
   background: $main_gradient;
   background-clip: text;
@@ -85,37 +55,24 @@
 }
 
 .itemList {
+  width: 700px;
+}
+
+.all-product {
   display: flex;
-  gap: 10px;
-  overflow-x: auto;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 100px;
+  width: 700px;
 }
-
-.item {
-  min-width: 250px;
-
-  @include laptop {
-    min-width: 200px;
-  }
+.product-list-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
 }
-
 .ranking-section {
   width: 180px;
-  border-left: 1px solid $comp-bg-10;
   padding-top: 30px;
   flex-shrink: 0;
-  margin-right: 80px;
-
-  @include laptop {
-    width: 130px;
-    margin-right: 60px;
-  }
-
-  @include tablet {
-    grid-area: ranking;
-    border: none;
-  }
-
-  @include mobile {
-    margin: 0 20px;
-  }
+  border-left: 1px solid $comp-bg-10;
 }
