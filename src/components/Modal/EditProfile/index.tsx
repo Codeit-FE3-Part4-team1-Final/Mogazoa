@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import styles from './EditProfile.module.scss';
 import Button from '@/components/Button';
 import TextFieldInput from '@/components/Input/TextFieldInput';
+import ImageInput from '@/components/Input/ImageInput';
 
 const cx = classNames.bind(styles);
 
@@ -21,7 +22,7 @@ export default function EditProfile() {
     <div className={cx('wrapper')}>
       <span className={cx('title')}>프로필 편집</span>
       <form className={cx('edit-profile-form')}>
-        <input type='file' />
+        <ImageInput />
         <TextFieldInput
           onBlur={handleOnBlur}
           value={userName}
