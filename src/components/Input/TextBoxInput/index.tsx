@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
-import { ChangeEvent, TextareaHTMLAttributes } from 'react';
+import { TextareaHTMLAttributes } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import styles from './TextBoxInput.module.scss';
 
 const cx = classNames.bind(styles);
@@ -7,16 +8,15 @@ const cx = classNames.bind(styles);
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   placeholder: string;
   value: string;
-  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   maxLength?: number;
+  register?: UseFormRegisterReturn;
 }
 
 export default function TextBoxInput({
   placeholder,
   value,
-  onChange,
-  onBlur,
   maxLength = 300,
+  register,
   ...rest
 }: Props) {
   return (
@@ -26,8 +26,8 @@ export default function TextBoxInput({
         className={cx('text-area')}
         id='text-area'
         placeholder={placeholder}
-        onChange={onChange}
         maxLength={maxLength}
+        {...register}
         {...rest}
       />
       <p className={cx('text-count')}>

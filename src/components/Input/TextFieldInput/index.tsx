@@ -1,28 +1,26 @@
-import { ChangeEvent, InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, ReactNode } from 'react';
 import classNames from 'classnames/bind';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import styles from './TextFieldInput.module.scss';
 
 const cx = classNames.bind(styles);
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  children?: ReactNode;
   value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  onBlur: () => void;
+  register?: UseFormRegisterReturn;
 }
 
 export default function TextFieldInput({
+  children,
   value,
-  onChange,
-  onBlur,
+  register,
   ...rest
 }: Props) {
   return (
-    <input
-      className={cx('input')}
-      value={value}
-      onBlur={onBlur}
-      onChange={onChange}
-      {...rest}
-    />
+    <div className={cx('wrapper')}>
+      <input className={cx('input')} value={value} {...register} {...rest} />
+      {children}
+    </div>
   );
 }
