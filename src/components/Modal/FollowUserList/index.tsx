@@ -19,14 +19,16 @@ export default function FollowUserList({ user }: Props) {
   return (
     <Link href={`/user/${user.id}`} onClick={toggleModal}>
       <div className={cx('user-information')}>
-        <Image
-          src={user.image || '/images/profile-image.png'}
-          alt='user-image'
-          width={52}
-          height={52}
-          className={cx('user-image')}
-          onError={(e) => handleErrorImage(e)}
-        />
+        <div className={cx('profile-image-box')}>
+          <Image
+            fill
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            src={user.image || '/images/profile-image.png'}
+            alt='user-image'
+            style={{ objectFit: 'cover' }}
+            onError={(e) => handleErrorImage(e)}
+          />
+        </div>
         <span className={cx('user-name')}>{user.nickname}</span>
       </div>
     </Link>
