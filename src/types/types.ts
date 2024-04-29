@@ -97,7 +97,7 @@ export interface UserRanking {
   teamId: string;
   image: string | null;
   description: string;
-  nickName: Nickname;
+  nickname: Nickname;
   id: Id;
   reviewCount: number;
   followersCount: number;

@@ -71,8 +71,24 @@
   gap: 25px;
 }
 .ranking-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
   width: 180px;
   padding-top: 30px;
   flex-shrink: 0;
   border-left: 1px solid $comp-bg-10;
+}
+
+.ranking-header {
+  margin-left: 15px;
+  font-size: 20px;
+}
+
+.ranking-item {
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  gap: 15px;
+  margin-left: 15px;
 }

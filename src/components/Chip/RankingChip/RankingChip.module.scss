@@ -1,0 +1,22 @@
+@import '/src/styles/main.scss';
+
+.chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 18px;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 50px;
+
+  &.first {
+    background-color: $first-10;
+  }
+  &.second {
+    background-color: $second-10;
+  }
+  &.third-to-eighth {
+    background-color: $rest-10;
+  }
+}

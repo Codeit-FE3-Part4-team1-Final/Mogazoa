@@ -14,6 +14,8 @@ import getProduct from '@/apis/getProduct.ts';
 import { Category } from '@/types/types';
 import HomeProductCard from '@/components/Card/HomeProductCard';
 import DropDown from '@/components/DropDown';
+import getRanking from '@/apis/getRanking';
+import RankingCard from '@/components/Card/RankingCard';
 
 interface MenuItem {
   key: string;
@@ -22,6 +24,8 @@ interface MenuItem {
 
 export default function Home() {
   const cx = classNames.bind(styles);
+
+  const userRankings = getRanking();
 
   const [sortTitle, setSortTitle] = useState<string>('HOT');
   const [selectedSort, setSelectedSort] = useState<string>('reviewCount');
@@ -127,7 +131,18 @@ export default function Home() {
             </>
           )}
         </main>
-        <section className={cx('ranking-section')}>리뷰어 랭킹</section>
+        <section className={cx('ranking-section')}>
+          <div className={cx('ranking-header')}>리뷰어 랭킹</div>
+          <div className={cx('ranking-item')}>
+            {userRankings?.map((userRanking, index) => (
+              <RankingCard
+                key={userRanking.id}
+                userRanking={userRanking}
+                rankingIndex={index + 1}
+              />
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );
