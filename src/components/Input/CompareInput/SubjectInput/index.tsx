@@ -29,6 +29,23 @@ export default function SubjectInput({
   const dropdownRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
+    const handleOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        handleClose();
+      }
+    };
+
+    document.addEventListener('click', handleOutside);
+
+    return () => {
+      document.removeEventListener('click', handleOutside);
+    };
+  }, []);
+
+  useEffect(() => {
     if (localStorage.getItem('subjectProduct')) {
       setSubjectProduct(localStorage.getItem('subjectProduct') as string);
       setProductId(Number(localStorage.getItem('subjectProductId')));
