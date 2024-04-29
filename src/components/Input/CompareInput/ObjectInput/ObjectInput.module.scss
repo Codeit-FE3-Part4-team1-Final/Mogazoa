@@ -89,6 +89,19 @@
   }
 }
 
+.list-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.list-container::-webkit-scrollbar-thumb {
+  background-color: $main_blue;
+  border-radius: 6px;
+}
+
+.list-container::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
 .list {
   display: flex;
   gap: 10px;
