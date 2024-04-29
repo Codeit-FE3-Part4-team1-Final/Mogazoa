@@ -1,7 +1,11 @@
+'use client';
+
 import Image from 'next/image';
+import Link from 'next/link';
 import classNames from 'classnames/bind';
 import styles from './ProductCard.module.scss';
 import { ProductListType } from '@/types/types';
+import handleErrorImage from '@/utils/handleErrorImage';
 
 const cx = classNames.bind(styles);
 
@@ -11,15 +15,20 @@ interface Props {
 
 export default function ProductCard({ productItem }: Props) {
   return (
-    <div className={cx('wrapper')}>
+    <Link href={`/product/${productItem.id}`} className={cx('wrapper')}>
       <div className={cx('container')}>
         <div className={cx('product-thumbnail-box')}>
           <Image
             fill
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            src={productItem.image}
+            src={
+              productItem.image.includes('example')
+                ? '/images/profile-image.png'
+                : productItem.image
+            }
             alt='product-image'
             style={{ objectFit: 'contain' }}
+            onError={(e) => handleErrorImage(e)}
           />
         </div>
         <div className={cx('product-description')}>
@@ -47,11 +56,13 @@ export default function ProductCard({ productItem }: Props) {
                 height={16}
                 className={cx('star-icon')}
               />
-              <span className={cx('star-rating')}>{productItem.rating}</span>
+              <span className={cx('star-rating')}>
+                {Number(productItem.rating.toFixed(1))}
+              </span>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

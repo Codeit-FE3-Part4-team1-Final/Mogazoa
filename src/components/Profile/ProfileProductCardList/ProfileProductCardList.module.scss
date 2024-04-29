@@ -1,0 +1,17 @@
+@import '/src/styles/main.scss';
+
+.product-card-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  justify-items: center;
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  @include mobile {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+}

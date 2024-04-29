@@ -32,22 +32,24 @@ export default function Table({
           </span>
         )}
       </div>
-      <table className={cx('table')}>
-        <thead>
-          <tr>
-            <th className={cx('table-head')}>기준</th>
-            <th className={cx('table-head')}>상품 1</th>
-            <th className={cx('table-head')}>상품 2</th>
-            <th className={cx('table-head')}>결과</th>
-          </tr>
-        </thead>
-        <TableCompare
-          handleCount={handleCount}
-          showVictoryProduct={showVictoryProduct}
-          SubjectProduct={SubjectProduct}
-          ObjectProduct={ObjectProduct}
-        />
-      </table>
+      <div className={cx('table-container')}>
+        <table className={cx('table')}>
+          <thead>
+            <tr>
+              <th className={cx('table-head')}>기준</th>
+              <th className={cx('table-head')}>상품 1</th>
+              <th className={cx('table-head')}>상품 2</th>
+              <th className={cx('table-head')}>결과</th>
+            </tr>
+          </thead>
+          <TableCompare
+            handleCount={handleCount}
+            showVictoryProduct={showVictoryProduct}
+            SubjectProduct={SubjectProduct}
+            ObjectProduct={ObjectProduct}
+          />
+        </table>
+      </div>
     </>
   );
 }

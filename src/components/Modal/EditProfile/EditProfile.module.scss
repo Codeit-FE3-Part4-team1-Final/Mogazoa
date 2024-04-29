@@ -1,0 +1,33 @@
+@import '/src/styles/main.scss';
+
+.wrapper {
+  @include column-flexbox($align: start);
+  gap: 40px;
+  width: 540px;
+  height: 604px;
+  @include tablet {
+    width: 510px;
+    height: 548px;
+  }
+  @include mobile {
+    gap: 20px;
+    width: 295px;
+    height: 553px;
+  }
+}
+
+.edit-profile-form {
+  @include column-flexbox($align: start);
+  gap: 20px;
+  width: 100%;
+}
+
+.title {
+  color: $primary;
+  font-size: 24px;
+  font-weight: 600;
+  @include tablet {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}

@@ -12,11 +12,12 @@
 }
 
 .container {
-  @include flexbox;
+  @include flexbox($align: start);
   gap: 60px;
   width: 100%;
   max-width: 1340px;
   @include tablet {
+    align-items: center;
     flex-direction: column;
   }
   @include mobile {
@@ -26,7 +27,7 @@
 
 .profile-section {
   position: sticky;
-  z-index: 1;
+  z-index: 2;
   top: 50px;
   align-self: start;
   @include tablet {
