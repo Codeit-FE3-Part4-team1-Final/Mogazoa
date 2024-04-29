@@ -80,6 +80,23 @@
   top: 80px;
   background: $comp-bg;
 
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $main_gradient;
+    border-radius: 6px;
+
+    &:hover {
+      background: $main_blue;
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
   &:has(li) {
     display: flex;
   }
@@ -87,19 +104,6 @@
   @include mobile {
     width: 295px;
   }
-}
-
-.list-container::-webkit-scrollbar {
-  width: 5px;
-}
-
-.list-container::-webkit-scrollbar-thumb {
-  background-color: $main_blue;
-  border-radius: 6px;
-}
-
-.list-container::-webkit-scrollbar-track {
-  background-color: transparent;
 }
 
 .list {
