@@ -23,6 +23,7 @@ interface Form {
 }
 
 export default function EditProfile({ userDetail }: Props) {
+  const FILE_MAX_SIZE = 5 * 1024 * 1024;
   const [userImage, setUserImage] = useState(userDetail.image);
   const [userName, setUserName] = useState(userDetail.nickname);
   const [description, setDescription] = useState(userDetail.description);
@@ -47,6 +48,25 @@ export default function EditProfile({ userDetail }: Props) {
     setDescription(e.target.value);
   };
 
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file: File | null = event.target.files ? event.target.files[0] : null;
+
+    if (!file) {
+      return;
+    }
+
+    if (file?.size > FILE_MAX_SIZE) {
+      alert('파일의 용량은 최대 5MB 입니다.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+      setUserImage(e.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleOnBlurUserName = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length === 0) {
       setError('nickname', { message: '닉네임은 필수 입력입니다.' });
@@ -64,7 +84,12 @@ export default function EditProfile({ userDetail }: Props) {
         className={cx('edit-profile-form')}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <ImageInput userImage={userImage} />
+        <ImageInput
+          userImage={userImage}
+          register={register('image', {
+            onChange: handleFileChange,
+          })}
+        />
         <TextFieldInput
           register={register('nickname', {
             required: '닉네임은 필수 입력입니다.',

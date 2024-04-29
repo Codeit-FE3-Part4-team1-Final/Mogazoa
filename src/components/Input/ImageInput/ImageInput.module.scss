@@ -1,6 +1,8 @@
 @import '/src/styles/main.scss';
 
 .input-label {
+  position: relative;
+  overflow: hidden;
   @include flexbox($align: start);
   width: 160px;
   height: 160px;
