@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Production from '@/components/Production';
-import ProductionStatics from '../../../components/ProductionStatics';
+import ProductionStatics from '@/components/ProductionStatics';
 import ProductionReview from '@/components/ProductionReview';
 import cx from '@/app/product/[productId]/cx.ts';
 import DropDown from '@/components/DropDown';
 import { ProductDetailType } from '@/types/types.ts';
+import fetchProductData from '@/app/product/[productId]/actions.ts';
 
 interface MenuItem {
   key: string;
@@ -20,18 +21,6 @@ const menuItems: MenuItem[] = [
   { key: 'ratingAsc', label: '별점 낮은순' },
   { key: 'likeCount', label: '좋아요순' },
 ];
-
-const fetchProductData = async (
-  productId: string,
-): Promise<ProductDetailType> => {
-  const response = await fetch(
-    `https://mogazoa-api.vercel.app/3-1/products/${productId}`,
-  );
-  if (!response.ok) {
-    throw new Error('Server error occurred');
-  }
-  return response.json();
-};
 
 export default function ProductPage({
   params,
@@ -46,7 +35,6 @@ export default function ProductPage({
   } = useQuery<ProductDetailType, Error>({
     queryKey: ['productData', params.productId],
     queryFn: () => fetchProductData(params.productId),
-    staleTime: 1000 * 60 * 5,
   });
 
   if (isLoading) {
