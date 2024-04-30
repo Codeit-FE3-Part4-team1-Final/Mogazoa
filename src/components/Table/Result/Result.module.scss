@@ -1,19 +1,5 @@
 @import '/src/styles/main.scss';
 
-@keyframes weight {
-  from {
-    font-weight: 100;
-  }
-
-  50% {
-    font-weight: 900;
-  }
-
-  to {
-    font-weight: 100;
-  }
-}
-
 .title {
   width: 100%;
   text-align: center;
@@ -33,8 +19,28 @@
   }
 }
 
+@keyframes neon {
+  from {
+    text-shadow:
+      0 0 6px rgba(202, 228, 225, 0.92),
+      0 0 30px rgba(202, 228, 225, 0.34),
+      0 0 12px rgba(30, 132, 242, 0.52),
+      0 0 21px rgba(30, 132, 242, 0.92),
+      0 0 34px rgba(30, 132, 242, 0.78),
+      0 0 54px rgba(30, 132, 242, 0.92);
+  }
+  to {
+    text-shadow:
+      0 0 6px rgba(202, 228, 225, 0.98),
+      0 0 30px rgba(202, 228, 225, 0.42),
+      0 0 12px rgba(30, 132, 242, 0.58),
+      0 0 22px rgba(30, 132, 242, 0.84),
+      0 0 38px rgba(30, 132, 242, 0.88),
+      0 0 60px rgba(30, 132, 242, 1);
+  }
+}
+
 .product {
-  color: $main_blue;
-  text-decoration: none;
-  animation: weight 2s infinite;
+  color: $primary;
+  animation: neon 0.1s ease-in-out infinite alternate;
 }

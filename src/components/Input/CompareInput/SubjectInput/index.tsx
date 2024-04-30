@@ -1,7 +1,7 @@
 'use client';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import SubjectChip from '@/components/Chip/SubjectChip';
@@ -26,6 +26,24 @@ export default function SubjectInput({
   const [isChip, setIsChip] = useState<boolean>(false);
   const [isReadable, setIsReadable] = useState<boolean>(false);
   const [isShow, setIsShow] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    const handleOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsShow(false);
+      }
+    };
+
+    document.addEventListener('click', handleOutside);
+
+    return () => {
+      document.removeEventListener('click', handleOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (localStorage.getItem('subjectProduct')) {
@@ -121,7 +139,7 @@ export default function SubjectInput({
         )}
       </div>
       {isShow && (
-        <ul className={cx('list-container')}>
+        <ul ref={dropdownRef} className={cx('list-container')}>
           {subjectData?.list?.map((values) => (
             <li
               key={values.id}
