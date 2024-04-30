@@ -18,7 +18,7 @@ const fetchProductData = async (
   }
 
   const response = await fetch(
-    `https://mogazoa-api.vercel.app/3-1/products/${productId}`,
+    `${process.env.NEXT_PUBLIC_API_URL_HOST}/products/${productId}`,
     {
       headers,
     },

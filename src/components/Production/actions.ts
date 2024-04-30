@@ -14,17 +14,14 @@ export default async function toggleFavorite({
 
   if (!accessToken) {
     console.error('Access token is missing');
-    return null; // 또는 적절한 에러 처리
+    return null;
   }
-
-  console.log(`Access Token: ${accessToken.value}`);
-  console.log(`Product ID: ${productId}, Is Favorite: ${isFavorite}`);
 
   const method = isFavorite ? 'DELETE' : 'POST';
 
   try {
     const response = await fetch(
-      `https://mogazoa-api.vercel.app/3-1/products/${productId}/favorite`,
+      `${process.env.NEXT_PUBLIC_API_URL_HOST}/products/${productId}/favorite`,
       {
         method,
         headers: {
@@ -34,7 +31,6 @@ export default async function toggleFavorite({
       },
     );
 
-    console.log('Response Status:', response);
     return await response.json();
   } catch (error) {
     console.error('Error during fetch operation:', error);
