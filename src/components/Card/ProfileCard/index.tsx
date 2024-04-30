@@ -77,7 +77,7 @@ export default function ProfileCard({
         </div>
         <div className={cx('user-information')}>
           <span className={cx('user-name')}>{userDetail.nickname}</span>
-          <p className={cx('user-explain')}>{userDetail.description}</p>
+          <p className={cx('user-description')}>{userDetail.description}</p>
         </div>
         <div className={cx('user-follow-box')}>
           <div

@@ -104,12 +104,14 @@
   }
 }
 
-.user-explain {
+.user-description {
   width: 300px;
   color: $tertiary;
   font-size: 16px;
   line-height: 22px;
   text-align: center;
+  word-wrap: break-word;
+  word-break: keep-all;
   @include tablet {
     width: 100%;
     align-self: stretch;
