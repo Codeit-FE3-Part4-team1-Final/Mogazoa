@@ -45,6 +45,7 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
     setUserDescription(e.target.value);
   };
 
+  // 이미지 change handler
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
 
@@ -72,10 +73,10 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
       const renamedFile = new File([file], newFileName, { type: file.type });
 
       setSelectedImage(renamedFile);
-      setUserImage(URL.createObjectURL(renamedFile));
+      setUserImage(URL.createObjectURL(renamedFile)); // 사진 미리보기
     } else {
       setSelectedImage(file);
-      setUserImage(URL.createObjectURL(file));
+      setUserImage(URL.createObjectURL(file)); //  사진 미리보기
     }
   };
 

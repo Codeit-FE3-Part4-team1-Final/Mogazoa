@@ -7,13 +7,13 @@ import styles from './ImageInput.module.scss';
 const cx = classNames.bind(styles);
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  userImage: string | null;
+  image: string | null;
   register?: UseFormRegisterReturn;
   resetFile?: () => void;
 }
 
 export default function ImageInput({
-  userImage,
+  image,
   register,
   resetFile,
   ...rest
@@ -29,11 +29,11 @@ export default function ImageInput({
         onClick={resetFile}
       />
       <label className={cx('input-label')} htmlFor='profile-image'>
-        {userImage ? (
+        {image ? (
           <Image
             fill
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            src={userImage}
+            src={image}
             alt='product-image'
             style={{ objectFit: 'cover' }}
           />

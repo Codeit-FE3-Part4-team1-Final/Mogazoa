@@ -39,7 +39,7 @@ export default function EditProfile({ userDetail, token }: Props) {
         onSubmit={handleSubmit(onSubmit)}
       >
         <ImageInput
-          userImage={userImage}
+          image={userImage}
           register={register('image', {
             onChange: handleFileChange,
           })}
