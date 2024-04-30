@@ -1,12 +1,36 @@
-const getUserDetail = async (id: string) => {
+const getUserDetail = async (id: string, token?: string) => {
+  const header = token
+    ? {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    : {};
   try {
-    const response = await fetch(`${process.env.API_URL_HOST}/users/${id}`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL_HOST}/users/${id}`,
+      header,
+    );
     const result = await response.json();
     return result;
   } catch (error) {
-    console.log(error);
-    return null;
+    throw new Error('failed to get user data');
   }
 };
 
-export default getUserDetail;
+const getMyDetail = async (token: string) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL_HOST}/users/me`,
+      {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw new Error('failed to get user data');
+  }
+};
+
+export { getUserDetail, getMyDetail };

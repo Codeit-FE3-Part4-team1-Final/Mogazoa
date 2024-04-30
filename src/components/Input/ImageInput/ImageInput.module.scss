@@ -1,0 +1,38 @@
+@import '/src/styles/main.scss';
+
+.input-label {
+  @include flexbox($align: start);
+  width: 160px;
+  height: 160px;
+  padding: 63px;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid $border;
+  background: $comp-bg;
+  cursor: pointer;
+  @include tablet {
+    width: 135px;
+    height: 135px;
+    padding: 55px;
+  }
+  @include mobile {
+    width: 140px;
+    height: 140px;
+    padding: 58px;
+  }
+}
+
+.add-photo-icon {
+  @include tablet {
+    width: 25px;
+    height: 25px;
+  }
+  @include mobile {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.input {
+  display: none;
+}
