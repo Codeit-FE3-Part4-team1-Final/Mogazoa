@@ -113,6 +113,8 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
         toggleModal();
         router.refresh();
       }
+      const error = await response.json();
+      setError('nickname', { message: error.message });
     } catch (error) {
       throw new Error('프로필 변경 실패');
     }

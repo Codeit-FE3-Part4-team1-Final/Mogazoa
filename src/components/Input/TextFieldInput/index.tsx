@@ -9,17 +9,24 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   children?: ReactNode;
   value: string;
   register?: UseFormRegisterReturn;
+  error: boolean;
 }
 
 export default function TextFieldInput({
   children,
   value,
   register,
+  error,
   ...rest
 }: Props) {
   return (
     <div className={cx('wrapper')}>
-      <input className={cx('input')} value={value} {...register} {...rest} />
+      <input
+        className={cx('input', error ? 'error' : '')}
+        value={value}
+        {...register}
+        {...rest}
+      />
       {children}
     </div>
   );

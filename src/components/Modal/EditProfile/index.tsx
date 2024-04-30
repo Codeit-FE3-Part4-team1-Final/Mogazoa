@@ -31,7 +31,6 @@ export default function EditProfile({ userDetail, token }: Props) {
     handleSubmit,
     errors,
   } = useEditProfile(userDetail, token);
-
   return (
     <div className={cx('wrapper')}>
       <span className={cx('title')}>프로필 편집</span>
@@ -53,11 +52,8 @@ export default function EditProfile({ userDetail, token }: Props) {
             onChange: handleChangeUserName,
           })}
           value={userName}
-          placeholder={
-            errors.nickname
-              ? errors.nickname.message
-              : '닉네임을 입력해 주세요.'
-          }
+          placeholder={'닉네임을 입력해 주세요.'}
+          error={!!errors.nickname}
         >
           <p className={cx('nickname-count')}>{userName.length}/10</p>
         </TextFieldInput>

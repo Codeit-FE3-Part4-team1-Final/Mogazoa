@@ -12,7 +12,12 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   resetFile?: () => void;
 }
 
-export default function ImageInput({ userImage, register, resetFile }: Props) {
+export default function ImageInput({
+  userImage,
+  register,
+  resetFile,
+  ...rest
+}: Props) {
   return (
     <div className={cx('wrapper')}>
       <Image
@@ -48,6 +53,7 @@ export default function ImageInput({ userImage, register, resetFile }: Props) {
         className={cx('input')}
         id='profile-image'
         {...register}
+        {...rest}
       />
     </div>
   );
