@@ -8,7 +8,7 @@ export default function NavigationBar() {
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken');
 
-  const isLoggedIn = !!accessToken;
+  const isLoggedIn = !!accessToken?.value;
 
   return (
     <div className={styles.wrapper}>

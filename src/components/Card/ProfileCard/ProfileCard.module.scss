@@ -58,8 +58,12 @@
   }
 }
 
-.profile-image {
+.profile-image-box {
+  position: relative;
   border-radius: 50%;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
   @include tablet {
     width: 120px;
     height: 120px;
@@ -100,12 +104,14 @@
   }
 }
 
-.user-explain {
+.user-description {
   width: 300px;
   color: $tertiary;
   font-size: 16px;
   line-height: 22px;
   text-align: center;
+  word-wrap: break-word;
+  word-break: keep-all;
   @include tablet {
     width: 100%;
     align-self: stretch;

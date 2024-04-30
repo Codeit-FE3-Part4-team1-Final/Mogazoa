@@ -5,13 +5,13 @@
   gap: 20px;
 }
 
-.user-image {
+.profile-image-box {
+  position: relative;
   border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  overflow: hidden;
   @include tablet {
-    width: 48px;
-    height: 48px;
-  }
-  @include mobile {
     width: 48px;
     height: 48px;
   }
