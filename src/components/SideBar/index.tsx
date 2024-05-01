@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SideBar.module.scss';
 import getCategories from '@/apis/getCategories';
@@ -11,6 +12,10 @@ interface Props {
 export default function SideBar({ setSelectedCategory }: Props) {
   const cx = classNames.bind(styles);
 
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
+    null,
+  );
+
   const categories = getCategories();
 
   return (
@@ -19,9 +24,14 @@ export default function SideBar({ setSelectedCategory }: Props) {
       <ul className={cx('sideBar-list-container')}>
         {categories?.map((category) => (
           <button
-            className={cx('sideBar-list')}
+            className={cx('sideBar-list', {
+              selected: selectedCategoryId === category.id,
+            })}
             key={category.id}
-            onClick={() => setSelectedCategory(category)}
+            onClick={() => {
+              setSelectedCategory(category);
+              setSelectedCategoryId(category.id);
+            }}
           >
             {category.name}
           </button>
