@@ -13,7 +13,7 @@ export default function RankingChip({ ranking }: Props) {
     rankingClassName = 'first';
   } else if (ranking === 2) {
     rankingClassName = 'second';
-  } else if (ranking >= 3 && ranking <= 8) {
+  } else if (ranking >= 3 && ranking <= 6) {
     rankingClassName = 'third-to-eighth';
   }
 

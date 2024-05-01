@@ -1,28 +1,26 @@
 @import '/src/styles/main.scss';
 
 .wrapper {
-  display: flex;
-  justify-content: center;
-  border-bottom: 1px solid $comp-bg-10;
   width: 100%;
-  padding: 0 30px;
+  min-width: 1600px;
+  border-bottom: 2px solid $comp-bg-10;
 }
 
 .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 1600px;
   height: 100px;
 
   @include tablet {
     height: 60px;
-    margin: 0 60px;
   }
 
   @include mobile {
     height: 50px;
-    margin: 0 30px;
   }
 }
 
