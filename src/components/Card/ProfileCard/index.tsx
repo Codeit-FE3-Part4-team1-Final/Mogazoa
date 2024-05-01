@@ -39,6 +39,11 @@ export default function ProfileCard({
     handleClickUnFollow,
   } = useUserFollowData(userId, token, isLoggedIn);
 
+  const profileModalType =
+    modalType === 'editProfile' ||
+    modalType === 'followers' ||
+    modalType === 'followees';
+
   return (
     <div className={cx('wrapper')}>
       <Image
@@ -49,9 +54,9 @@ export default function ProfileCard({
         className={cx('blur-image')}
         onError={(e) => handleErrorImage(e)}
       />
-      {isOpened && modalType !== 'createProduct' ? (
+      {isOpened && profileModalType ? (
         <ModalWrapper>
-          {modalType === 'edit' ? (
+          {modalType === 'editProfile' ? (
             <EditProfile userDetail={userDetail} token={token} />
           ) : (
             <ProfileFollowModal
@@ -99,7 +104,7 @@ export default function ProfileCard({
             <>
               <Button
                 category='primary'
-                onClick={() => handleToggleModal('edit')}
+                onClick={() => handleToggleModal('editProfile')}
               >
                 프로필 편집
               </Button>

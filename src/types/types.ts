@@ -3,8 +3,10 @@ import { AxiosRequestConfig } from 'axios';
 export type ModalType =
   | 'followers'
   | 'followees'
-  | 'edit'
+  | 'editProfile'
   | 'createProduct'
+  | 'editProduct'
+  | 'createReview'
   | null;
 
 export type ProductCategory =
