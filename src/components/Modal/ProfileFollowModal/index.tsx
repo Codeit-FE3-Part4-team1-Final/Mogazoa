@@ -6,9 +6,9 @@ import {
   Nickname,
   UserFolloweeList,
   UserFollowerList,
+  ModalType,
 } from '@/types/types';
 import FollowUserList from '../FollowUserList';
-import { ModalType } from '@/components/Card/ProfileCard';
 
 const cx = classNames.bind(styles);
 

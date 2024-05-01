@@ -21,8 +21,6 @@ interface Props {
   token: string;
 }
 
-export type ModalType = 'followers' | 'followees' | 'edit';
-
 export default function ProfileCard({
   userDetail,
   userId,
@@ -51,7 +49,7 @@ export default function ProfileCard({
         className={cx('blur-image')}
         onError={(e) => handleErrorImage(e)}
       />
-      {isOpened ? (
+      {isOpened && modalType !== 'createProduct' ? (
         <ModalWrapper>
           {modalType === 'edit' ? (
             <EditProfile userDetail={userDetail} token={token} />

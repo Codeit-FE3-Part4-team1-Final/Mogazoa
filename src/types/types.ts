@@ -1,5 +1,12 @@
 import { AxiosRequestConfig } from 'axios';
 
+export type ModalType =
+  | 'followers'
+  | 'followees'
+  | 'edit'
+  | 'createProduct'
+  | null;
+
 export type ProductCategory =
   | '음악'
   | '영화/드라마'

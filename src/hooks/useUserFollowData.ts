@@ -2,8 +2,7 @@ import { MouseEvent, useLayoutEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation';
 import { useModalStore } from '../../providers/ModalStoreProvider';
-import { ModalType } from '@/components/Card/ProfileCard';
-import { UserFolloweeList, UserFollowerList } from '@/types/types';
+import { ModalType, UserFolloweeList, UserFollowerList } from '@/types/types';
 import {
   getUserFolloweeList,
   getUserFollowerList,
@@ -18,8 +17,9 @@ const useUserFollowData = (
   const pathname = usePathname();
   const route = useRouter();
   const queryClient = useQueryClient();
-  const { isOpened, toggleModal } = useModalStore((state) => state);
-  const [modalType, setModalType] = useState<ModalType>('followers');
+  const { isOpened, toggleModal, modalType, setModalType } = useModalStore(
+    (state) => state,
+  );
   const [followData, setFollowData] = useState<
     UserFollowerList | UserFolloweeList
   >();
