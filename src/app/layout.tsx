@@ -4,6 +4,7 @@ import ReactQueryProvider from '../../providers/ReactQueryProvider';
 import NavigationBar from '@/components/NavigationBar';
 import { ModalStoreProvider } from '../../providers/ModalStoreProvider';
 import ProgressBar from '@/components/Loading/Nprogress';
+import Floating from '@/components/Floating';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -23,6 +24,7 @@ export default function RootLayout({
           <ModalStoreProvider>
             <NavigationBar />
             {children}
+            <Floating />
           </ModalStoreProvider>
         </ReactQueryProvider>
       </body>
