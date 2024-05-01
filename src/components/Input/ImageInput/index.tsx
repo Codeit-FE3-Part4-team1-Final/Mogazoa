@@ -20,14 +20,16 @@ export default function ImageInput({
 }: Props) {
   return (
     <div className={cx('wrapper')}>
-      <Image
-        src={'/images/close-icon.svg'}
-        alt='close-icon'
-        width={30}
-        height={30}
-        className={cx('close-icon')}
-        onClick={resetFile}
-      />
+      {image && (
+        <Image
+          src={'/images/close-icon.svg'}
+          alt='close-icon'
+          width={30}
+          height={30}
+          className={cx('close-icon')}
+          onClick={resetFile}
+        />
+      )}
       <label className={cx('input-label')} htmlFor='profile-image'>
         {image ? (
           <Image
