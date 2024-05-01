@@ -1,10 +1,13 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import cx from '@/components/Production/cx.ts';
 import CategoryChip from '@/components/Chip/CategoryChip';
 import Button from '@/components/Button';
 import { ProductDetailType } from '@/types/types.ts';
 import CompareModal from '../Modal/CompareModal';
+import toggleFavorite from './actions.ts';
+import copyCurrentUrl from '@/utils/copyCurrentUrl.ts';
 
 interface Props {
   productData: ProductDetailType;
@@ -13,10 +16,26 @@ interface Props {
 type CompareModalType = 'subject' | 'object' | 'exist' | 'changed';
 
 export default function Production({ productData }: Readonly<Props>) {
-  const { id, image, name, description } = productData;
+  const { id, image, name, description, isFavorite, category } = productData;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [modalType, setModalType] = useState<CompareModalType | null>(null);
+  const queryClient = useQueryClient();
 
+  const { mutate } = useMutation({
+    mutationFn: toggleFavorite,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['productData', id.toString()],
+      });
+    },
+    onError: (error: Error) => {
+      console.error('Error toggling favorite:', error.message);
+    },
+  });
+
+  const handleToggleFavorite = () => {
+    mutate({ productId: id, isFavorite });
+  };
   const handleClick = () => {
     const subjectProductId = localStorage.getItem('subjectProductId');
     const objectProductId = localStorage.getItem('objectProductId');
@@ -45,23 +64,29 @@ export default function Production({ productData }: Readonly<Props>) {
 
       <div className={cx('content-wrap', 'col-sm-4', 'col-md-8', 'col-lg-8')}>
         <div className={cx('category-wrap')}>
-          <CategoryChip productCategory={'전자기기'} size={'large'} />
+          <CategoryChip productCategory={category.name} size={'large'} />
         </div>
         <div className={cx('name-wrap')}>
           <div className={cx('name')}>
             <span className={cx('title__name')}>{name}</span>
-            <Image
-              src={'/images/unsave-icon.svg'}
-              alt={'찜하기'}
-              width={28}
-              height={28}
-            />
+            <button onClick={handleToggleFavorite}>
+              <Image
+                src={
+                  isFavorite
+                    ? '/images/save-icon.svg'
+                    : '/images/unsave-icon.svg'
+                }
+                alt={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+                width={28}
+                height={28}
+              />
+            </button>
           </div>
           <div className={cx('name__action')}>
             <button className={cx('btn')}>
               <Image src={'/images/kakao-icon.svg'} alt={'카카오아이콘'} fill />
             </button>
-            <button className={cx('btn')}>
+            <button className={cx('btn')} onClick={copyCurrentUrl}>
               <Image src={'/images/share-icon.svg'} alt={'카카오아이콘'} fill />
             </button>
           </div>

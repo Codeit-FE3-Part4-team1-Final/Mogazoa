@@ -12,7 +12,7 @@
   @include mobile {
     gap: 20px;
     width: 295px;
-    height: 553px;
+    height: 453px;
   }
 }
 
@@ -20,6 +20,18 @@
   @include column-flexbox($align: start);
   gap: 20px;
   width: 100%;
+  @include tablet {
+    gap: 15px;
+  }
+  @include mobile {
+    gap: 10px;
+  }
+  & button {
+    margin-top: 20px;
+    @include mobile {
+      margin-top: 0;
+    }
+  }
 }
 
 .title {
@@ -30,4 +42,13 @@
     font-size: 20px;
     line-height: 28px;
   }
+}
+
+.nickname-count {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  color: $tertiary;
+  font-size: 14px;
 }
