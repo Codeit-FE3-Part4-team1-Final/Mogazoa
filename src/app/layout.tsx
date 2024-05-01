@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
 import '../styles/globals.scss';
 import ReactQueryProvider from '../../providers/ReactQueryProvider';
 import NavigationBar from '@/components/NavigationBar';
@@ -16,6 +17,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const token = cookies().get('accessToken');
+  const isLoggedIn = !!token?.value;
+
   return (
     <html lang='ko'>
       <body>
@@ -24,7 +28,7 @@ export default function RootLayout({
           <ModalStoreProvider>
             <NavigationBar />
             {children}
-            <Floating />
+            {isLoggedIn && <Floating />}
           </ModalStoreProvider>
         </ReactQueryProvider>
       </body>
