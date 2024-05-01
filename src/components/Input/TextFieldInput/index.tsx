@@ -9,7 +9,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   children?: ReactNode;
   value: string;
   register?: UseFormRegisterReturn;
-  error: boolean;
+  error?: boolean;
 }
 
 export default function TextFieldInput({

@@ -5,6 +5,7 @@ import styles from './Floating.module.scss';
 import { useModalStore } from '../../../providers/ModalStoreProvider';
 import ModalWrapper from '../Modal/ModalWrapper';
 import { ModalType } from '@/types/types';
+import CreateProduct from '../Modal/CreateProduct';
 
 const cx = classNames.bind(styles);
 
@@ -17,10 +18,13 @@ export default function Floating() {
     setModalType(type);
     toggleModal();
   };
+
   return (
     <>
       {isOpened && modalType === 'createProduct' ? (
-        <ModalWrapper>제춤추가</ModalWrapper>
+        <ModalWrapper>
+          <CreateProduct />
+        </ModalWrapper>
       ) : null}
       <div
         className={cx('wrapper')}
