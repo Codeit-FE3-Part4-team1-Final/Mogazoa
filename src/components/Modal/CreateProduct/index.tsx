@@ -5,6 +5,7 @@ import TextFieldInput from '@/components/Input/TextFieldInput';
 import ImageInput from '@/components/Input/ImageInput';
 import TextBoxInput from '@/components/Input/TextBoxInput';
 import useCreateProduct from '@/hooks/useCreateProduct';
+import Select from '@/components/Input/Select';
 
 const cx = classNames.bind(styles);
 
@@ -24,6 +25,7 @@ export default function CreateProduct() {
     onBlurName,
     onBlurDescription,
     errors,
+    categoryList,
   } = useCreateProduct();
 
   return (
@@ -53,11 +55,13 @@ export default function CreateProduct() {
             >
               <p className={cx('nickname-count')}>{name.length}/20</p>
             </TextFieldInput>
-            <TextFieldInput
-              value={'영화/음악'}
-              placeholder='카테고리 선택'
-              onChange={onChangeCategory}
-              register={register('categoryId')}
+            <Select
+              optionList={categoryList}
+              handleChange={onChangeCategory}
+              register={register('categoryId', {
+                required: '카테고리를 선택해주세요.',
+              })}
+              error={!!errors.categoryId}
             />
           </div>
         </div>

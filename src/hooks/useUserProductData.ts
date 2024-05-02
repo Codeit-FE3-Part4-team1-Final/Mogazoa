@@ -13,21 +13,25 @@ const useUserProductData = (userId: string) => {
     setUserProductCategory(title);
   };
 
-  const { data: reviewedProduct } = useQuery<SearchProductResponse>({
-    queryKey: ['user-reviewed-products', userId],
-    queryFn: () => getUserProduct(userId, 'reviewed-products'),
-    staleTime: 60 * 3 * 1000,
-  });
-  const { data: createdProduct } = useQuery<SearchProductResponse>({
+  const { data: reviewedProduct } = useQuery<SearchProductResponse | undefined>(
+    {
+      queryKey: ['user-reviewed-products', userId],
+      queryFn: () => getUserProduct(userId, 'reviewed-products'),
+      staleTime: 60 * 3 * 1000,
+    },
+  );
+  const { data: createdProduct } = useQuery<SearchProductResponse | undefined>({
     queryKey: ['user-created-products', userId],
     queryFn: () => getUserProduct(userId, 'created-products'),
     staleTime: 60 * 3 * 1000,
   });
-  const { data: favoriteProduct } = useQuery<SearchProductResponse>({
-    queryKey: ['user-favorite-products', userId],
-    queryFn: () => getUserProduct(userId, 'favorite-products'),
-    staleTime: 60 * 3 * 1000,
-  });
+  const { data: favoriteProduct } = useQuery<SearchProductResponse | undefined>(
+    {
+      queryKey: ['user-favorite-products', userId],
+      queryFn: () => getUserProduct(userId, 'favorite-products'),
+      staleTime: 60 * 3 * 1000,
+    },
+  );
 
   useLayoutEffect(() => {
     if (userProductCategory === 'reviewed-products') {

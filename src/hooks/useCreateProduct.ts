@@ -1,7 +1,50 @@
 import { ChangeEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import generateRandomEnglishName from '@/utils/generateRandomEnglishName';
-import { CreateProductRequestBody } from '@/types/types';
+import { Category, CreateProductRequestBody } from '@/types/types';
+
+const categoryList: Category[] = [
+  {
+    id: 1,
+    name: '음악',
+  },
+  {
+    id: 2,
+    name: '영화/드라마',
+  },
+  {
+    id: 3,
+    name: '강의/책',
+  },
+  {
+    id: 4,
+    name: '호텔',
+  },
+  {
+    id: 5,
+    name: '가구/인테리어',
+  },
+  {
+    id: 6,
+    name: '식당',
+  },
+  {
+    id: 7,
+    name: '전자기기',
+  },
+  {
+    id: 8,
+    name: '화장품',
+  },
+  {
+    id: 9,
+    name: '의류/잡화',
+  },
+  {
+    id: 10,
+    name: '앱',
+  },
+];
 
 const useCreateProduct = () => {
   const FILE_MAX_SIZE = 5 * 1024 * 1024;
@@ -21,6 +64,7 @@ const useCreateProduct = () => {
   } = useForm<CreateProductRequestBody>({
     mode: 'onBlur',
   });
+
   const name = watch('name', '');
   const categoryId = watch('categoryId', 0);
   const description = watch('description', '');
@@ -48,8 +92,8 @@ const useCreateProduct = () => {
     setValue('name', event.target.value, { shouldValidate: true });
   };
 
-  const onChangeCategory = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue('categoryId', Number(event.target.value), {
+  const onChangeCategory = (id: number) => {
+    setValue('categoryId', id, {
       shouldValidate: true,
     });
   };
@@ -109,6 +153,10 @@ const useCreateProduct = () => {
         setError('image', { message: '대표 이미지를 추가해주세요.' });
         return;
       }
+      if (!data.categoryId) {
+        setError('categoryId', { message: '카테고리를 선택해주세요.' });
+        return;
+      }
       if (data.description.length < 10) {
         setError('description', {
           message: '최소 10자 이상 적어주세요',
@@ -137,6 +185,7 @@ const useCreateProduct = () => {
     onBlurName,
     onBlurDescription,
     errors,
+    categoryList,
   };
 };
 

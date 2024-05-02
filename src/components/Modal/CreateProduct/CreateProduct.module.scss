@@ -29,7 +29,7 @@
   @include column-flexbox;
   gap: 20px;
   width: 100%;
-  & button {
+  & button:last-child {
     margin-top: 20px;
     @include mobile {
       margin-top: 10px;

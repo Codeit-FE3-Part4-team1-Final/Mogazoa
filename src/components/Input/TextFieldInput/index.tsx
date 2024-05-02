@@ -22,7 +22,7 @@ export default function TextFieldInput({
   return (
     <div className={cx('wrapper')}>
       <input
-        className={cx('input', error ? 'error' : null)}
+        className={cx('input', error && 'error')}
         value={value}
         {...register}
         {...rest}

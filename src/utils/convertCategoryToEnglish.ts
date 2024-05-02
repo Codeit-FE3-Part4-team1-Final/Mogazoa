@@ -18,7 +18,7 @@ const convertCategoryToEnglish = (category: ProductCategory): string => {
       return 'electronics';
     case '화장품':
       return 'cosmetic';
-    case '의류/악세서리':
+    case '의류/잡화':
       return 'cloth';
     case '앱':
       return 'app';

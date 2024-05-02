@@ -24,12 +24,16 @@ const useUserFollowData = (
     UserFollowerList | UserFolloweeList
   >();
 
-  const { data: follower } = useQuery<UserFollowerList | UserFolloweeList>({
+  const { data: follower } = useQuery<
+    UserFollowerList | UserFolloweeList | undefined
+  >({
     queryKey: ['user-follower-list', userId],
     queryFn: () => getUserFollowerList(userId),
     staleTime: 20 * 1000,
   });
-  const { data: followee } = useQuery<UserFollowerList | UserFolloweeList>({
+  const { data: followee } = useQuery<
+    UserFollowerList | UserFolloweeList | undefined
+  >({
     queryKey: ['user-followee-list', userId],
     queryFn: () => getUserFolloweeList(userId),
     staleTime: 20 * 1000,

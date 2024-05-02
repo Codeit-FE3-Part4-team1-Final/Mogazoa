@@ -22,10 +22,7 @@ export default function TextBoxInput({
   ...rest
 }: Props) {
   return (
-    <label
-      className={cx('wrapper', error ? 'error' : null)}
-      htmlFor='text-area'
-    >
+    <label className={cx('wrapper', error && 'error')} htmlFor='text-area'>
       <textarea
         value={value}
         className={cx('text-area')}
