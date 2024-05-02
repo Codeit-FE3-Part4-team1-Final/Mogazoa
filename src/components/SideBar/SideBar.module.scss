@@ -9,10 +9,6 @@
 .sideBar-header {
   font-size: 22px;
   font-weight: 400;
-
-  @include laptop {
-    font-size: 20px;
-  }
 }
 
 .sideBar-list {
@@ -21,8 +17,4 @@
   font-size: 18px;
   font-weight: 500;
   color: $tertiary;
-
-  @include laptop {
-    font-size: 16px;
-  }
 }
