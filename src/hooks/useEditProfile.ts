@@ -1,22 +1,16 @@
 import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { UserDetail } from '@/types/types';
+import { UpdateUserRequestBody, UserDetail } from '@/types/types';
 import uploadImage from '@/utils/uploadImage';
 import patchProfile from '@/utils/patchProfile';
 import { useModalStore } from '../../providers/ModalStoreProvider';
 import generateRandomEnglishName from '@/utils/generateRandomEnglishName';
 
-interface Form {
-  description: string | null;
-  nickname: string;
-  image: File | string | null;
-}
-
 const useEditProfile = (userDetail: UserDetail, token: string) => {
   const FILE_MAX_SIZE = 5 * 1024 * 1024;
   const [userImage, setUserImage] = useState(userDetail.image);
-  const [selectedImage, setSelectedImage] = useState<File>();
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [userName, setUserName] = useState(userDetail.nickname);
   const [userDescription, setUserDescription] = useState(
     userDetail.description,
@@ -30,7 +24,7 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
     setError,
     reset,
     formState: { errors },
-  } = useForm<Form>({
+  } = useForm<UpdateUserRequestBody>({
     mode: 'onBlur',
   });
 
@@ -89,9 +83,10 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
   const resetFile = () => {
     reset({ image: null });
     setUserImage(null);
+    setSelectedImage(null);
   };
 
-  const onSubmit: SubmitHandler<Form> = async ({
+  const onSubmit: SubmitHandler<UpdateUserRequestBody> = async ({
     description,
     nickname,
     image,

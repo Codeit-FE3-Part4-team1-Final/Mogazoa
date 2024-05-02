@@ -95,9 +95,9 @@ export interface UserDetail {
 }
 
 export interface UpdateUserRequestBody {
-  description: string; // maxLength: 300
+  description: string | null; // maxLength: 300
   nickname: Nickname; // minLength: 1 maxLength: 20
-  image: UrlType;
+  image: UrlType | null;
 }
 
 export interface UserRanking {
@@ -219,7 +219,7 @@ export type ProductDescription = string;
 
 export interface CreateProductRequestBody {
   categoryId: Id;
-  image: UrlType;
+  image: UrlType | null;
   description: ProductDescription;
   name: ProductName;
 }

@@ -13,27 +13,41 @@ export default function CreateProduct() {
     name,
     category,
     description,
+    previewImage,
+    handleFileChange,
+    resetFile,
     onNameChange,
     onCategoryChange,
     onDescriptionChange,
+    onSubmit,
+    register,
+    handleSubmit,
   } = useCreateProduct();
 
   return (
     <div className={cx('wrapper')}>
       <span className={cx('title')}>상품 추가</span>
-      <form className={cx('form')}>
+      <form className={cx('form')} onSubmit={handleSubmit(onSubmit)}>
         <div className={cx('input-container')}>
-          <ImageInput image={null} />
+          <ImageInput
+            image={previewImage}
+            register={register('image', {
+              onChange: handleFileChange,
+            })}
+            resetFile={resetFile}
+          />
           <div className={cx('box')}>
             <TextFieldInput
               value={name}
               placeholder='상품명(상품 등록 여부를 확인해 주세요)'
               onChange={onNameChange}
+              register={register('name')}
             />
             <TextFieldInput
               value={category}
               placeholder='카테고리 선택'
               onChange={onCategoryChange}
+              register={register('categoryId')}
             />
           </div>
         </div>
@@ -42,9 +56,12 @@ export default function CreateProduct() {
           placeholder='상품 설명을 작성해주세요.'
           onChange={onDescriptionChange}
           maxLength={500}
+          register={register('description')}
         />
+        <Button category='primary' type='submit'>
+          추가하기
+        </Button>
       </form>
-      <Button category='primary'>추가하기</Button>
     </div>
   );
 }
