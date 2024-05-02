@@ -11,17 +11,19 @@ const cx = classNames.bind(styles);
 export default function CreateProduct() {
   const {
     name,
-    category,
     description,
     previewImage,
-    handleFileChange,
+    onChangeFile,
     resetFile,
-    onNameChange,
-    onCategoryChange,
-    onDescriptionChange,
+    onChangeName,
+    onChangeCategory,
+    onChangeDescription,
     onSubmit,
     register,
     handleSubmit,
+    onBlurName,
+    onBlurDescription,
+    errors,
   } = useCreateProduct();
 
   return (
@@ -32,21 +34,31 @@ export default function CreateProduct() {
           <ImageInput
             image={previewImage}
             register={register('image', {
-              onChange: handleFileChange,
+              required: '대표 이미지를 추가해주세요.',
+              onChange: onChangeFile,
             })}
             resetFile={resetFile}
+            error={!!errors.image}
           />
           <div className={cx('box')}>
             <TextFieldInput
               value={name}
-              placeholder='상품명(상품 등록 여부를 확인해 주세요)'
-              onChange={onNameChange}
-              register={register('name')}
+              placeholder={
+                errors.name
+                  ? errors.name.message
+                  : '상품명(상품 등록 여부를 확인해 주세요)'
+              }
+              onChange={onChangeName}
+              register={register('name', {
+                required: '상품 이름은 필수 입력입니다.',
+                onBlur: onBlurName,
+              })}
+              error={!!errors.name}
             />
             <TextFieldInput
-              value={category}
+              value={'영화/음악'}
               placeholder='카테고리 선택'
-              onChange={onCategoryChange}
+              onChange={onChangeCategory}
               register={register('categoryId')}
             />
           </div>
@@ -54,9 +66,13 @@ export default function CreateProduct() {
         <TextBoxInput
           value={description}
           placeholder='상품 설명을 작성해주세요.'
-          onChange={onDescriptionChange}
+          onChange={onChangeDescription}
           maxLength={500}
-          register={register('description')}
+          register={register('description', {
+            required: '상품 설명은 필수 입력입니다.',
+            onBlur: onBlurDescription,
+          })}
+          error={!!errors.description}
         />
         <Button category='primary' type='submit'>
           추가하기

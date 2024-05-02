@@ -10,12 +10,14 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   image: string | null;
   register?: UseFormRegisterReturn;
   resetFile?: () => void;
+  error?: boolean;
 }
 
 export default function ImageInput({
   image,
   register,
   resetFile,
+  error,
   ...rest
 }: Props) {
   return (
@@ -30,7 +32,10 @@ export default function ImageInput({
           onClick={resetFile}
         />
       )}
-      <label className={cx('input-label')} htmlFor='profile-image'>
+      <label
+        className={cx('input-label', error ? 'error' : null)}
+        htmlFor='profile-image'
+      >
         {image ? (
           <Image
             fill

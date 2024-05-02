@@ -7,30 +7,52 @@ const useCreateProduct = () => {
   const FILE_MAX_SIZE = 5 * 1024 * 1024;
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [name, setName] = useState('');
-  const [category, setCategory] = useState('');
-  const [description, setDescription] = useState('');
 
   const {
     register,
     handleSubmit,
     reset,
+    setError,
+    clearErrors,
+    setValue,
+    watch,
+    getValues,
     formState: { errors },
   } = useForm<CreateProductRequestBody>({
     mode: 'onBlur',
   });
+  const name = watch('name', '');
+  const categoryId = watch('categoryId', 0);
+  const description = watch('description', '');
 
-  const onNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
-  const onCategoryChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setCategory(event.target.value);
-  };
-  const onDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(event.target.value);
+  const onBlurName = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value.length === 0) {
+      setError('name', { message: '상품 이름은 필수 입력입니다.' });
+    } else {
+      clearErrors('name');
+    }
   };
 
-  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+  const onBlurDescription = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value.length === 0) {
+      setError('description', { message: '상품 설명은 필수 입력입니다.' });
+    } else {
+      clearErrors('description');
+    }
+  };
+
+  const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
+    setValue('name', event.target.value, { shouldValidate: true });
+  };
+  const onChangeCategory = (event: ChangeEvent<HTMLInputElement>) => {
+    setValue('categoryId', Number(event.target.value), {
+      shouldValidate: true,
+    });
+  };
+  const onChangeDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setValue('description', event.target.value, { shouldValidate: true });
+  };
+  const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
 
     if (!file) {
@@ -65,15 +87,22 @@ const useCreateProduct = () => {
   };
 
   const resetFile = () => {
-    reset({ image: null });
+    const currentValues = getValues();
+    reset({
+      ...currentValues,
+      image: null,
+    });
+
     setPreviewImage(null);
     setSelectedImage(null);
   };
 
   const onSubmit: SubmitHandler<CreateProductRequestBody> = async (data) => {
     try {
-      console.log(data);
-      console.log(selectedImage);
+      console.log(data, selectedImage);
+      if (!selectedImage) {
+        setError('image', { message: '대표 이미지를 추가해주세요.' });
+      }
     } catch (error) {
       throw new Error('상품 등록 실패');
     }
@@ -81,17 +110,19 @@ const useCreateProduct = () => {
 
   return {
     name,
-    category,
+    categoryId,
     description,
     previewImage,
-    handleFileChange,
+    onChangeFile,
     resetFile,
-    onNameChange,
-    onCategoryChange,
-    onDescriptionChange,
+    onChangeName,
+    onChangeCategory,
+    onChangeDescription,
     onSubmit,
     register,
     handleSubmit,
+    onBlurName,
+    onBlurDescription,
     errors,
   };
 };

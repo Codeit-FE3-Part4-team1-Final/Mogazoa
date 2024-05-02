@@ -10,6 +10,7 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   value: string;
   maxLength?: number;
   register?: UseFormRegisterReturn;
+  error?: boolean;
 }
 
 export default function TextBoxInput({
@@ -17,10 +18,14 @@ export default function TextBoxInput({
   value,
   maxLength = 300,
   register,
+  error,
   ...rest
 }: Props) {
   return (
-    <label className={cx('wrapper')} htmlFor='text-area'>
+    <label
+      className={cx('wrapper', error ? 'error' : null)}
+      htmlFor='text-area'
+    >
       <textarea
         value={value}
         className={cx('text-area')}
