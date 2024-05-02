@@ -28,19 +28,19 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
     mode: 'onBlur',
   });
 
-  const handleChangeUserName = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeUserName = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 10) {
       return;
     }
     setUserName(e.target.value);
   };
 
-  const handleChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setUserDescription(e.target.value);
   };
 
   // 이미지 change handler
-  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
 
     if (!file) {
@@ -74,7 +74,7 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
     }
   };
 
-  const handleOnBlurUserName = (e: ChangeEvent<HTMLInputElement>) => {
+  const onBlurUserName = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length === 0) {
       setError('nickname', { message: '닉네임은 필수 입력입니다.' });
     }
@@ -120,10 +120,10 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
     userImage,
     userName,
     userDescription,
-    handleChangeUserName,
-    handleChangeDescription,
-    handleFileChange,
-    handleOnBlurUserName,
+    onChangeUserName,
+    onChangeDescription,
+    onChangeFile,
+    onBlurUserName,
     resetFile,
     onSubmit,
     register,
