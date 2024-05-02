@@ -1,9 +1,15 @@
-import { createStore } from 'zustand';
+import { create } from 'zustand';
 
-const [useStore] = createStore((set) => ({
-  selectedCategory: null,
-  setSelectedCategory: (category) =>
-    set(() => ({ selectedCategory: category })),
+interface SidebarState {
+  isSidebarVisible: boolean;
+  toggleSidebar: () => void;
+}
+
+// Sidebar의 보이기/숨기기 상태를 관리하는 스토어
+const useSidebarStore = create<SidebarState>((set) => ({
+  isSidebarVisible: false,
+  toggleSidebar: () =>
+    set((state) => ({ isSidebarVisible: !state.isSidebarVisible })),
 }));
 
-export default useStore;
+export default useSidebarStore;

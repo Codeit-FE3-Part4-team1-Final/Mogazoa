@@ -7,9 +7,10 @@
   gap: 20px;
 
   @include tablet {
+    width: 100%;
     display: grid;
     grid-template-columns: 150px auto;
-    grid-template-rows: 160px auto;
+    grid-template-rows: 170px auto;
     grid-template-areas:
       'sidebar ranking'
       'sidebar main';
@@ -25,17 +26,27 @@
 
 .sidebar {
   width: 180px;
+  height: 100%;
   padding: 30px 20px 0;
   flex-shrink: 0;
   border-right: 1px solid $comp-bg-10;
 
   @include tablet {
     grid-area: sidebar;
+    width: 150px;
   }
 
   @include mobile {
-    display: none;
+    position: fixed;
+    left: -180px;
+    transition: left 0.3s ease-in-out;
+    background-color: $comp-bg;
+    z-index: 1000;
   }
+}
+
+.sidebar-visible {
+  left: 0 !important;
 }
 
 .main {
@@ -54,7 +65,7 @@
 
   @include mobile {
     order: 2;
-    width: 100%;
+    width: 375px;
   }
 }
 
@@ -73,7 +84,12 @@
   width: 1100px;
 
   @include tablet {
+    width: 619px;
     padding: 0 20px;
+  }
+
+  @include mobile {
+    width: 375px;
   }
 }
 
@@ -91,11 +107,27 @@
 
 .itemList {
   width: 1100px;
+
+  @include tablet {
+    width: 550px;
+  }
+
+  @include mobile {
+    width: 320px;
+  }
 }
 
 .item {
   display: flex !important;
   width: 250px !important;
+
+  @include tablet {
+    width: 190px !important;
+  }
+
+  @include mobile {
+    width: 150px !important;
+  }
 }
 
 .all-product {
@@ -110,6 +142,10 @@
     align-items: center;
     margin-top: 50px;
   }
+
+  @include tablet {
+    width: 375px;
+  }
 }
 
 .product-list-grid {
@@ -118,7 +154,15 @@
   gap: 29px;
 
   @include tablet {
-    width: 567px;
+    width: 590px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+
+  @include mobile {
+    width: 320px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 
@@ -134,8 +178,8 @@
   @include tablet {
     grid-area: ranking;
     border: none;
+    padding: 30px 0 0;
     width: 100%;
-    padding: 30px 20px 0;
     justify-content: space-between;
     border-bottom: 1px solid $comp-bg-10;
     overflow: hidden;
@@ -147,12 +191,19 @@
 
   @include tablet {
     font-size: 16px;
+    padding-left: 20px;
   }
 }
 
 .ranking-items {
   @include tablet {
-    overflow: scroll;
+    overflow-x: scroll;
+    padding: 0 20px;
+    height: 100%;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -164,6 +215,6 @@
   @include tablet {
     gap: 10px;
     flex-direction: row;
-    min-width: 838px;
+    min-width: 807px;
   }
 }

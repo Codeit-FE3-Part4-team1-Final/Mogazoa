@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
@@ -16,6 +14,7 @@ import DropDown from '@/components/DropDown';
 import getRanking from '@/apis/getRanking';
 import RankingCard from '@/components/Card/RankingCard';
 import ProductCard from '@/components/Card/ProductCard';
+import useSidebarStore from '@/stores/sidebarStore';
 
 interface MenuItem {
   key: string;
@@ -26,6 +25,8 @@ export default function Home() {
   const cx = classNames.bind(styles);
 
   const userRankings = getRanking();
+
+  const { isSidebarVisible } = useSidebarStore();
 
   const [sortTitle, setSortTitle] = useState<string>('HOT');
   const [selectedSort, setSelectedSort] = useState<string>('reviewCount');
@@ -63,6 +64,20 @@ export default function Home() {
     slidesToShow: 3.9,
     slidesToScroll: 1,
     initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1028,
+        settings: {
+          slidesToShow: 2.5,
+        },
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 1.9,
+        },
+      },
+    ],
   };
 
   const menuItems: MenuItem[] = [
@@ -74,7 +89,9 @@ export default function Home() {
   return (
     <div className={cx('home-wrapper')}>
       <div className={cx('home-container')}>
-        <aside className={cx('sidebar')}>
+        <aside
+          className={cx('sidebar', { 'sidebar-visible': isSidebarVisible })}
+        >
           <SideBar setSelectedCategory={setSelectedCategory} />
         </aside>
         <main className={cx('main')}>
@@ -101,11 +118,8 @@ export default function Home() {
                       key={selectedCategory ? selectedCategory.name : 'default'}
                     >
                       {sortProducts?.list.map((productItem) => (
-                        <div className={cx('item')}>
-                          <ProductCard
-                            key={productItem.id}
-                            productItem={productItem}
-                          />
+                        <div className={cx('item')} key={productItem.id}>
+                          <ProductCard productItem={productItem} />
                         </div>
                       ))}
                     </Slider>

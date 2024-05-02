@@ -1,6 +1,8 @@
 @import '/src/styles/main.scss';
 
 .container {
+  position: relative;
+  top: 50px;
   width: 940px;
   justify-content: center;
   text-align: center;
