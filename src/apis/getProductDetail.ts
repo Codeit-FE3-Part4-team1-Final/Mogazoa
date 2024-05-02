@@ -4,7 +4,7 @@ import { requestMethod } from '@/utils/fetchUtils';
 const getProductDetail = (productId: number): Promise<ProductDetailType> => {
   const requestApi: RequestMethodInterface = {
     method: 'get',
-    endPoint: `/products/${productId}`,
+    endPoint: `products/${productId}`,
   };
   return requestMethod<ProductDetailType>(requestApi);
 };
