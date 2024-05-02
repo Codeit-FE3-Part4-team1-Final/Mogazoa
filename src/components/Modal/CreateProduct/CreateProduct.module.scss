@@ -68,3 +68,15 @@
     gap: 10px;
   }
 }
+
+.nickname-count {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  color: $tertiary;
+  font-size: 14px;
+  @include mobile {
+    display: none;
+  }
+}

@@ -43,18 +43,16 @@ export default function CreateProduct() {
           <div className={cx('box')}>
             <TextFieldInput
               value={name}
-              placeholder={
-                errors.name
-                  ? errors.name.message
-                  : '상품명(상품 등록 여부를 확인해 주세요)'
-              }
+              placeholder='상품명(상품 등록 여부를 확인해 주세요)'
               onChange={onChangeName}
               register={register('name', {
                 required: '상품 이름은 필수 입력입니다.',
                 onBlur: onBlurName,
               })}
               error={!!errors.name}
-            />
+            >
+              <p className={cx('nickname-count')}>{name.length}/20</p>
+            </TextFieldInput>
             <TextFieldInput
               value={'영화/음악'}
               placeholder='카테고리 선택'
@@ -65,7 +63,7 @@ export default function CreateProduct() {
         </div>
         <TextBoxInput
           value={description}
-          placeholder='상품 설명을 작성해주세요.'
+          placeholder='상품 설명을 최소 10자 이상 작성해주세요.'
           onChange={onChangeDescription}
           maxLength={500}
           register={register('description', {

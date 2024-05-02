@@ -34,7 +34,7 @@ const useCreateProduct = () => {
   };
 
   const onBlurDescription = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value.length === 0) {
+    if (event.target.value.length < 10) {
       setError('description', { message: '상품 설명은 필수 입력입니다.' });
     } else {
       clearErrors('description');
@@ -42,16 +42,22 @@ const useCreateProduct = () => {
   };
 
   const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value.length > 20) {
+      return;
+    }
     setValue('name', event.target.value, { shouldValidate: true });
   };
+
   const onChangeCategory = (event: ChangeEvent<HTMLInputElement>) => {
     setValue('categoryId', Number(event.target.value), {
       shouldValidate: true,
     });
   };
+
   const onChangeDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValue('description', event.target.value, { shouldValidate: true });
   };
+
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
 
@@ -99,10 +105,17 @@ const useCreateProduct = () => {
 
   const onSubmit: SubmitHandler<CreateProductRequestBody> = async (data) => {
     try {
-      console.log(data, selectedImage);
       if (!selectedImage) {
         setError('image', { message: '대표 이미지를 추가해주세요.' });
+        return;
       }
+      if (data.description.length < 10) {
+        setError('description', {
+          message: '최소 10자 이상 적어주세요',
+        });
+        return;
+      }
+      console.log(data, selectedImage);
     } catch (error) {
       throw new Error('상품 등록 실패');
     }
