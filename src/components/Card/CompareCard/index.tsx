@@ -22,28 +22,29 @@ export default function CompareCard({ productItem }: Props) {
           <span>{productItem.name}</span>
           <hr />
         </div>
+        <br />
         <div className={cx('products', 'review-like')}>
-          <span>리뷰 : {productItem.reviewCount}</span>
+          <span>리뷰</span>
+          <span>{productItem.reviewCount}</span>
         </div>
         <br />
         <div className={cx('products', 'review-like')}>
-          <span>찜 : {productItem.favoriteCount}</span>
+          <span>찜</span>
+          <span>{productItem.favoriteCount}</span>
         </div>
         <br />
-        <div className={cx('product-star-rating-box')}>
+        <div className={cx('products', 'review-like', 'rating')}>
           <Image
             src={'/images/star-icon.svg'}
             alt='star-icon'
-            width={16}
-            height={16}
+            width={20}
+            height={20}
             className={cx('star-icon')}
           />
-          <span className={cx('star-rating')}>
-            {Number(productItem.rating.toFixed(1))}
-          </span>
+          <span>{Number(productItem.rating.toFixed(1))}</span>
         </div>
         <br />
-        <Link href={`/product/${productItem.id}`} className={cx('wrapper')}>
+        <Link href={`/product/${productItem.id}`} className={cx('link')}>
           자세히보기
         </Link>
       </div>

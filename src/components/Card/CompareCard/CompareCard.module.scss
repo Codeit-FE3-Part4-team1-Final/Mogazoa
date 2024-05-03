@@ -2,7 +2,7 @@
 
 .container {
   width: 200px;
-  height: 280px;
+  height: 260px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,12 +23,25 @@
 }
 
 .products {
-  padding-left: 20px;
+  padding-left: 10px;
   letter-spacing: 3px;
+
+  &:span {
+    display: inline-block;
+    color: $secondary;
+    font-weight: 300;
+    @include tablet {
+      font-size: 14px;
+    }
+    @include mobile {
+      font-size: 12px;
+    }
+  }
 }
 
 .name {
-  font-size: 30px;
+  font-size: 20px;
+  font-weight: 800;
   line-height: 40px;
   transform: translateY(40px);
   transition: all 0.7s;
@@ -46,26 +59,36 @@
 }
 
 .review-like {
-  font-size: 22px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
   opacity: 0;
   transform: translateY(40px);
   transition: all 0.7s;
+  text-align: left;
 }
 
-.product-star-rating-box {
-  @include flexbox;
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 2px;
 }
 
-.star-rating {
-  color: $secondary;
-  font-weight: 300;
+.star-icon {
   @include tablet {
-    font-size: 14px;
+    width: 15px;
+    height: 15px;
   }
   @include mobile {
-    font-size: 12px;
+    width: 12px;
+    height: 12px;
   }
+}
+
+.link {
+  font-size: 20px;
+  color: $main_blue;
 }
 
 .container:hover .blur {
@@ -85,7 +108,7 @@
     opacity: 1;
   }
 
-  .product-star-rating-box {
+  .link {
     transform: translateY(0px);
     transition-delay: 0.6s;
     opacity: 1;
