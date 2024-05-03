@@ -10,6 +10,7 @@
   background-size: cover;
   -webkit-box-shadow: 0 0 5px $black;
   box-shadow: 0 0 5px $black;
+  color: $primary;
 
   @include tablet {
     width: 180px;
