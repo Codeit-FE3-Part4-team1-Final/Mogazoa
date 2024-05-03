@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import styles from './Table.module.scss';
 import Result from '@/components/Table/Result';
 import TableCompare from '@/components/Table/TableCompare';
-import HomeProductCard from '../Card/HomeProductCard';
+import CompareCard from '../Card/CompareCard';
 
 const cx = classNames.bind(styles);
 interface TableInterface {
@@ -35,10 +35,10 @@ export default function Table({
       </div>
       <div className={cx('product-container')}>
         {victoryProduct === SubjectProduct.name && (
-          <HomeProductCard productItem={SubjectProduct} />
+          <CompareCard productItem={SubjectProduct} />
         )}
         {victoryProduct === ObjectProduct.name && (
-          <HomeProductCard productItem={ObjectProduct} />
+          <CompareCard productItem={ObjectProduct} />
         )}
       </div>
       <div className={cx('table-container')}>

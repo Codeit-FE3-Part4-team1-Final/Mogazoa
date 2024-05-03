@@ -12,7 +12,10 @@ interface Props {
 
 export default function CompareCard({ productItem }: Props) {
   return (
-    <div className={cx('container')}>
+    <div
+      className={cx('container')}
+      style={{ backgroundImage: `url(${productItem.image})` }}
+    >
       <div className={cx('blur')}>
         <div className={cx('products')}></div>
         <div className={cx('products', 'name')}>
