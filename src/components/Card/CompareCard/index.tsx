@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import classNames from 'classnames/bind';
+import Link from 'next/link';
 import { ProductListType } from '@/types/types';
 import styles from './CompareCard.module.scss';
 
@@ -15,11 +16,11 @@ export default function CompareCard({ productItem }: Props) {
       <div className={cx('card')}>
         <div className={cx('image-container')}>
           <Image
-            fill
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             src={productItem.image}
             alt='product-image'
-            style={{ objectFit: 'contain' }}
+            width={200}
+            height={200}
+            className={cx('image')}
           />
         </div>
         <div className={cx('content-container')}>
@@ -42,6 +43,9 @@ export default function CompareCard({ productItem }: Props) {
             />
             <span>{productItem.rating}</span>
           </div>
+          <Link href={`/product/${productItem.id}`} className={cx('link')}>
+            자세히보기
+          </Link>
         </div>
       </div>
     </div>
