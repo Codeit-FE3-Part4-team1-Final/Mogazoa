@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
-import classNames from 'classnames/bind';
 import '../styles/globals.scss';
 import ReactQueryProvider from '../../providers/ReactQueryProvider';
 import NavigationBar from '@/components/NavigationBar';
 import { ModalStoreProvider } from '../../providers/ModalStoreProvider';
 import ProgressBar from '@/components/Loading/Nprogress';
-import styles from './layout.module.scss';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,8 +15,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cx = classNames.bind(styles);
-
   return (
     <html lang='ko'>
       <body>
@@ -26,7 +22,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <ModalStoreProvider>
             <NavigationBar />
-            <div className={cx('container')}>{children}</div>
+            {children}
           </ModalStoreProvider>
         </ReactQueryProvider>
       </body>

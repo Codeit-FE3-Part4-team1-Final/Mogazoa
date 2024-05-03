@@ -1,10 +1,12 @@
 @import '/src/styles/main.scss';
 
 .home-container {
+  position: relative;
   display: flex;
   width: 1600px;
   margin: 0 auto;
   gap: 20px;
+  top: 100px;
 
   @include tablet {
     width: 100%;
@@ -15,12 +17,14 @@
       'sidebar ranking'
       'sidebar main';
     gap: 0;
+    top: 60px;
   }
 
   @include mobile {
     display: flex;
     flex-direction: column;
     width: 100%;
+    top: 50px;
   }
 }
 

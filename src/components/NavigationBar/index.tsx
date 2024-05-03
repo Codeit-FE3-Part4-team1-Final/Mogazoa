@@ -2,11 +2,18 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import classNames from 'classnames/bind';
 import styles from './NavigationBar.module.scss';
 import useSidebarStore from '@/stores/sidebarStore';
 
+const cx = classNames.bind(styles);
+
 // Todo(송상훈)
 export default function NavigationBar() {
+  const pathname = usePathname();
+  const isFixed = pathname === '/';
+
   const accessToken = localStorage.getItem('accessToken');
 
   const isLoggedIn = !!accessToken;
@@ -14,9 +21,9 @@ export default function NavigationBar() {
   const { toggleSidebar } = useSidebarStore();
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <button className={styles['menu-icon']} onClick={toggleSidebar}>
+    <div className={cx('wrapper', { fixed: isFixed })}>
+      <div className={cx('container')}>
+        <button className={cx('menu-icon')} onClick={toggleSidebar}>
           <Image
             src='/images/menu-icon.svg'
             alt='메뉴 이미지'
@@ -24,11 +31,11 @@ export default function NavigationBar() {
             height={24}
           />
         </button>
-        <Link className={styles['logo-wrapper']} href='/'>
+        <Link className={cx('logo-wrapper')} href='/'>
           <Image src='/images/logo-L.svg' alt='로고 이미지' fill />
         </Link>
-        <div className={styles['navigation-item']}>
-          <div className={styles.search}>
+        <div className={cx('navigation-item')}>
+          <div className={cx('search')}>
             <Image
               src='/images/search-icon.svg'
               alt='돋보기 이미지'
@@ -36,27 +43,27 @@ export default function NavigationBar() {
               height={24}
             />
             <input
-              className={styles[`search-input`]}
+              className={cx('search-input')}
               placeholder='상품 이름을 검색해 보세요'
             />
           </div>
-          <div className={styles['navigation-user-menu']}>
+          <div className={cx('navigation-user-menu')}>
             {isLoggedIn ? (
               <>
                 <Link href='/compare'>
-                  <button className={styles.button}>비교하기</button>
+                  <button className={cx('button')}>비교하기</button>
                 </Link>
                 <Link href='/mypage'>
-                  <button className={styles.button}>내프로필</button>
+                  <button className={cx('button')}>내프로필</button>
                 </Link>
               </>
             ) : (
               <>
                 <Link href='/signin'>
-                  <button className={styles.button}>로그인</button>
+                  <button className={cx('button')}>로그인</button>
                 </Link>
                 <Link href='/signup'>
-                  <button className={styles.button}>회원가입</button>
+                  <button className={cx('button')}>회원가입</button>
                 </Link>
               </>
             )}
