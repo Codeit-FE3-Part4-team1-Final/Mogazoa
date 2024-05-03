@@ -11,6 +11,10 @@
   }
 }
 
+.logo-unVisible {
+  display: none;
+}
+
 .fixed {
   position: fixed !important;
   top: 0 !important;
@@ -73,7 +77,7 @@
   align-items: center;
   width: 400px;
   height: 56px;
-  padding: 16px 20px;
+  padding: 0 20px;
   background-color: $comp-bg;
   border-radius: 28px;
   gap: 20px;
@@ -81,19 +85,49 @@
   @include tablet {
     width: 270px;
     height: 40px;
+    gap: 15px;
   }
 
   @include mobile {
-    width: 24px;
-    height: 24px;
-    padding: 0;
     background-color: $background;
+    width: 24px;
+    padding: 0;
+
+    .search-input {
+      display: none;
+    }
   }
 }
 
-.search-input {
+.search-visible {
   @include mobile {
-    display: none;
+    background-color: $comp-bg;
+    padding: 0 20px;
+    width: 260px;
+    height: 40px;
+    gap: 15px;
+
+    .search-input {
+      display: inline;
+    }
+  }
+}
+
+.search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-input {
+  font-size: 16px;
+
+  @include tablet {
+    font-size: 14px;
+  }
+
+  @include mobile {
+    font-size: 12px;
   }
 }
 

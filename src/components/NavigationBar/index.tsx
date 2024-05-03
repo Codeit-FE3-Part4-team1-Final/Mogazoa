@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import classNames from 'classnames/bind';
 import styles from './NavigationBar.module.scss';
 import useSidebarStore from '@/stores/sidebarStore';
+import useSearchStore from '@/stores/searchStore';
 
 const cx = classNames.bind(styles);
 
@@ -19,6 +20,7 @@ export default function NavigationBar() {
   const isLoggedIn = !!accessToken;
 
   const { toggleSidebar } = useSidebarStore();
+  const { toggleSearch, isSearchVisible } = useSearchStore();
 
   return (
     <div className={cx('wrapper', { fixed: isFixed })}>
@@ -31,17 +33,28 @@ export default function NavigationBar() {
             height={24}
           />
         </button>
-        <Link className={cx('logo-wrapper')} href='/'>
+        <Link
+          className={cx('logo-wrapper', {
+            'logo-unVisible': !!isSearchVisible,
+          })}
+          href='/'
+        >
           <Image src='/images/logo-L.svg' alt='로고 이미지' fill />
         </Link>
         <div className={cx('navigation-item')}>
-          <div className={cx('search')}>
-            <Image
-              src='/images/search-icon.svg'
-              alt='돋보기 이미지'
-              width={24}
-              height={24}
-            />
+          <div
+            className={cx('search', {
+              'search-visible': isSearchVisible,
+            })}
+          >
+            <button className={cx('search-icon')} onClick={toggleSearch}>
+              <Image
+                src='/images/search-icon.svg'
+                alt='돋보기 이미지'
+                width={24}
+                height={24}
+              />
+            </button>
             <input
               className={cx('search-input')}
               placeholder='상품 이름을 검색해 보세요'
