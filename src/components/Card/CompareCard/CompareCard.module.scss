@@ -10,6 +10,16 @@
   background-size: cover;
   -webkit-box-shadow: 0 0 5px $black;
   box-shadow: 0 0 5px $black;
+
+  @include tablet {
+    width: 180px;
+    height: 240px;
+  }
+
+  @include mobile {
+    width: 150px;
+    height: 210px;
+  }
 }
 
 .blur {
@@ -25,18 +35,6 @@
 .products {
   padding-left: 10px;
   letter-spacing: 3px;
-
-  &:span {
-    display: inline-block;
-    color: $secondary;
-    font-weight: 300;
-    @include tablet {
-      font-size: 14px;
-    }
-    @include mobile {
-      font-size: 12px;
-    }
-  }
 }
 
 .name {
@@ -56,6 +54,16 @@
     left: 20px;
     transition: all 0.5s;
   }
+
+  @include tablet {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  @include mobile {
+    font-size: 16px;
+    font-weight: 600;
+  }
 }
 
 .review-like {
@@ -66,6 +74,14 @@
   transform: translateY(40px);
   transition: all 0.7s;
   text-align: left;
+
+  @include tablet {
+    font-size: 16px;
+  }
+
+  @include mobile {
+    font-size: 14px;
+  }
 }
 
 .rating {
@@ -89,6 +105,14 @@
 .link {
   font-size: 20px;
   color: $main_blue;
+
+  @include tablet {
+    font-size: 18px;
+  }
+
+  @include mobile {
+    font-size: 16px;
+  }
 }
 
 .container:hover .blur {
