@@ -6,19 +6,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 8px;
   background-size: cover;
-  cursor: pointer;
-  -webkit-box-shadow: 0 0 5px #000;
-  box-shadow: 0 0 5px #000;
+  -webkit-box-shadow: 0 0 5px $black;
+  box-shadow: 0 0 5px $black;
 }
 
 .blur {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 2fr 2fr 1fr;
-  background: rgba(77, 77, 77, 0.9);
+  padding: 12px;
+  border-radius: 8px;
+  background: $blur;
   opacity: 0;
   transition: all 0.5s;
 }
@@ -28,7 +27,7 @@
   letter-spacing: 3px;
 }
 
-.title {
+.name {
   font-size: 30px;
   line-height: 40px;
   transform: translateY(40px);
@@ -48,8 +47,6 @@
 
 .review-like {
   font-size: 22px;
-  line-height: 10px;
-  font-weight: bold;
   opacity: 0;
   transform: translateY(40px);
   transition: all 0.7s;
@@ -73,7 +70,7 @@
 
 .container:hover .blur {
   opacity: 1;
-  .title {
+  .name {
     transform: translateY(0px);
   }
 

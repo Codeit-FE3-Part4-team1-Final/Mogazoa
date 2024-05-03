@@ -25,9 +25,11 @@ export default function CompareCard({ productItem }: Props) {
         <div className={cx('products', 'review-like')}>
           <span>리뷰 : {productItem.reviewCount}</span>
         </div>
+        <br />
         <div className={cx('products', 'review-like')}>
           <span>찜 : {productItem.favoriteCount}</span>
         </div>
+        <br />
         <div className={cx('product-star-rating-box')}>
           <Image
             src={'/images/star-icon.svg'}
@@ -40,6 +42,7 @@ export default function CompareCard({ productItem }: Props) {
             {Number(productItem.rating.toFixed(1))}
           </span>
         </div>
+        <br />
         <Link href={`/product/${productItem.id}`} className={cx('wrapper')}>
           자세히보기
         </Link>
