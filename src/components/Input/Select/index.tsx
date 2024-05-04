@@ -42,6 +42,13 @@ export default function Select({
           height={24}
           className={cx('arrow', isOpened && 'opened')}
         />
+        {isOpened && (
+          <SelectOptions
+            optionList={optionList}
+            handleChange={handleChange}
+            selectCategory={selectCategory}
+          />
+        )}
       </button>
       <input
         readOnly
@@ -51,13 +58,6 @@ export default function Select({
         {...register}
         {...rest}
       />
-      {isOpened && (
-        <SelectOptions
-          optionList={optionList}
-          handleChange={handleChange}
-          selectCategory={selectCategory}
-        />
-      )}
     </div>
   );
 }

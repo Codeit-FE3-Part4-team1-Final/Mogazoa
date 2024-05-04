@@ -22,6 +22,7 @@ export default function SelectOptions({
           <li
             value={option.id}
             key={option.id}
+            className={cx('option')}
             onClick={() => {
               handleChange(option.id);
               selectCategory(option.name);
