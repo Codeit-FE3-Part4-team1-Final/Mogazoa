@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { UpdateUserRequestBody, UserDetail } from '@/types/types';
@@ -6,6 +7,11 @@ import uploadImage from '@/utils/uploadImage';
 import patchProfile from '@/utils/patchProfile';
 import { useModalStore } from '../../providers/ModalStoreProvider';
 import generateRandomEnglishName from '@/utils/generateRandomEnglishName';
+
+interface UpdateProfileMutationProps {
+  body: UpdateUserRequestBody;
+  userToken: string;
+}
 
 const useEditProfile = (userDetail: UserDetail, token: string) => {
   const FILE_MAX_SIZE = 5 * 1024 * 1024;
@@ -16,7 +22,7 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
   const [userDescription, setUserDescription] = useState(
     userDetail.description,
   );
-  const { toggleModal } = useModalStore((state) => state);
+  const { toggleModal, setModalType } = useModalStore((state) => state);
   const router = useRouter();
 
   const {
@@ -101,7 +107,21 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
     reset({ image: null });
     setUserImage(null);
     setSelectedImage(null);
+    setImageUrl('');
   };
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: ({ body, userToken }: UpdateProfileMutationProps) =>
+      patchProfile(body, userToken),
+    onSuccess: () => {
+      router.refresh();
+      toggleModal();
+      setModalType(null);
+    },
+    onError: (data) => {
+      setError('nickname', { message: data.message });
+    },
+  });
 
   const onSubmit: SubmitHandler<UpdateUserRequestBody> = async ({
     description,
@@ -109,6 +129,9 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
     image,
   }) => {
     try {
+      if (isPending) {
+        return;
+      }
       let body = { description, nickname, image };
 
       // 선택한 이미지 없으면 기본 이미지 등록
@@ -126,14 +149,7 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
         body = { ...body, image: imageUrl };
       }
 
-      const response = await patchProfile(body, token);
-
-      if (response.ok) {
-        toggleModal();
-        router.refresh();
-      }
-      const error = await response.json();
-      setError('nickname', { message: error.message });
+      mutate({ body, userToken: token });
     } catch (error) {
       throw new Error('프로필 변경 실패');
     }
@@ -152,6 +168,7 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
     register,
     handleSubmit,
     errors,
+    isPending,
   };
 };
 

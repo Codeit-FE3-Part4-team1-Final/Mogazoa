@@ -30,6 +30,7 @@ export default function EditProfile({ userDetail, token }: Props) {
     register,
     handleSubmit,
     errors,
+    isPending,
   } = useEditProfile(userDetail, token);
   return (
     <div className={cx('wrapper')}>
@@ -64,7 +65,7 @@ export default function EditProfile({ userDetail, token }: Props) {
           placeholder='프로필 소개를 입력해 주세요.'
           value={userDescription}
         />
-        <Button category='primary' type='submit'>
+        <Button category='primary' type='submit' disabled={isPending}>
           저장하기
         </Button>
       </form>
