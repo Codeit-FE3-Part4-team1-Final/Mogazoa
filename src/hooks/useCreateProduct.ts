@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -67,6 +67,7 @@ const useCreateProduct = (token: string) => {
   const FILE_MAX_SIZE = 5 * 1024 * 1024;
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState('');
   const { toggleModal, setModalType } = useModalStore((state) => state);
 
   const {
@@ -163,6 +164,23 @@ const useCreateProduct = (token: string) => {
     }
   };
 
+  useEffect(() => {
+    if (!selectedImage) {
+      return;
+    }
+
+    const upload = async () => {
+      try {
+        const url = await uploadImage(selectedImage, token);
+        setImageUrl(url);
+      } catch (error) {
+        console.error('이미지 업로드 중 오류 발생:', error);
+      }
+    };
+
+    upload();
+  }, [selectedImage]);
+
   const resetFile = () => {
     const currentValues = getValues();
     reset({
@@ -172,6 +190,7 @@ const useCreateProduct = (token: string) => {
 
     setPreviewImage(null);
     setSelectedImage(null);
+    setImageUrl('');
   };
 
   const { mutate, isPending } = useMutation({
@@ -214,8 +233,7 @@ const useCreateProduct = (token: string) => {
         return;
       }
 
-      const url = await uploadImage(selectedImage, token);
-      const body = { ...data, image: url };
+      const body = { ...data, image: imageUrl };
       mutate({ body, userToken: token });
     } catch (error) {
       throw new Error('상품 등록 실패');
