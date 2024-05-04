@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useQueryClient } from '@tanstack/react-query';
 import generateRandomEnglishName from '@/utils/generateRandomEnglishName';
 import {
   Category,
@@ -55,6 +56,7 @@ const categoryList: Category[] = [
 ];
 
 const useCreateProduct = (token: string) => {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const FILE_MAX_SIZE = 5 * 1024 * 1024;
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -178,6 +180,9 @@ const useCreateProduct = (token: string) => {
       const response = await createProduct(body, token);
       if (response.ok) {
         const product: ProductDetailType = await response.json();
+        queryClient.invalidateQueries({
+          queryKey: ['user-created-products'],
+        });
         router.push(`/product/${product.id}`);
         toggleModal();
         setModalType(null);
