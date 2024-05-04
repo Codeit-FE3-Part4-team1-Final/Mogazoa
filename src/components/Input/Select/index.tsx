@@ -44,7 +44,7 @@ export default function Select({
         {name}
         <Image
           src={'/images/dropdown-nonfocus.svg'}
-          alt='profile-image'
+          alt='dropdown-arrow'
           width={24}
           height={24}
           className={cx('arrow', isOpened && 'opened')}
