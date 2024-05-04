@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import generateRandomEnglishName from '@/utils/generateRandomEnglishName';
 import {
   Category,
@@ -54,6 +54,11 @@ const categoryList: Category[] = [
     name: '앱',
   },
 ];
+
+interface CreateProductMutationProps {
+  body: CreateProductRequestBody;
+  userToken: string;
+}
 
 const useCreateProduct = (token: string) => {
   const queryClient = useQueryClient();
@@ -159,8 +164,25 @@ const useCreateProduct = (token: string) => {
     setSelectedImage(null);
   };
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: ({ body, userToken }: CreateProductMutationProps) =>
+      createProduct(body, userToken),
+    onSuccess: (product: ProductDetailType) => {
+      queryClient.invalidateQueries({
+        queryKey: ['user-created-products'],
+      });
+
+      router.push(`/product/${product.id}`);
+      toggleModal();
+      setModalType(null);
+    },
+  });
+
   const onSubmit: SubmitHandler<CreateProductRequestBody> = async (data) => {
     try {
+      if (isPending) {
+        return;
+      }
       if (!selectedImage) {
         setError('image', { message: '대표 이미지를 추가해주세요.' });
         return;
@@ -177,16 +199,7 @@ const useCreateProduct = (token: string) => {
       }
       const url = await uploadImage(selectedImage, token);
       const body = { ...data, image: url };
-      const response = await createProduct(body, token);
-      if (response.ok) {
-        const product: ProductDetailType = await response.json();
-        queryClient.invalidateQueries({
-          queryKey: ['user-created-products'],
-        });
-        router.push(`/product/${product.id}`);
-        toggleModal();
-        setModalType(null);
-      }
+      mutate({ body, userToken: token });
     } catch (error) {
       throw new Error('상품 등록 실패');
     }
@@ -209,6 +222,7 @@ const useCreateProduct = (token: string) => {
     onBlurDescription,
     errors,
     categoryList,
+    isPending,
   };
 };
 

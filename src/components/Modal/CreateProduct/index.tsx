@@ -30,6 +30,7 @@ export default function CreateProduct({ token }: Props) {
     onBlurDescription,
     errors,
     categoryList,
+    isPending,
   } = useCreateProduct(token);
 
   return (
@@ -80,7 +81,7 @@ export default function CreateProduct({ token }: Props) {
           })}
           error={!!errors.description}
         />
-        <Button category='primary' type='submit'>
+        <Button category='primary' type='submit' disabled={isPending}>
           추가하기
         </Button>
       </form>

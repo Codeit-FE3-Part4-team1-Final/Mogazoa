@@ -1,6 +1,9 @@
-import { CreateProductRequestBody } from '@/types/types';
+import { CreateProductRequestBody, ProductDetailType } from '@/types/types';
 
-const createProduct = async (body: CreateProductRequestBody, token: string) => {
+const createProduct = async (
+  body: CreateProductRequestBody,
+  token: string,
+): Promise<ProductDetailType> => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL_HOST}/products`,
@@ -13,10 +16,14 @@ const createProduct = async (body: CreateProductRequestBody, token: string) => {
         body: JSON.stringify(body),
       },
     );
+    if (!response.ok) {
+      throw new Error('상품 생성 실패');
+    }
 
-    return response;
+    const product: ProductDetailType = await response.json();
+    return product;
   } catch (error) {
-    throw new Error('프로필 변경 실패');
+    throw new Error('상품 생성 실패');
   }
 };
 
