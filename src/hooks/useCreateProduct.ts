@@ -11,6 +11,7 @@ import {
 import uploadImage from '@/utils/uploadImage';
 import createProduct from '@/utils/createProduct';
 import { useModalStore } from '../../providers/ModalStoreProvider';
+import validateProductName from '@/utils/validateProductName';
 
 const categoryList: Category[] = [
   {
@@ -86,12 +87,21 @@ const useCreateProduct = (token: string) => {
   const categoryId = watch('categoryId', 0);
   const description = watch('description', '');
 
-  const onBlurName = (event: ChangeEvent<HTMLInputElement>) => {
+  const onBlurName = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length === 0) {
       setError('name', { message: '상품 이름은 필수 입력입니다.' });
-    } else {
-      clearErrors('name');
+      return;
     }
+
+    const validation = await validateProductName(event.target.value);
+
+    if (!validation) {
+      setError('name', { message: '이미 등록된 상품입니다.' });
+      console.log(errors);
+      return;
+    }
+
+    clearErrors('name');
   };
 
   const onBlurDescription = (event: ChangeEvent<HTMLInputElement>) => {
@@ -197,6 +207,13 @@ const useCreateProduct = (token: string) => {
         });
         return;
       }
+
+      const validation = await validateProductName(data.name);
+      if (!validation) {
+        setError('name', { message: '이미 등록된 상품입니다.' });
+        return;
+      }
+
       const url = await uploadImage(selectedImage, token);
       const body = { ...data, image: url };
       mutate({ body, userToken: token });
