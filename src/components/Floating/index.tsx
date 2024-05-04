@@ -9,7 +9,11 @@ import CreateProduct from '../Modal/CreateProduct';
 
 const cx = classNames.bind(styles);
 
-export default function Floating() {
+interface Props {
+  token: string;
+}
+
+export default function Floating({ token }: Props) {
   const { isOpened, toggleModal, modalType, setModalType } = useModalStore(
     (state) => state,
   );
@@ -23,7 +27,7 @@ export default function Floating() {
     <>
       {isOpened && modalType === 'createProduct' ? (
         <ModalWrapper>
-          <CreateProduct />
+          <CreateProduct token={token} />
         </ModalWrapper>
       ) : null}
       <div

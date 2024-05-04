@@ -9,7 +9,11 @@ import Select from '@/components/Input/Select';
 
 const cx = classNames.bind(styles);
 
-export default function CreateProduct() {
+interface Props {
+  token: string;
+}
+
+export default function CreateProduct({ token }: Props) {
   const {
     name,
     description,
@@ -26,7 +30,7 @@ export default function CreateProduct() {
     onBlurDescription,
     errors,
     categoryList,
-  } = useCreateProduct();
+  } = useCreateProduct(token);
 
   return (
     <div className={cx('wrapper')}>

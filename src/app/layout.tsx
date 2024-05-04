@@ -28,7 +28,7 @@ export default function RootLayout({
           <ModalStoreProvider>
             <NavigationBar />
             {children}
-            {isLoggedIn && <Floating />}
+            {isLoggedIn && <Floating token={token.value} />}
           </ModalStoreProvider>
         </ReactQueryProvider>
       </body>

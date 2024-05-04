@@ -1,7 +1,15 @@
 import { ChangeEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import generateRandomEnglishName from '@/utils/generateRandomEnglishName';
-import { Category, CreateProductRequestBody } from '@/types/types';
+import {
+  Category,
+  CreateProductRequestBody,
+  ProductDetailType,
+} from '@/types/types';
+import uploadImage from '@/utils/uploadImage';
+import createProduct from '@/utils/createProduct';
+import { useModalStore } from '../../providers/ModalStoreProvider';
 
 const categoryList: Category[] = [
   {
@@ -46,10 +54,12 @@ const categoryList: Category[] = [
   },
 ];
 
-const useCreateProduct = () => {
+const useCreateProduct = (token: string) => {
+  const router = useRouter();
   const FILE_MAX_SIZE = 5 * 1024 * 1024;
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const { toggleModal, setModalType } = useModalStore((state) => state);
 
   const {
     register,
@@ -163,7 +173,15 @@ const useCreateProduct = () => {
         });
         return;
       }
-      console.log(data, selectedImage);
+      const url = await uploadImage(selectedImage, token);
+      const body = { ...data, image: url };
+      const response = await createProduct(body, token);
+      if (response.ok) {
+        const product: ProductDetailType = await response.json();
+        router.push(`/product/${product.id}`);
+        toggleModal();
+        setModalType(null);
+      }
     } catch (error) {
       throw new Error('상품 등록 실패');
     }
