@@ -96,7 +96,7 @@ export default function Home() {
         </aside>
         <main className={cx('main')}>
           {selectedCategory === null ? (
-            '바보'
+            '진행예정'
           ) : (
             <>
               <section className={cx('product-info')}>

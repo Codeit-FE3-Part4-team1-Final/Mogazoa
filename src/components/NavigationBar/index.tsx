@@ -15,7 +15,8 @@ export default function NavigationBar() {
   const pathname = usePathname();
   const isFixed = pathname === '/';
 
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken =
+    typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
 
   const isLoggedIn = !!accessToken;
 
