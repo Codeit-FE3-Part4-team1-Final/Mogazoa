@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { UpdateUserRequestBody, UserDetail } from '@/types/types';
@@ -9,6 +9,7 @@ import generateRandomEnglishName from '@/utils/generateRandomEnglishName';
 
 const useEditProfile = (userDetail: UserDetail, token: string) => {
   const FILE_MAX_SIZE = 5 * 1024 * 1024;
+  const [imageUrl, setImageUrl] = useState('');
   const [userImage, setUserImage] = useState(userDetail.image);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [userName, setUserName] = useState(userDetail.nickname);
@@ -39,7 +40,6 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
     setUserDescription(e.target.value);
   };
 
-  // 이미지 change handler
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
 
@@ -74,6 +74,23 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
     }
   };
 
+  useEffect(() => {
+    if (!selectedImage) {
+      return;
+    }
+
+    const upload = async () => {
+      try {
+        const url = await uploadImage(selectedImage, token);
+        setImageUrl(url);
+      } catch (error) {
+        console.error('이미지 업로드 중 오류 발생:', error);
+      }
+    };
+
+    upload();
+  }, [selectedImage]);
+
   const onBlurUserName = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length === 0) {
       setError('nickname', { message: '닉네임은 필수 입력입니다.' });
@@ -93,16 +110,22 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
   }) => {
     try {
       let body = { description, nickname, image };
+
+      // 선택한 이미지 없으면 기본 이미지 등록
       if (!image && process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL) {
         body = { ...body, image: process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL };
       }
-      if (image && selectedImage) {
-        const url = await uploadImage(selectedImage, token);
-        body = { ...body, image: url };
-      }
+
+      // 기존 유저의 프로필 이미지
       if (!selectedImage && userImage) {
         body = { ...body, image: userImage };
       }
+
+      // 다른 이미지 선택 시
+      if (selectedImage) {
+        body = { ...body, image: imageUrl };
+      }
+
       const response = await patchProfile(body, token);
 
       if (response.ok) {
