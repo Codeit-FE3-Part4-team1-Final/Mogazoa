@@ -33,7 +33,14 @@ export default function Select({
   };
   return (
     <div className={cx('wrapper')} onClick={onClick}>
-      <button className={cx('select-button', error && 'error')} type='button'>
+      <button
+        className={cx(
+          'select-button',
+          error && 'error',
+          name === '카테고리를 선택해주세요' && 'default',
+        )}
+        type='button'
+      >
         {name}
         <Image
           src={'/images/dropdown-nonfocus.svg'}
