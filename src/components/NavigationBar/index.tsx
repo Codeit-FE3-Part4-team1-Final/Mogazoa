@@ -21,9 +21,9 @@ export default function NavigationBar() {
             height={24}
           />
         </div>
-        <div className={styles['logo-wrapper']}>
+        <Link className={styles['logo-wrapper']} href='/'>
           <Image src='/images/logo-L.svg' alt='로고 이미지' fill />
-        </div>
+        </Link>
         <div className={styles['navigation-item']}>
           <div className={styles.search}>
             <Image

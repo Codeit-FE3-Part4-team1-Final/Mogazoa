@@ -21,6 +21,7 @@
     }
 
     button {
+      color: white;
       text-align: left; /* 텍스트 왼쪽 정렬 */
       padding: 10px 20px;
       border-bottom: 1px solid #444; /* 항목 구분선 */
@@ -41,4 +42,8 @@
       }
     }
   }
+}
+
+.dropdown-button {
+  color: white;
 }

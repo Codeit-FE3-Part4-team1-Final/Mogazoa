@@ -50,7 +50,7 @@ export default function DropDown({
 
   return (
     <div className={cx('dropdown-container')} ref={dropdownRef}>
-      <button onClick={toggleDropdown}>
+      <button className={cx('dropdown-button')} onClick={toggleDropdown}>
         {findLabelByKey(buttonLabel)} {isOpen ? '▲' : '▼'}
       </button>
       {isOpen && (
