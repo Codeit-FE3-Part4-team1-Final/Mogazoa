@@ -37,6 +37,8 @@ export default function ProfileCard({
     handleToggleModal,
     handleClickFollow,
     handleClickUnFollow,
+    fetchNextFollowee,
+    fetchNextFollower,
   } = useUserFollowData(userId, token, isLoggedIn);
 
   const profileModalType =
@@ -63,6 +65,8 @@ export default function ProfileCard({
               data={followData}
               modalType={modalType}
               userName={userDetail.nickname}
+              fetchNextFollowee={fetchNextFollowee}
+              fetchNextFollower={fetchNextFollower}
             />
           )}
         </ModalWrapper>
