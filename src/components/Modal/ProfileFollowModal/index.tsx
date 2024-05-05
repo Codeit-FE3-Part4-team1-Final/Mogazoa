@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import {
   FetchNextPageOptions,
@@ -13,6 +12,7 @@ import {
   ModalType,
 } from '@/types/types';
 import FollowUserList from '../FollowUserList';
+import useInfiniteFollow from '@/hooks/useInfiniteFollow';
 
 const cx = classNames.bind(styles);
 
@@ -39,32 +39,11 @@ export default function ProfileFollowModal({
   fetchNextFollowee,
   fetchNextFollower,
 }: Props) {
-  const userListRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const handleScroll = () => {
-      const { current } = userListRef;
-      const isAtBottom = current
-        ? current.scrollHeight - current.scrollTop - current.clientHeight <= 1
-        : false;
-      if (isAtBottom) {
-        if (modalType === 'followees') {
-          fetchNextFollowee();
-        } else {
-          fetchNextFollower();
-        }
-      }
-    };
-
-    const userListElement = userListRef.current;
-    if (userListElement) {
-      userListElement.addEventListener('scroll', handleScroll);
-    }
-    return () => {
-      if (userListElement) {
-        userListElement.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, [fetchNextFollowee, fetchNextFollower, modalType]);
+  const userListRef = useInfiniteFollow(
+    modalType,
+    fetchNextFollowee,
+    fetchNextFollower,
+  );
 
   return (
     <div className={cx('wrapper')}>
