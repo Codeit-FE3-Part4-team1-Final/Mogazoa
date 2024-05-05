@@ -30,7 +30,6 @@
 
 .sidebar {
   width: 180px;
-  height: 100%;
   padding: 30px 20px 0;
   flex-shrink: 0;
   border-right: 1px solid $comp-bg-10;
@@ -38,6 +37,7 @@
   @include tablet {
     grid-area: sidebar;
     width: 150px;
+    height: 100%;
   }
 
   @include mobile {
