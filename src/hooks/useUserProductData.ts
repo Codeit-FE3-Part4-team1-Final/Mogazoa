@@ -1,51 +1,70 @@
 import { useLayoutEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { UserProductCategory } from '@/components/Profile/ProfileProductPanel';
-import { ProductListType, SearchProductResponse } from '@/types/types';
+import { SearchProductResponse } from '@/types/types';
 import getUserProduct from '@/utils/getUserProduct';
 
 const useUserProductData = (userId: string) => {
   const [userProductCategory, setUserProductCategory] =
     useState<UserProductCategory>('reviewed-products');
-  const [productCardItem, setProductCardItem] = useState<ProductListType[]>();
+  const [productCardItem, setProductCardItem] = useState<
+    SearchProductResponse[] | undefined
+  >(undefined);
 
   const handleClickTitle = (title: UserProductCategory) => {
     setUserProductCategory(title);
   };
 
-  const { data: reviewedProduct } = useQuery<SearchProductResponse | undefined>(
-    {
+  const { data: reviewedProduct, fetchNextPage: fetchNextReviewedProduct } =
+    useInfiniteQuery({
       queryKey: ['user-reviewed-products', userId],
-      queryFn: () => getUserProduct(userId, 'reviewed-products'),
-      staleTime: 60 * 3 * 1000,
-    },
-  );
-  const { data: createdProduct } = useQuery<SearchProductResponse | undefined>({
-    queryKey: ['user-created-products', userId],
-    queryFn: () => getUserProduct(userId, 'created-products'),
-    staleTime: 60 * 3 * 1000,
-  });
-  const { data: favoriteProduct } = useQuery<SearchProductResponse | undefined>(
-    {
+      queryFn: ({ pageParam }) =>
+        getUserProduct(userId, pageParam, 'reviewed-products'),
+      initialPageParam: 0,
+      getNextPageParam: (lastPage) => lastPage?.nextCursor,
+      staleTime: 60 * 1000,
+    });
+
+  const { data: createdProduct, fetchNextPage: fetchNextCreatedProduct } =
+    useInfiniteQuery({
+      queryKey: ['user-created-products', userId],
+      queryFn: ({ pageParam }) =>
+        getUserProduct(userId, pageParam, 'created-products'),
+      initialPageParam: 0,
+      getNextPageParam: (lastPage) => lastPage?.nextCursor,
+      staleTime: 60 * 1000,
+    });
+
+  const { data: favoriteProduct, fetchNextPage: fetchNextFavoriteProduct } =
+    useInfiniteQuery({
       queryKey: ['user-favorite-products', userId],
-      queryFn: () => getUserProduct(userId, 'favorite-products'),
-      staleTime: 60 * 3 * 1000,
-    },
-  );
+      queryFn: ({ pageParam }) =>
+        getUserProduct(userId, pageParam, 'favorite-products'),
+      initialPageParam: 0,
+      getNextPageParam: (lastPage) => lastPage?.nextCursor,
+      staleTime: 60 * 1000,
+    });
 
   useLayoutEffect(() => {
     if (userProductCategory === 'reviewed-products') {
-      setProductCardItem(reviewedProduct?.list);
+      setProductCardItem(reviewedProduct?.pages);
     }
     if (userProductCategory === 'created-products') {
-      setProductCardItem(createdProduct?.list);
+      setProductCardItem(createdProduct?.pages);
     }
     if (userProductCategory === 'favorite-products') {
-      setProductCardItem(favoriteProduct?.list);
+      setProductCardItem(favoriteProduct?.pages);
     }
   }, [userProductCategory, reviewedProduct, createdProduct, favoriteProduct]);
 
-  return { userProductCategory, productCardItem, handleClickTitle };
+  return {
+    userProductCategory,
+    productCardItem,
+    handleClickTitle,
+    fetchNextReviewedProduct,
+    fetchNextCreatedProduct,
+    fetchNextFavoriteProduct,
+  };
 };
 
 export default useUserProductData;

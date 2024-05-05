@@ -28,12 +28,14 @@ const useInfiniteFollow = (
         ? current.scrollHeight - current.scrollTop - current.clientHeight <= 10
         : false;
 
-      if (isAtBottom) {
-        if (modalType === 'followees') {
-          fetchNextFollowee();
-        } else {
-          fetchNextFollower();
-        }
+      if (!isAtBottom) {
+        return;
+      }
+
+      if (modalType === 'followees') {
+        fetchNextFollowee();
+      } else {
+        fetchNextFollower();
       }
     }, 200);
 
