@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -15,6 +15,7 @@ import getRanking from '@/apis/getRanking';
 import RankingCard from '@/components/Card/RankingCard';
 import ProductCard from '@/components/Card/ProductCard';
 import useSidebarStore from '@/stores/sidebarStore';
+import useSearchInputStore from '@/stores/searchValueStore';
 
 interface MenuItem {
   key: string;
@@ -27,12 +28,17 @@ export default function Home() {
   const userRankings = getRanking();
 
   const { isSidebarVisible } = useSidebarStore();
+  const { inputValue, setInputValue } = useSearchInputStore();
 
   const [sortTitle, setSortTitle] = useState<string>('HOT');
   const [selectedSort, setSelectedSort] = useState<string>('reviewCount');
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null,
   );
+
+  useEffect(() => {
+    setInputValue('');
+  }, [selectedCategory, setInputValue]);
 
   const { data: sortProducts } = useQuery({
     queryKey: [`${selectedCategory?.name}${selectedSort}`],
@@ -41,8 +47,9 @@ export default function Home() {
   });
 
   const { data: categoryProducts } = useQuery({
-    queryKey: [`${selectedCategory?.name}Product`],
-    queryFn: () => getProduct({ category: selectedCategory?.id }),
+    queryKey: [`${selectedCategory?.name}Product`, inputValue],
+    queryFn: () =>
+      getProduct({ category: selectedCategory?.id, keyword: inputValue }),
   });
 
   const handleSortChange = (sortType: string) => {
@@ -134,7 +141,7 @@ export default function Home() {
                     <span className={cx('title-point')}>
                       {selectedCategory.name}{' '}
                     </span>
-                    전체 상품
+                    {inputValue ? `'${inputValue}' 검색상품` : '전체 상품'}
                   </p>
                 </div>
                 <div className={cx('product-list-grid')}>

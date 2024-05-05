@@ -5,7 +5,7 @@ interface SidebarState {
   toggleSidebar: () => void;
 }
 
-// 네비게이션 사이드바 메뉴 상태 관리
+// 네비게이션 사이드바 메뉴 토글 상태 관리
 const useSidebarStore = create<SidebarState>((set) => ({
   isSidebarVisible: false,
   toggleSidebar: () =>

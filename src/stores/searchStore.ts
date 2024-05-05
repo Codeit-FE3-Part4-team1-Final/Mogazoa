@@ -5,7 +5,7 @@ interface SearchStore {
   toggleSearch: () => void;
 }
 
-// 네비게이션 search 상태 관리
+// 네비게이션 search 모바일 토글 상태 관리
 const useSearchStore = create<SearchStore>((set) => ({
   isSearchVisible: false,
   toggleSearch: () =>

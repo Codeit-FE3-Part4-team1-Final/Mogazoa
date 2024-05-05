@@ -7,6 +7,7 @@ import classNames from 'classnames/bind';
 import styles from './NavigationBar.module.scss';
 import useSidebarStore from '@/stores/sidebarStore';
 import useSearchStore from '@/stores/searchStore';
+import useSearchInputStore from '@/stores/searchValueStore';
 
 const cx = classNames.bind(styles);
 
@@ -15,13 +16,17 @@ export default function NavigationBar() {
   const pathname = usePathname();
   const isFixed = pathname === '/';
 
-  const accessToken =
-    typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
-
-  const isLoggedIn = !!accessToken;
+  const isLoggedIn = true;
 
   const { toggleSidebar } = useSidebarStore();
   const { toggleSearch, isSearchVisible } = useSearchStore();
+  const setInputValue = useSearchInputStore((state) => state.setInputValue);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      setInputValue(event.currentTarget.value);
+    }
+  };
 
   return (
     <div className={cx('wrapper', { fixed: isFixed })}>
@@ -59,6 +64,7 @@ export default function NavigationBar() {
             <input
               className={cx('search-input')}
               placeholder='상품 이름을 검색해 보세요'
+              onKeyDown={handleKeyDown}
             />
           </div>
           <div className={cx('navigation-user-menu')}>
