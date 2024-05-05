@@ -23,7 +23,14 @@ export default function SideBar({ setSelectedCategory }: Props) {
 
   return (
     <div className={cx('sideBar-container')}>
-      <h3 className={cx('sideBar-header')}>카테고리</h3>
+      <button
+        className={cx('sideBar-header')}
+        onClick={() => {
+          setSelectedCategory(null);
+        }}
+      >
+        카테고리
+      </button>
       <ul className={cx('sideBar-list-container')}>
         {categories?.map((category) => (
           <button
