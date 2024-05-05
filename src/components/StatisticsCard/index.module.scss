@@ -71,3 +71,12 @@
     font-size: 12px;
   }
 }
+
+.difference {
+  color: $white;
+  font-size: 15px;
+
+  @include tablet {
+    font-size: 13px;
+  }
+}

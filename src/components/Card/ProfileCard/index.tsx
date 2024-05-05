@@ -54,7 +54,7 @@ export default function ProfileCard({
       {isOpened ? (
         <ModalWrapper>
           {modalType === 'edit' ? (
-            <EditProfile />
+            <EditProfile userDetail={userDetail} token={token} />
           ) : (
             <ProfileFollowModal
               data={followData}
@@ -65,17 +65,19 @@ export default function ProfileCard({
         </ModalWrapper>
       ) : null}
       <div className={cx('container')}>
-        <Image
-          src={userDetail.image || '/images/profile-image.png'}
-          alt='profile-image'
-          width={180}
-          height={180}
-          className={cx('profile-image')}
-          onError={(e) => handleErrorImage(e)}
-        />
+        <div className={cx('profile-image-box')}>
+          <Image
+            src={userDetail.image || '/images/profile-image.png'}
+            alt='profile-image'
+            fill
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            style={{ objectFit: 'cover' }}
+            onError={(e) => handleErrorImage(e)}
+          />
+        </div>
         <div className={cx('user-information')}>
           <span className={cx('user-name')}>{userDetail.nickname}</span>
-          <p className={cx('user-explain')}>{userDetail.description}</p>
+          <p className={cx('user-description')}>{userDetail.description}</p>
         </div>
         <div className={cx('user-follow-box')}>
           <div
