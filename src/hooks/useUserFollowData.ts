@@ -34,7 +34,8 @@ const useUserFollowData = (
       queryFn: ({ pageParam }) => getUserFollowerList(userId, pageParam),
       initialPageParam: 0,
       getNextPageParam: (lastPage) => lastPage?.nextCursor,
-      staleTime: 20 * 1000,
+      staleTime: 10 * 1000,
+      gcTime: 10 * 1000,
     },
   );
 
@@ -44,7 +45,8 @@ const useUserFollowData = (
       queryFn: ({ pageParam }) => getUserFolloweeList(userId, pageParam),
       initialPageParam: 0,
       getNextPageParam: (lastPage) => lastPage?.nextCursor,
-      staleTime: 20 * 1000,
+      staleTime: 10 * 1000,
+      gcTime: 10 * 1000,
     },
   );
 

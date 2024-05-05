@@ -22,7 +22,8 @@ const useUserProductData = (userId: string) => {
         getUserProduct(userId, pageParam, 'reviewed-products'),
       initialPageParam: 0,
       getNextPageParam: (lastPage) => lastPage?.nextCursor,
-      staleTime: 60 * 1000,
+      staleTime: 10 * 1000,
+      gcTime: 10 * 1000,
     });
 
   const { data: createdProduct, fetchNextPage: fetchNextCreatedProduct } =
@@ -32,7 +33,8 @@ const useUserProductData = (userId: string) => {
         getUserProduct(userId, pageParam, 'created-products'),
       initialPageParam: 0,
       getNextPageParam: (lastPage) => lastPage?.nextCursor,
-      staleTime: 60 * 1000,
+      staleTime: 10 * 1000,
+      gcTime: 10 * 1000,
     });
 
   const { data: favoriteProduct, fetchNextPage: fetchNextFavoriteProduct } =
@@ -42,7 +44,8 @@ const useUserProductData = (userId: string) => {
         getUserProduct(userId, pageParam, 'favorite-products'),
       initialPageParam: 0,
       getNextPageParam: (lastPage) => lastPage?.nextCursor,
-      staleTime: 60 * 1000,
+      staleTime: 10 * 1000,
+      gcTime: 10 * 1000,
     });
 
   useLayoutEffect(() => {

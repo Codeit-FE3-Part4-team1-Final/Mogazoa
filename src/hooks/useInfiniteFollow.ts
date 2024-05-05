@@ -34,7 +34,8 @@ const useInfiniteFollow = (
 
       if (modalType === 'followees') {
         fetchNextFollowee();
-      } else {
+      }
+      if (modalType === 'followers') {
         fetchNextFollower();
       }
     }, 200);
