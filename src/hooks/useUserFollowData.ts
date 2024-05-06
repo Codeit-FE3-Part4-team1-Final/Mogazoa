@@ -1,9 +1,12 @@
 import { MouseEvent, useLayoutEffect, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation';
 import { useModalStore } from '../../providers/ModalStoreProvider';
-import { ModalType } from '@/components/Card/ProfileCard';
-import { UserFolloweeList, UserFollowerList } from '@/types/types';
+import { ModalType, UserFolloweeList, UserFollowerList } from '@/types/types';
 import {
   getUserFolloweeList,
   getUserFollowerList,
@@ -18,22 +21,34 @@ const useUserFollowData = (
   const pathname = usePathname();
   const route = useRouter();
   const queryClient = useQueryClient();
-  const { isOpened, toggleModal } = useModalStore((state) => state);
-  const [modalType, setModalType] = useState<ModalType>('followers');
+  const { isOpened, toggleModal, modalType, setModalType } = useModalStore(
+    (state) => state,
+  );
   const [followData, setFollowData] = useState<
-    UserFollowerList | UserFolloweeList
-  >();
+    UserFollowerList[] | UserFolloweeList[] | undefined
+  >(undefined);
 
-  const { data: follower } = useQuery<UserFollowerList | UserFolloweeList>({
-    queryKey: ['user-follower-list', userId],
-    queryFn: () => getUserFollowerList(userId),
-    staleTime: 20 * 1000,
-  });
-  const { data: followee } = useQuery<UserFollowerList | UserFolloweeList>({
-    queryKey: ['user-followee-list', userId],
-    queryFn: () => getUserFolloweeList(userId),
-    staleTime: 20 * 1000,
-  });
+  const { data: follower, fetchNextPage: fetchNextFollower } = useInfiniteQuery(
+    {
+      queryKey: ['user-follower-list', userId],
+      queryFn: ({ pageParam }) => getUserFollowerList(userId, pageParam),
+      initialPageParam: 0,
+      getNextPageParam: (lastPage) => lastPage?.nextCursor,
+      staleTime: 10 * 1000,
+      gcTime: 10 * 1000,
+    },
+  );
+
+  const { data: followee, fetchNextPage: fetchNextFollowee } = useInfiniteQuery(
+    {
+      queryKey: ['user-followee-list', userId],
+      queryFn: ({ pageParam }) => getUserFolloweeList(userId, pageParam),
+      initialPageParam: 0,
+      getNextPageParam: (lastPage) => lastPage?.nextCursor,
+      staleTime: 10 * 1000,
+      gcTime: 10 * 1000,
+    },
+  );
 
   const handleToggleModal = async (type: ModalType) => {
     setModalType(type);
@@ -99,10 +114,10 @@ const useUserFollowData = (
 
   useLayoutEffect(() => {
     if (modalType === 'followers') {
-      setFollowData(follower);
+      setFollowData(follower?.pages);
     }
     if (modalType === 'followees') {
-      setFollowData(followee);
+      setFollowData(followee?.pages);
     }
   }, [modalType, follower, followee]);
 
@@ -116,6 +131,8 @@ const useUserFollowData = (
     handleToggleModal,
     handleClickFollow,
     handleClickUnFollow,
+    fetchNextFollowee,
+    fetchNextFollower,
   };
 };
 

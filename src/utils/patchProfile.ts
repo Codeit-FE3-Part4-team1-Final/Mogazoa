@@ -1,3 +1,5 @@
+import { User } from '@/types/types';
+
 interface Props {
   description: string | null;
   nickname: string;
@@ -18,7 +20,12 @@ const patchProfile = async (body: Props, token: string) => {
       },
     );
 
-    return response;
+    if (!response.ok) {
+      throw new Error('프로필 변경 실패');
+    }
+
+    const profile: User = await response.json();
+    return profile;
   } catch (error) {
     throw new Error('프로필 변경 실패');
   }

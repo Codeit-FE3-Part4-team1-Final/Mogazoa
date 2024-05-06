@@ -1,0 +1,15 @@
+@import '/src/styles/main.scss';
+
+.wrapper {
+  position: fixed;
+  z-index: 1;
+  bottom: 90px;
+  right: 90px;
+  cursor: pointer;
+  @include tablet {
+    right: 30px;
+  }
+  @include mobile {
+    right: 20px;
+  }
+}
