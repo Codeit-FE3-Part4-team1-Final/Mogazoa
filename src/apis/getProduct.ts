@@ -28,7 +28,7 @@ const getProduct = ({
   const queryParams = `?${keyword ? `&keyword=${keyword}` : ''}${category ? `&category=${category}` : ''}${order ? `&order=${order}` : ''}${cursor ? `&cursor=${cursor}` : ''}`;
   const requestApi: RequestMethodInterface = {
     method: 'get',
-    endPoint: `/products${queryParams}`,
+    endPoint: `products${queryParams}`,
   };
   return requestMethod<ProductListInterface>(requestApi);
 };
