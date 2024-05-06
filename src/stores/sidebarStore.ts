@@ -1,9 +1,15 @@
-// import { createStore } from 'zustand';
+import { create } from 'zustand';
 
-// const [useStore] = createStore((set) => ({
-//   selectedCategory: null,
-//   setSelectedCategory: (category) =>
-//     set(() => ({ selectedCategory: category })),
-// }));
+interface SidebarState {
+  isSidebarVisible: boolean;
+  toggleSidebar: () => void;
+}
 
-// export default useStore;
+// 네비게이션 사이드바 메뉴 토글 상태 관리
+const useSidebarStore = create<SidebarState>((set) => ({
+  isSidebarVisible: false,
+  toggleSidebar: () =>
+    set((state) => ({ isSidebarVisible: !state.isSidebarVisible })),
+}));
+
+export default useSidebarStore;

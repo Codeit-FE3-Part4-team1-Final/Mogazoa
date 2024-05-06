@@ -1,59 +1,89 @@
+'use client';
+
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import classNames from 'classnames/bind';
 import styles from './NavigationBar.module.scss';
+import useSidebarStore from '@/stores/sidebarStore';
+import useSearchStore from '@/stores/searchStore';
+import useSearchInputStore from '@/stores/searchValueStore';
+
+const cx = classNames.bind(styles);
 
 // Todo(송상훈)
 export default function NavigationBar() {
-  const cookieStore = cookies();
-  const accessToken = cookieStore.get('accessToken');
+  const pathname = usePathname();
+  const isFixed = pathname === '/';
 
-  const isLoggedIn = !!accessToken?.value;
+  const isLoggedIn = true;
+
+  const { toggleSidebar } = useSidebarStore();
+  const { toggleSearch, isSearchVisible } = useSearchStore();
+  const setInputValue = useSearchInputStore((state) => state.setInputValue);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      setInputValue(event.currentTarget.value);
+    }
+  };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <div className={styles['menu-icon']}>
+    <div className={cx('wrapper', { fixed: isFixed })}>
+      <div className={cx('container')}>
+        <button className={cx('menu-icon')} onClick={toggleSidebar}>
           <Image
             src='/images/menu-icon.svg'
             alt='메뉴 이미지'
             width={24}
             height={24}
           />
-        </div>
-        <Link className={styles['logo-wrapper']} href='/'>
+        </button>
+        <Link
+          className={cx('logo-wrapper', {
+            'logo-unVisible': !!isSearchVisible,
+          })}
+          href='/'
+        >
           <Image src='/images/logo-L.svg' alt='로고 이미지' fill />
         </Link>
-        <div className={styles['navigation-item']}>
-          <div className={styles.search}>
-            <Image
-              src='/images/search-icon.svg'
-              alt='돋보기 이미지'
-              width={24}
-              height={24}
-            />
+        <div className={cx('navigation-item')}>
+          <div
+            className={cx('search', {
+              'search-visible': isSearchVisible,
+            })}
+          >
+            <button className={cx('search-icon')} onClick={toggleSearch}>
+              <Image
+                src='/images/search-icon.svg'
+                alt='돋보기 이미지'
+                width={24}
+                height={24}
+              />
+            </button>
             <input
-              className={styles[`search-input`]}
+              className={cx('search-input')}
               placeholder='상품 이름을 검색해 보세요'
+              onKeyDown={handleKeyDown}
             />
           </div>
-          <div className={styles['navigation-user-menu']}>
+          <div className={cx('navigation-user-menu')}>
             {isLoggedIn ? (
               <>
                 <Link href='/compare'>
-                  <button className={styles.button}>비교하기</button>
+                  <button className={cx('button')}>비교하기</button>
                 </Link>
                 <Link href='/mypage'>
-                  <button className={styles.button}>내프로필</button>
+                  <button className={cx('button')}>내프로필</button>
                 </Link>
               </>
             ) : (
               <>
                 <Link href='/signin'>
-                  <button className={styles.button}>로그인</button>
+                  <button className={cx('button')}>로그인</button>
                 </Link>
                 <Link href='/signup'>
-                  <button className={styles.button}>회원가입</button>
+                  <button className={cx('button')}>회원가입</button>
                 </Link>
               </>
             )}
