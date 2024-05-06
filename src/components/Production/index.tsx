@@ -4,19 +4,21 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import cx from '@/components/Production/cx.ts';
 import CategoryChip from '@/components/Chip/CategoryChip';
 import Button from '@/components/Button';
-import { ProductDetailType } from '@/types/types.ts';
+import { ProductDetailType, UserDetail } from '@/types/types.ts';
 import CompareModal from '../Modal/CompareModal';
 import toggleFavorite from './actions.ts';
 import copyCurrentUrl from '@/utils/copyCurrentUrl.ts';
 
 interface Props {
   productData: ProductDetailType;
+  me: UserDetail;
 }
 
 type CompareModalType = 'subject' | 'object' | 'exist' | 'changed';
 
-export default function Production({ productData }: Readonly<Props>) {
-  const { id, image, name, description, isFavorite, category } = productData;
+export default function Production({ productData, me }: Readonly<Props>) {
+  const { id, image, name, description, isFavorite, category, writerId } =
+    productData;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [modalType, setModalType] = useState<CompareModalType | null>(null);
   const queryClient = useQueryClient();
@@ -55,6 +57,8 @@ export default function Production({ productData }: Readonly<Props>) {
     }
     setIsOpen(true);
   };
+
+  const isMe = writerId === me?.id;
 
   return (
     <div className={cx('container')}>
@@ -104,6 +108,12 @@ export default function Production({ productData }: Readonly<Props>) {
               비교하기
             </Button>
           </div>
+
+          {isMe && (
+            <div className={cx('button-3')}>
+              <Button category={'tertiary'}>편집하기</Button>
+            </div>
+          )}
         </div>
       </div>
       {isOpen && (
