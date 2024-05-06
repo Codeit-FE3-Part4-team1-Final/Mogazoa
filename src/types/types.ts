@@ -1,5 +1,14 @@
 import { AxiosRequestConfig } from 'axios';
 
+export type ModalType =
+  | 'followers'
+  | 'followees'
+  | 'editProfile'
+  | 'createProduct'
+  | 'editProduct'
+  | 'createReview'
+  | null;
+
 export type ProductCategory =
   | '음악'
   | '영화/드라마'
@@ -9,7 +18,7 @@ export type ProductCategory =
   | '식당'
   | '전자기기'
   | '화장품'
-  | '의류/악세서리'
+  | '의류/잡화'
   | '앱'
   | '없음';
 
@@ -86,9 +95,9 @@ export interface UserDetail {
 }
 
 export interface UpdateUserRequestBody {
-  description: string; // maxLength: 300
+  description: string | null; // maxLength: 300
   nickname: Nickname; // minLength: 1 maxLength: 20
-  image: UrlType;
+  image: UrlType | null;
 }
 
 export interface UserRanking {
@@ -210,7 +219,7 @@ export type ProductDescription = string;
 
 export interface CreateProductRequestBody {
   categoryId: Id;
-  image: UrlType;
+  image: UrlType | null;
   description: ProductDescription;
   name: ProductName;
 }

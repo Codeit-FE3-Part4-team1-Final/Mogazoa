@@ -6,6 +6,7 @@ import classNames from 'classnames/bind';
 import styles from './Table.module.scss';
 import Result from '@/components/Table/Result';
 import TableCompare from '@/components/Table/TableCompare';
+import CompareCard from '../Card/CompareCard';
 
 const cx = classNames.bind(styles);
 interface TableInterface {
@@ -30,6 +31,14 @@ export default function Table({
           <span className={cx('description')}>
             3가지 항목 중 {count}가지 항목에서 우세합니다.
           </span>
+        )}
+      </div>
+      <div className={cx('product-container')}>
+        {victoryProduct === SubjectProduct.name && (
+          <CompareCard productItem={SubjectProduct} />
+        )}
+        {victoryProduct === ObjectProduct.name && (
+          <CompareCard productItem={ObjectProduct} />
         )}
       </div>
       <div className={cx('table-container')}>

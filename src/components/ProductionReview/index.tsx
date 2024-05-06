@@ -1,57 +1,40 @@
-import Image from 'next/image';
+import { useQuery } from '@tanstack/react-query';
 import cx from '@/components/ProductionReview/cx.ts';
-import Thumbs from '@/components/Thumbs';
-import Rating from '@/components/Rating';
+import { getReview } from '@/components/ProductionReview/actions.ts';
+import ReviewItem from '@/components/ReviewItem';
+import { Review, UserDetail } from '@/types/types.ts';
 
-export default function ProductionReview() {
+interface Props {
+  productId: string;
+  order: string;
+  me: UserDetail;
+}
+export default function ProductionReview({
+  productId,
+  order,
+  me,
+}: Readonly<Props>) {
+  const { data: reviewData } = useQuery({
+    queryKey: ['reviews', productId, order],
+    queryFn: () => getReview(productId, order),
+  });
+
   return (
     <div className={cx('container')}>
-      <div className={cx('profile')}>
-        <div className={cx('profile-image')}>
-          <Image
-            src={'/images/my-profile-icon.svg'}
-            alt={'프로필이미지'}
-            width={42}
-            height={42}
-          />
-        </div>
-
-        <div className={cx('profile-content')}>
-          <div className={cx('nick-name')}>surisuri 마수리</div>
-          <Rating Rating={4} />
-        </div>
-      </div>
-      <div className={cx('review')}>
-        <div className={cx('review-content')}>
-          음질 미칩니다ㅎㅎ 최고예용~ 어플 연동으로 음향 설정 및 설정모드 되고,
-          설정별로 사운드감이 틀려요 서라운드 느낌까지 들고, 따로는 베이스깐
-          우퍼 느낌도 있어요
-        </div>
-        <div className={cx('review-images')}>
-          <div className={cx('review-image')}>
-            <Image
-              src={
-                'https://image.msscdn.net/images/goods_img/20230223/3104558/3104558_16772321050475_500.jpg'
-              }
-              alt={'헤드셋'}
-              fill
-            />
-          </div>
-          <div className={cx('review-image')}>
-            <Image
-              src={
-                'https://image.msscdn.net/images/goods_img/20230223/3104558/3104558_16772321050475_500.jpg'
-              }
-              alt={'헤드셋'}
-              fill
-            />
-          </div>
-        </div>
-        <div className={cx('review-footer')}>
-          <div className={cx('review-date')}>2024-01-29</div>
-          <Thumbs likeCount={132} isLiked={true} reviewId={'1'} />
-        </div>
-      </div>
+      {reviewData?.list.map((review: Review) => (
+        <ReviewItem
+          key={review.id}
+          reviewId={review.id}
+          user={review.user}
+          reviewImages={review.reviewImages}
+          content={review.content}
+          isLiked={review.isLiked}
+          likeCount={review.likeCount}
+          rating={review.rating}
+          loginId={me?.id}
+          createdAt={review.createdAt}
+        />
+      ))}
     </div>
   );
 }

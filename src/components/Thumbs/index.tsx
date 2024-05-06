@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import cx from '@/components/Thumbs/cx.ts';
+import toggleLike from '@/components/Thumbs/action.ts';
 
 interface Props {
   likeCount: number;
   isLiked: boolean;
-  reviewId: string;
+  reviewId: number;
 }
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 export default function Thumbs({
   likeCount,
   isLiked,
@@ -17,15 +17,12 @@ export default function Thumbs({
   const [count, setCount] = useState(likeCount);
 
   const handleLikeUnlike = async () => {
-    const response = await fetch(`${BASE_URL}/reviews/${reviewId}/like`, {
-      method: isLike ? 'DELETE' : 'POST',
-      headers: { 'Content-Type': 'application/json' },
-    });
-
-    if (response.status >= 200 && response.status < 300) {
-      const result = await response.json();
-      setIsLike(result.isliked);
+    try {
+      const result = await toggleLike(reviewId, isLike);
+      setIsLike(result.isLiked);
       setCount(result.likeCount);
+    } catch (error) {
+      console.error('Failed to toggle like:', error);
     }
   };
 

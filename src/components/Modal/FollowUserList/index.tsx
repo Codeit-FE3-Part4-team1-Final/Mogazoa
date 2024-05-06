@@ -2,8 +2,7 @@ import Image from 'next/image';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import styles from './FollowUserList.module.scss';
-import { User } from '@/types/types';
-import { ModalType } from '@/components/Card/ProfileCard';
+import { ModalType, User } from '@/types/types';
 import handleErrorImage from '@/utils/handleErrorImage';
 import { useModalStore } from '../../../../providers/ModalStoreProvider';
 

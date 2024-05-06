@@ -8,7 +8,10 @@ import ProductionReview from '@/components/ProductionReview';
 import cx from '@/app/product/[productId]/cx.ts';
 import DropDown from '@/components/DropDown';
 import { ProductDetailType } from '@/types/types.ts';
-import fetchProductData from '@/app/product/[productId]/actions.ts';
+import {
+  fetchProductData,
+  fetchUserInfo,
+} from '@/app/product/[productId]/actions.ts';
 
 interface MenuItem {
   key: string;
@@ -37,6 +40,11 @@ export default function ProductPage({
     queryFn: () => fetchProductData(params.productId),
   });
 
+  const { data: me } = useQuery({
+    queryKey: ['me'],
+    queryFn: () => fetchUserInfo(),
+  });
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -51,7 +59,7 @@ export default function ProductPage({
   return (
     <main>
       <section className={cx('section-container')}>
-        <Production productData={productData} />
+        <Production productData={productData} me={me} />
       </section>
 
       <section className={cx('section-container')}>
@@ -68,7 +76,7 @@ export default function ProductPage({
             onSelect={handleSelect}
           />
         </div>
-        <ProductionReview />
+        <ProductionReview productId={params.productId} order={order} me={me} />
       </section>
     </main>
   );

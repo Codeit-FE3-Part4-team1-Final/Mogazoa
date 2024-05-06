@@ -83,8 +83,9 @@
     }
 
     .info-wrap {
-      height: 100px;
-
+      max-height: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
       @include mobile {
         height: 60px;
       }
@@ -107,9 +108,12 @@
       gap: 10px;
 
       .button-1 {
-        flex: 2;
+        flex: 1;
       }
       .button-2 {
+        flex: 1;
+      }
+      .button-3 {
         flex: 1;
       }
     }
