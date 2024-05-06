@@ -1,0 +1,21 @@
+.stars {
+  display: flex;
+  padding-top: 5px;
+}
+
+.stars svg {
+  color: gray;
+  cursor: pointer;
+}
+
+.stars:hover svg {
+  color: yellow;
+}
+
+.stars svg:hover ~ svg {
+  color: gray;
+}
+
+.stars .yellowStars {
+  color: yellow;
+}

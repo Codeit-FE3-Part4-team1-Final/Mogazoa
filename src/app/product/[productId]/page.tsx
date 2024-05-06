@@ -7,11 +7,15 @@ import ProductionStatics from '@/components/ProductionStatics';
 import ProductionReview from '@/components/ProductionReview';
 import cx from '@/app/product/[productId]/cx.ts';
 import DropDown from '@/components/DropDown';
-import { ProductDetailType } from '@/types/types.ts';
+import { ModalType, ProductDetailType } from '@/types/types.ts';
 import {
   fetchProductData,
   fetchUserInfo,
 } from '@/app/product/[productId]/actions.ts';
+import { useModalStore } from '../../../../providers/ModalStoreProvider.tsx';
+import ModalWrapper from '@/components/Modal/ModalWrapper';
+import CreateProduct from '@/components/Modal/CreateProduct';
+import CreateReview from '@/components/Modal/CreateReview';
 
 interface MenuItem {
   key: string;
@@ -57,27 +61,33 @@ export default function ProductPage({
   };
 
   return (
-    <main>
-      <section className={cx('section-container')}>
-        <Production productData={productData} me={me} />
-      </section>
+    <>
+      <main>
+        <section className={cx('section-container')}>
+          <Production productData={productData} me={me} />
+        </section>
 
-      <section className={cx('section-container')}>
-        <div className={cx('section-header')}>상품 통계</div>
-        <ProductionStatics productData={productData} />
-      </section>
+        <section className={cx('section-container')}>
+          <div className={cx('section-header')}>상품 통계</div>
+          <ProductionStatics productData={productData} />
+        </section>
 
-      <section className={cx('section-container')}>
-        <div className={cx('section-header')}>
-          상품 리뷰
-          <DropDown
-            buttonLabel={order}
-            dropItems={menuItems}
-            onSelect={handleSelect}
+        <section className={cx('section-container')}>
+          <div className={cx('section-header')}>
+            상품 리뷰
+            <DropDown
+              buttonLabel={order}
+              dropItems={menuItems}
+              onSelect={handleSelect}
+            />
+          </div>
+          <ProductionReview
+            productId={params.productId}
+            order={order}
+            me={me}
           />
-        </div>
-        <ProductionReview productId={params.productId} order={order} me={me} />
-      </section>
-    </main>
+        </section>
+      </main>
+    </>
   );
 }
