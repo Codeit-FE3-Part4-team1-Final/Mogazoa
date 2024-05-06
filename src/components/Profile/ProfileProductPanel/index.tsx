@@ -18,9 +18,14 @@ export type UserProductCategory =
 
 export default function ProfileProductPanel({ userId }: Props) {
   // TODO(이시열): 모바일 사이즈 타이틀 드롭다운
-  // react-query: 무한스크롤
-  const { userProductCategory, productCardItem, handleClickTitle } =
-    useUserProductData(userId);
+  const {
+    userProductCategory,
+    productCardItem,
+    handleClickTitle,
+    fetchNextReviewedProduct,
+    fetchNextCreatedProduct,
+    fetchNextFavoriteProduct,
+  } = useUserProductData(userId);
 
   return (
     <section className={cx('wrapper')}>
@@ -53,7 +58,13 @@ export default function ProfileProductPanel({ userId }: Props) {
           찜한 상품
         </span>
       </span>
-      <ProfileProductCardList productCardItem={productCardItem} />
+      <ProfileProductCardList
+        userProductCategory={userProductCategory}
+        productCardItem={productCardItem}
+        fetchNextReviewedProduct={fetchNextReviewedProduct}
+        fetchNextCreatedProduct={fetchNextCreatedProduct}
+        fetchNextFavoriteProduct={fetchNextFavoriteProduct}
+      />
     </section>
   );
 }

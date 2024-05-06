@@ -21,8 +21,6 @@ interface Props {
   token: string;
 }
 
-export type ModalType = 'followers' | 'followees' | 'edit';
-
 export default function ProfileCard({
   userDetail,
   userId,
@@ -39,7 +37,14 @@ export default function ProfileCard({
     handleToggleModal,
     handleClickFollow,
     handleClickUnFollow,
+    fetchNextFollowee,
+    fetchNextFollower,
   } = useUserFollowData(userId, token, isLoggedIn);
+
+  const profileModalType =
+    modalType === 'editProfile' ||
+    modalType === 'followers' ||
+    modalType === 'followees';
 
   return (
     <div className={cx('wrapper')}>
@@ -51,15 +56,17 @@ export default function ProfileCard({
         className={cx('blur-image')}
         onError={(e) => handleErrorImage(e)}
       />
-      {isOpened ? (
+      {isOpened && profileModalType ? (
         <ModalWrapper>
-          {modalType === 'edit' ? (
+          {modalType === 'editProfile' ? (
             <EditProfile userDetail={userDetail} token={token} />
           ) : (
             <ProfileFollowModal
               data={followData}
               modalType={modalType}
               userName={userDetail.nickname}
+              fetchNextFollowee={fetchNextFollowee}
+              fetchNextFollower={fetchNextFollower}
             />
           )}
         </ModalWrapper>
@@ -101,7 +108,7 @@ export default function ProfileCard({
             <>
               <Button
                 category='primary'
-                onClick={() => handleToggleModal('edit')}
+                onClick={() => handleToggleModal('editProfile')}
               >
                 프로필 편집
               </Button>

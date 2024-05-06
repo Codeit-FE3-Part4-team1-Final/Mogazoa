@@ -1,14 +1,15 @@
 const getUserDetail = async (id: string, token?: string) => {
-  const header = token
+  const option: RequestInit = token
     ? {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },
+        cache: 'no-store',
       }
-    : {};
+    : { cache: 'no-store' };
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL_HOST}/users/${id}`,
-      header,
+      option,
     );
     const result = await response.json();
     return result;
@@ -24,6 +25,7 @@ const getMyDetail = async (token: string) => {
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },
+        cache: 'no-store',
       },
     );
     const result = await response.json();

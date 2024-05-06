@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './CategoryChip.module.scss';
 import { ProductCategory } from '@/types/types';
-import convertCategoryToEnglish from '@/utils/convertCategoryToEnglish copy';
+import convertCategoryToEnglish from '@/utils/convertCategoryToEnglish';
 
 const cx = classNames.bind(styles);
 

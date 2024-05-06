@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
 import '../styles/globals.scss';
 import ReactQueryProvider from '../../providers/ReactQueryProvider';
 import NavigationBar from '@/components/NavigationBar';
 import { ModalStoreProvider } from '../../providers/ModalStoreProvider';
 import ProgressBar from '@/components/Loading/Nprogress';
+import Floating from '@/components/Floating';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,6 +17,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const token = cookies().get('accessToken');
+  const isLoggedIn = !!token?.value;
+
   return (
     <html lang='ko'>
       <body>
@@ -23,6 +28,7 @@ export default function RootLayout({
           <ModalStoreProvider>
             <NavigationBar />
             {children}
+            {isLoggedIn && <Floating token={token.value} />}
           </ModalStoreProvider>
         </ReactQueryProvider>
       </body>
