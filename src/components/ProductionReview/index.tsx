@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import cx from '@/components/ProductionReview/cx.ts';
-import { getReview } from '@/components/ProductionReview/actions.ts';
+import getReview from '@/components/ProductionReview/actions.ts';
 import ReviewItem from '@/components/ReviewItem';
 import { Review, UserDetail } from '@/types/types.ts';
 

@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 const cookieStore = cookies();
 const accessToken = cookieStore.get('accessToken');
 
-export async function getReview(productId: string, order: string) {
+export default async function getReview(productId: string, order: string) {
   if (!accessToken) {
     console.error('Access token is missing');
     return null;
