@@ -68,7 +68,7 @@ export default function ProductPage({
             onSelect={handleSelect}
           />
         </div>
-        <ProductionReview />
+        <ProductionReview productId={params.productId} order={order} />
       </section>
     </main>
   );
