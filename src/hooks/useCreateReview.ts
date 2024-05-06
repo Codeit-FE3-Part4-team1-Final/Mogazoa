@@ -132,11 +132,6 @@ const useCreateReview = (productId: number) => {
         return;
       }
 
-      if (!selectedImage) {
-        setError('images', { message: '대표 이미지를 추가해주세요.' });
-        return;
-      }
-
       if (data.content.length < 10) {
         setError('content', {
           message: '최소 10자 이상 적어주세요',
@@ -144,7 +139,7 @@ const useCreateReview = (productId: number) => {
         return;
       }
 
-      const body = { ...data, images: [imageUrl] };
+      const body = { ...data, images: imageUrl ? [imageUrl] : [] };
 
       mutate(body);
     } catch (error) {

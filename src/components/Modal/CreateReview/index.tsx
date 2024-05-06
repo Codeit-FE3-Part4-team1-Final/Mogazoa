@@ -40,7 +40,7 @@ export default function CreateReview({
   ]);
   const handleStarClick = (index: number): void => {
     const clickStates: boolean[] = [...clicked];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i += 1) {
       clickStates[i] = i <= index;
     }
     setClicked(clickStates);
@@ -68,7 +68,6 @@ export default function CreateReview({
           <ImageInput
             image={previewImage}
             register={register('images', {
-              required: '대표 이미지를 추가해주세요.',
               onChange: onChangeFile,
             })}
             resetFile={resetFile}
