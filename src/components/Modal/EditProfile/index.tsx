@@ -21,15 +21,16 @@ export default function EditProfile({ userDetail, token }: Props) {
     userImage,
     userName,
     userDescription,
-    handleChangeUserName,
-    handleChangeDescription,
-    handleFileChange,
-    handleOnBlurUserName,
+    onChangeUserName,
+    onChangeDescription,
+    onChangeFile,
+    onBlurUserName,
     resetFile,
     onSubmit,
     register,
     handleSubmit,
     errors,
+    isPending,
   } = useEditProfile(userDetail, token);
   return (
     <div className={cx('wrapper')}>
@@ -41,15 +42,15 @@ export default function EditProfile({ userDetail, token }: Props) {
         <ImageInput
           image={userImage}
           register={register('image', {
-            onChange: handleFileChange,
+            onChange: onChangeFile,
           })}
           resetFile={resetFile}
         />
         <TextFieldInput
           register={register('nickname', {
             required: '닉네임은 필수 입력입니다.',
-            onBlur: handleOnBlurUserName,
-            onChange: handleChangeUserName,
+            onBlur: onBlurUserName,
+            onChange: onChangeUserName,
           })}
           value={userName}
           placeholder={'닉네임을 입력해 주세요.'}
@@ -59,12 +60,12 @@ export default function EditProfile({ userDetail, token }: Props) {
         </TextFieldInput>
         <TextBoxInput
           register={register('description', {
-            onChange: handleChangeDescription,
+            onChange: onChangeDescription,
           })}
           placeholder='프로필 소개를 입력해 주세요.'
           value={userDescription}
         />
-        <Button category='primary' type='submit'>
+        <Button category='primary' type='submit' disabled={isPending}>
           저장하기
         </Button>
       </form>

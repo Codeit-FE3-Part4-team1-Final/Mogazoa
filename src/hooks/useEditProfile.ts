@@ -1,27 +1,28 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { UserDetail } from '@/types/types';
+import { UpdateUserRequestBody, UserDetail } from '@/types/types';
 import uploadImage from '@/utils/uploadImage';
 import patchProfile from '@/utils/patchProfile';
 import { useModalStore } from '../../providers/ModalStoreProvider';
 import generateRandomEnglishName from '@/utils/generateRandomEnglishName';
 
-interface Form {
-  description: string | null;
-  nickname: string;
-  image: File | string | null;
+interface UpdateProfileMutationProps {
+  body: UpdateUserRequestBody;
+  userToken: string;
 }
 
 const useEditProfile = (userDetail: UserDetail, token: string) => {
   const FILE_MAX_SIZE = 5 * 1024 * 1024;
+  const [imageUrl, setImageUrl] = useState('');
   const [userImage, setUserImage] = useState(userDetail.image);
-  const [selectedImage, setSelectedImage] = useState<File>();
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [userName, setUserName] = useState(userDetail.nickname);
   const [userDescription, setUserDescription] = useState(
     userDetail.description,
   );
-  const { toggleModal } = useModalStore((state) => state);
+  const { toggleModal, setModalType } = useModalStore((state) => state);
   const router = useRouter();
 
   const {
@@ -30,23 +31,22 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
     setError,
     reset,
     formState: { errors },
-  } = useForm<Form>({
+  } = useForm<UpdateUserRequestBody>({
     mode: 'onBlur',
   });
 
-  const handleChangeUserName = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeUserName = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 10) {
       return;
     }
     setUserName(e.target.value);
   };
 
-  const handleChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setUserDescription(e.target.value);
   };
 
-  // 이미지 change handler
-  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
 
     if (!file) {
@@ -80,7 +80,24 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
     }
   };
 
-  const handleOnBlurUserName = (e: ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    if (!selectedImage) {
+      return;
+    }
+
+    const upload = async () => {
+      try {
+        const url = await uploadImage(selectedImage, token);
+        setImageUrl(url);
+      } catch (error) {
+        console.error('이미지 업로드 중 오류 발생:', error);
+      }
+    };
+
+    upload();
+  }, [selectedImage]);
+
+  const onBlurUserName = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length === 0) {
       setError('nickname', { message: '닉네임은 필수 입력입니다.' });
     }
@@ -89,33 +106,50 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
   const resetFile = () => {
     reset({ image: null });
     setUserImage(null);
+    setSelectedImage(null);
+    setImageUrl('');
   };
 
-  const onSubmit: SubmitHandler<Form> = async ({
+  const { mutate, isPending } = useMutation({
+    mutationFn: ({ body, userToken }: UpdateProfileMutationProps) =>
+      patchProfile(body, userToken),
+    onSuccess: () => {
+      router.refresh();
+      toggleModal();
+      setModalType(null);
+    },
+    onError: (data) => {
+      setError('nickname', { message: data.message });
+    },
+  });
+
+  const onSubmit: SubmitHandler<UpdateUserRequestBody> = async ({
     description,
     nickname,
     image,
   }) => {
     try {
+      if (isPending) {
+        return;
+      }
       let body = { description, nickname, image };
+
+      // 선택한 이미지 없으면 기본 이미지 등록
       if (!image && process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL) {
         body = { ...body, image: process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL };
       }
-      if (image && selectedImage) {
-        const url = await uploadImage(selectedImage, token);
-        body = { ...body, image: url };
-      }
+
+      // 기존 유저의 프로필 이미지
       if (!selectedImage && userImage) {
         body = { ...body, image: userImage };
       }
-      const response = await patchProfile(body, token);
 
-      if (response.ok) {
-        toggleModal();
-        router.refresh();
+      // 다른 이미지 선택 시
+      if (selectedImage) {
+        body = { ...body, image: imageUrl };
       }
-      const error = await response.json();
-      setError('nickname', { message: error.message });
+
+      mutate({ body, userToken: token });
     } catch (error) {
       throw new Error('프로필 변경 실패');
     }
@@ -125,15 +159,16 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
     userImage,
     userName,
     userDescription,
-    handleChangeUserName,
-    handleChangeDescription,
-    handleFileChange,
-    handleOnBlurUserName,
+    onChangeUserName,
+    onChangeDescription,
+    onChangeFile,
+    onBlurUserName,
     resetFile,
     onSubmit,
     register,
     handleSubmit,
     errors,
+    isPending,
   };
 };
 

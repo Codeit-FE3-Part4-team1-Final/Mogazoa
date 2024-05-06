@@ -9,7 +9,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   children?: ReactNode;
   value: string;
   register?: UseFormRegisterReturn;
-  error: boolean;
+  error?: boolean;
 }
 
 export default function TextFieldInput({
@@ -22,7 +22,7 @@ export default function TextFieldInput({
   return (
     <div className={cx('wrapper')}>
       <input
-        className={cx('input', error ? 'error' : '')}
+        className={cx('input', error && 'error')}
         value={value}
         {...register}
         {...rest}

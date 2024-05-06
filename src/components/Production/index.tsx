@@ -29,6 +29,9 @@ export default function Production({ productData, me }: Readonly<Props>) {
       queryClient.invalidateQueries({
         queryKey: ['productData', id.toString()],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['user-favorite-products'],
+      });
     },
     onError: (error: Error) => {
       console.error('Error toggling favorite:', error.message);
