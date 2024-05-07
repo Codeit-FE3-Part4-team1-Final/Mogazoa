@@ -55,7 +55,8 @@ export default function CompareModal({
   useEffect(() => {
     if (localStorage.getItem('subjectProduct')) {
       setSubjectProduct(localStorage.getItem('subjectProduct') as string);
-    } else if (localStorage.getItem('objectProduct')) {
+    }
+    if (localStorage.getItem('objectProduct')) {
       setObjectProduct(localStorage.getItem('objectProduct') as string);
     }
 
