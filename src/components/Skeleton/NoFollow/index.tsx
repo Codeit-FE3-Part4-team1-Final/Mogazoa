@@ -1,3 +1,4 @@
+import { usePathname } from 'next/navigation';
 import classNames from 'classnames/bind';
 import styles from './NoFollow.module.scss';
 import { ModalType } from '@/types/types';
@@ -9,7 +10,8 @@ interface Props {
 }
 
 export default function NoFollow({ modalType }: Props) {
-  const getText = () => {
+  const pathname = usePathname();
+  const getMyPageText = () => {
     if (modalType === 'followers') {
       return '팔로워가 없습니다.';
     }
@@ -18,6 +20,19 @@ export default function NoFollow({ modalType }: Props) {
     }
     return '';
   };
+  const getUserPageText = () => {
+    if (modalType === 'followers') {
+      return '팔로워가 없습니다.';
+    }
+    if (modalType === 'followees') {
+      return '팔로우한 유저가 없습니다.';
+    }
+    return '';
+  };
 
-  return <div className={cx('wrapper')}>{getText()}</div>;
+  return (
+    <div className={cx('wrapper')}>
+      {pathname === '/mypage' ? getMyPageText() : getUserPageText()}
+    </div>
+  );
 }
