@@ -3,24 +3,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import SideBar from '@/components/SideBar';
 import styles from './page.module.scss';
 import getProduct from '@/apis/getProduct.ts';
 import { Category } from '@/types/types';
-import DropDown from '@/components/DropDown';
 import getRanking from '@/apis/getRanking';
 import RankingCard from '@/components/Card/RankingCard';
-import ProductCard from '@/components/Card/ProductCard';
 import useSidebarStore from '@/stores/sidebarStore';
 import useSearchInputStore from '@/stores/searchValueStore';
-
-interface MenuItem {
-  key: string;
-  label: string;
-}
+import CategoryMain from '@/components/Home/CategoryMain/CategoryMain';
 
 export default function Home() {
   const cx = classNames.bind(styles);
@@ -64,35 +57,6 @@ export default function Home() {
     }
   };
 
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 3.9,
-    slidesToScroll: 1,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1028,
-        settings: {
-          slidesToShow: 2.5,
-        },
-      },
-      {
-        breakpoint: 767,
-        settings: {
-          slidesToShow: 1.9,
-        },
-      },
-    ],
-  };
-
-  const menuItems: MenuItem[] = [
-    { key: 'reviewCount', label: '리뷰순' },
-    { key: 'rating', label: '별점순' },
-    { key: 'recent', label: '최신순' },
-  ];
-
   return (
     <div className={cx('home-wrapper')}>
       <div className={cx('home-container')}>
@@ -105,55 +69,15 @@ export default function Home() {
           {selectedCategory === null ? (
             '진행예정'
           ) : (
-            <>
-              <section className={cx('product-info')}>
-                <div className={cx('header')}>
-                  <p className={cx('title')}>
-                    <span className={cx('title-point')}>{sortTitle} </span>
-                    상품
-                  </p>
-                  <DropDown
-                    buttonLabel={selectedSort}
-                    dropItems={menuItems}
-                    onSelect={handleSortChange}
-                  />
-                </div>
-                <div className={cx('itemList')}>
-                  {sortProducts?.list ? (
-                    <Slider
-                      {...settings}
-                      key={selectedCategory ? selectedCategory.name : 'default'}
-                    >
-                      {sortProducts?.list.map((productItem) => (
-                        <div className={cx('item')} key={productItem.id}>
-                          <ProductCard productItem={productItem} />
-                        </div>
-                      ))}
-                    </Slider>
-                  ) : (
-                    <div>Loading...</div>
-                  )}
-                </div>
-              </section>
-              <section className={cx('all-product')}>
-                <div className={cx('header')}>
-                  <p className={cx('title')}>
-                    <span className={cx('title-point')}>
-                      {selectedCategory.name}{' '}
-                    </span>
-                    {inputValue ? `'${inputValue}' 검색상품` : '전체 상품'}
-                  </p>
-                </div>
-                <div className={cx('product-list-grid')}>
-                  {categoryProducts?.list.map((productItem) => (
-                    <ProductCard
-                      key={productItem.id}
-                      productItem={productItem}
-                    />
-                  ))}
-                </div>
-              </section>
-            </>
+            <CategoryMain
+              sortTitle={sortTitle}
+              selectedSort={selectedSort}
+              onSelect={handleSortChange}
+              selectedCategory={selectedCategory}
+              inputValue={inputValue}
+              categoryProducts={categoryProducts}
+              sortProducts={sortProducts}
+            />
           )}
         </main>
         <section className={cx('ranking-section')}>
