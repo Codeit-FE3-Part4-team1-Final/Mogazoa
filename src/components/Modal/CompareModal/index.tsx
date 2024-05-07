@@ -33,11 +33,11 @@ export default function CompareModal({
 
   const handleChange = () => {
     if (isSubjectSelected) {
-      localStorage.setItem('objectProductId', String(productId));
-      localStorage.setItem('objectProduct', product);
-    } else {
       localStorage.setItem('subjectProductId', String(productId));
       localStorage.setItem('subjectProduct', product);
+    } else {
+      localStorage.setItem('objectProductId', String(productId));
+      localStorage.setItem('objectProduct', product);
     }
     setIsChanged(true);
   };
