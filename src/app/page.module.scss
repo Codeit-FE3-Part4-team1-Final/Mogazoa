@@ -3,7 +3,7 @@
 .home-container {
   position: relative;
   display: flex;
-  width: 1600px;
+  width: 1400px;
   margin: 0 auto;
   gap: 20px;
   top: 100px;
@@ -59,7 +59,7 @@
   align-items: center;
   padding-top: 30px;
   flex-shrink: 1;
-  width: 1200px;
+  width: 1000px;
 
   @include tablet {
     grid-area: main;

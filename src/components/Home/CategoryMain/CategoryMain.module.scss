@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  gap: 30px;
   width: 100%;
 }
 
@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1100px;
+  width: 1000px;
 
   @include tablet {
     width: 619px;
@@ -37,7 +37,7 @@
 }
 
 .itemList {
-  width: 1100px;
+  width: 950px;
 
   @include tablet {
     width: 550px;
@@ -64,9 +64,9 @@
 .all-product {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   margin-top: 100px;
-  width: 1100px;
+  width: 1000px;
 
   @include tablet {
     width: 619px;
@@ -74,13 +74,15 @@
     margin-top: 50px;
   }
 
-  @include tablet {
+  @include mobile {
     width: 375px;
   }
 }
 
 .product-list-grid {
   display: grid;
+  margin: 0 auto;
+  width: 950px;
   grid-template-columns: repeat(4, 1fr);
   gap: 29px;
 

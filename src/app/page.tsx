@@ -44,6 +44,11 @@ export default function Home() {
       getProduct({ category: selectedCategory?.id, keyword: inputValue }),
   });
 
+  const { data: allProducts } = useQuery({
+    queryKey: ['all-Products'],
+    queryFn: () => getProduct({ order: selectedSort, keyword: inputValue }),
+  });
+
   const handleSortChange = (sortType: string) => {
     setSelectedSort(sortType);
 
@@ -66,7 +71,12 @@ export default function Home() {
         </aside>
         <main className={cx('main')}>
           {selectedCategory === null ? (
-            <CommonMain />
+            <CommonMain
+              products={allProducts}
+              sortTitle={sortTitle}
+              selectedSort={selectedSort}
+              onSelect={handleSortChange}
+            />
           ) : (
             <CategoryMain
               sortTitle={sortTitle}
