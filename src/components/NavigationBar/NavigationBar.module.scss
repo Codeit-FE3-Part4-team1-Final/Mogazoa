@@ -13,10 +13,6 @@
   }
 }
 
-.logo-unVisible {
-  display: none;
-}
-
 .fixed {
   position: fixed !important;
   top: 0 !important;
@@ -49,6 +45,10 @@
   @include mobile {
     display: block;
   }
+}
+
+.menuVisible {
+  display: none !important;
 }
 
 .logo-wrapper {
@@ -118,6 +118,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.mobile-search-icon {
+  display: none;
+
+  @include mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .search-input {

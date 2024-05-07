@@ -3,8 +3,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import SideBar from '@/components/SideBar';
 import styles from './page.module.scss';
 import getProduct from '@/apis/getProduct.ts';
@@ -14,10 +12,11 @@ import RankingCard from '@/components/Card/RankingCard';
 import useSidebarStore from '@/stores/sidebarStore';
 import useSearchInputStore from '@/stores/searchValueStore';
 import CategoryMain from '@/components/Home/CategoryMain/CategoryMain';
+import CommonMain from '@/components/Home/CommonMain/CommonMain';
+
+const cx = classNames.bind(styles);
 
 export default function Home() {
-  const cx = classNames.bind(styles);
-
   const userRankings = getRanking();
 
   const { isSidebarVisible } = useSidebarStore();
@@ -67,7 +66,7 @@ export default function Home() {
         </aside>
         <main className={cx('main')}>
           {selectedCategory === null ? (
-            '진행예정'
+            <CommonMain />
           ) : (
             <CategoryMain
               sortTitle={sortTitle}
