@@ -50,7 +50,7 @@ export default function NavigationBar({ isLoggedIn }: Props) {
         </button>
         {(home && !isSearchVisible) || (!home && !isSearchVisible) ? (
           <Link className={cx('logo-wrapper')} href='/'>
-            <Image src='/images/logo-L.svg' alt='로고 이미지' fill />
+            <Image src='/images/logo-L.svg' alt='로고 이미지' priority fill />
           </Link>
         ) : null}
 
@@ -59,6 +59,7 @@ export default function NavigationBar({ isLoggedIn }: Props) {
             <Image
               src='/images/logo-image.svg'
               alt='대체 로고 이미지'
+              priority
               width={28}
               height={24}
             />
