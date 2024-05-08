@@ -16,6 +16,7 @@ import CommonMain from '@/components/Home/CommonMain/CommonMain';
 
 const cx = classNames.bind(styles);
 
+// Todo(송상훈) : setTimeout 먹여놓은 부분 다른 로직을 수정해야 좋을 듯
 export default function Home() {
   const userRankings = getRanking();
 
@@ -29,8 +30,18 @@ export default function Home() {
   );
 
   useEffect(() => {
+    setTimeout(() => {
+      const savedInputValue = localStorage.getItem('inputValue');
+      if (savedInputValue) {
+        setInputValue(savedInputValue);
+        localStorage.removeItem('inputValue');
+      }
+    }, 1);
+  }, []);
+
+  useEffect(() => {
     setInputValue('');
-  }, [selectedCategory, setInputValue]);
+  }, [selectedCategory]);
 
   const { data: sortProducts } = useQuery({
     queryKey: [`${selectedCategory?.name}${selectedSort}`],
