@@ -31,7 +31,9 @@ export default function SideBar({ setSelectedCategory }: Props) {
         <button
           className={cx('sideBar-header')}
           onClick={() => {
+            setSelectedCategoryId(null);
             setSelectedCategory(null);
+            toggleSidebar();
           }}
         >
           카테고리
