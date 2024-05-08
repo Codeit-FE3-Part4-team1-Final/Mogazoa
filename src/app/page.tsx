@@ -45,7 +45,7 @@ export default function Home() {
   });
 
   const { data: allProducts } = useQuery({
-    queryKey: ['all-Products'],
+    queryKey: [`${selectedSort}all-Products`],
     queryFn: () => getProduct({ order: selectedSort, keyword: inputValue }),
   });
 

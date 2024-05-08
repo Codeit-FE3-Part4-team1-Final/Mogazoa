@@ -1,0 +1,59 @@
+@import '/src/styles/main.scss';
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-bottom: 100px;
+}
+
+.banner {
+  width: 1000px;
+  height: 270px;
+  margin: 0 auto;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.all-product {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 480px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 20px;
+}
+
+.product-list-grid {
+  display: grid;
+  width: 100%;
+  height: 660px;
+  margin: 0 auto;
+  overflow-y: scroll;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.youtube-section {
+  display: flex;
+  flex-direction: column;
+  width: 480px;
+  gap: 30px;
+}
+
+.line {
+  border: 1px solid $comp-bg;
+}
