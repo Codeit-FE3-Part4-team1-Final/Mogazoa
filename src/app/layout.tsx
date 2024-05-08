@@ -26,7 +26,7 @@ export default function RootLayout({
         <ProgressBar />
         <ReactQueryProvider>
           <ModalStoreProvider>
-            <NavigationBar />
+            <NavigationBar isLoggedIn={isLoggedIn} />
             {children}
             {isLoggedIn && <Floating token={token.value} />}
           </ModalStoreProvider>
