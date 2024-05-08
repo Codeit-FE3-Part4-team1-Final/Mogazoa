@@ -60,7 +60,7 @@ export default function NavigationBar({ isLoggedIn }: Props) {
               src='/images/logo-image.svg'
               alt='대체 로고 이미지'
               width={28}
-              height={28}
+              height={24}
             />
           </Link>
         ) : null}
