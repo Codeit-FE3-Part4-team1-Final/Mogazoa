@@ -152,8 +152,9 @@
     cursor: not-allowed;
   }
 
-  &.selected {
+  &:focus {
     border: 1px solid $pink;
+    background: unset;
     color: $pink;
   }
 
