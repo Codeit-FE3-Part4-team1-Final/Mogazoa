@@ -14,7 +14,7 @@ interface Props {
   sortTitle: string;
   selectedSort: string;
   onSelect: (sortType: string) => void;
-  // inputValue: string;
+  inputValue: string;
   products?: {
     list: ProductListType[];
     nextCursor: number;
@@ -33,6 +33,7 @@ export default function CommonMain({
   products,
   sortTitle,
   selectedSort,
+  inputValue,
   onSelect,
 }: Props) {
   return (
@@ -43,8 +44,20 @@ export default function CommonMain({
         <section className={cx('all-product')}>
           <div className={cx('header')}>
             <p className={cx('title')}>
-              <span className={cx('title-point')}>{sortTitle} </span>
-              상품
+              {inputValue ? (
+                <>
+                  <span className={cx('title-point')}>{`'${inputValue}'`}</span>{' '}
+                  검색상품
+                </>
+              ) : (
+                <>
+                  {' '}
+                  <span
+                    className={cx('title-point')}
+                  >{`${sortTitle}`}</span>{' '}
+                  상품
+                </>
+              )}
             </p>
             <DropDown
               buttonLabel={selectedSort}

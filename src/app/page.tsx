@@ -45,7 +45,7 @@ export default function Home() {
   });
 
   const { data: allProducts } = useQuery({
-    queryKey: [`${selectedSort}all-Products`],
+    queryKey: [`${selectedSort}all-Products`, inputValue],
     queryFn: () => getProduct({ order: selectedSort, keyword: inputValue }),
   });
 
@@ -74,6 +74,7 @@ export default function Home() {
             <CommonMain
               products={allProducts}
               sortTitle={sortTitle}
+              inputValue={inputValue}
               selectedSort={selectedSort}
               onSelect={handleSortChange}
             />

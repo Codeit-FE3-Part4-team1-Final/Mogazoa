@@ -34,6 +34,13 @@
   font-size: 20px;
 }
 
+.title-point {
+  color: transparent;
+  background: $main_gradient;
+  background-clip: text;
+  font-weight: 600;
+}
+
 .product-list-grid {
   display: grid;
   width: 100%;
