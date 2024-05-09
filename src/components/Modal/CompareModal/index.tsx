@@ -15,7 +15,6 @@ interface CompareModalInterface {
   product: string;
   productId: number;
   compareModalType: CompareModalType;
-  isSelected?: boolean;
   handleOpen: (value: boolean) => void;
 }
 
@@ -23,7 +22,6 @@ export default function CompareModal({
   product,
   productId,
   compareModalType,
-  isSelected,
   handleOpen,
 }: CompareModalInterface) {
   const [subjectProduct, setSubjectProduct] = useState<string>('');
@@ -35,11 +33,11 @@ export default function CompareModal({
 
   const handleChange = () => {
     if (isSubjectSelected) {
-      localStorage.setItem('objectProductId', String(productId));
-      localStorage.setItem('objectProduct', product);
-    } else {
       localStorage.setItem('subjectProductId', String(productId));
       localStorage.setItem('subjectProduct', product);
+    } else {
+      localStorage.setItem('objectProductId', String(productId));
+      localStorage.setItem('objectProduct', product);
     }
     setIsChanged(true);
   };
@@ -57,7 +55,8 @@ export default function CompareModal({
   useEffect(() => {
     if (localStorage.getItem('subjectProduct')) {
       setSubjectProduct(localStorage.getItem('subjectProduct') as string);
-    } else if (localStorage.getItem('objectProduct')) {
+    }
+    if (localStorage.getItem('objectProduct')) {
       setObjectProduct(localStorage.getItem('objectProduct') as string);
     }
 
@@ -128,13 +127,13 @@ export default function CompareModal({
               <div className={cx('button-container')}>
                 <button
                   onClick={subjectSelected}
-                  className={cx('button-product', isSelected ? 'selected' : '')}
+                  className={cx('button-product')}
                 >
                   {subjectProduct}
                 </button>
                 <button
                   onClick={objectSelected}
-                  className={cx('button-product', isSelected ? 'selected' : '')}
+                  className={cx('button-product')}
                 >
                   {objectProduct}
                 </button>

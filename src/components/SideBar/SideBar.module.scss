@@ -1,5 +1,12 @@
 @import '/src/styles/main.scss';
 
+.sideBar-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
 .sideBar-container {
   display: flex;
   flex-direction: column;
@@ -32,4 +39,25 @@
 
 .sideBar-list.selected {
   color: white;
+}
+
+.user-menu {
+  display: none;
+
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 80px;
+  }
+}
+
+.button {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 300;
+  color: $primary;
+  border: 1px solid $tertiary;
+  border-radius: 5px;
+  padding: 5px;
 }
