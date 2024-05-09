@@ -135,8 +135,14 @@ const useEditProfile = (userDetail: UserDetail, token: string) => {
       let body = { description, nickname, image };
 
       // 선택한 이미지 없으면 기본 이미지 등록
-      if (!image && process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL) {
-        body = { ...body, image: process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL };
+      if (
+        !image ||
+        (image?.length === 0 && process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL)
+      ) {
+        body = {
+          ...body,
+          image: process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL as string,
+        };
       }
 
       // 기존 유저의 프로필 이미지

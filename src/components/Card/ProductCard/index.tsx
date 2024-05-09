@@ -23,7 +23,7 @@ export default function ProductCard({ productItem }: Props) {
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             src={
               productItem.image.includes('example')
-                ? '/images/profile-image.png'
+                ? `${process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL}`
                 : productItem.image
             }
             alt='product-image'

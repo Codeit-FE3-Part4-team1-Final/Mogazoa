@@ -13,6 +13,7 @@ import {
 } from '@/types/types';
 import FollowUserList from '../FollowUserList';
 import useInfiniteFollow from '@/hooks/useInfiniteFollow';
+import NoFollow from '@/components/Skeleton/NoFollow';
 
 const cx = classNames.bind(styles);
 
@@ -50,6 +51,9 @@ export default function ProfileFollowModal({
       <span className={cx('category')}>
         {userName}님{modalType === 'followers' ? '을' : '이'} 팔로우하는 유저
       </span>
+      {(!data || data[0].list.length === 0) && (
+        <NoFollow modalType={modalType} />
+      )}
       <div className={cx('user-list')} ref={userListRef}>
         {data?.map((users) =>
           users.list.map((user) => {

@@ -49,7 +49,7 @@ export default function ProfileCard({
   return (
     <div className={cx('wrapper')}>
       <Image
-        src={userDetail.image || '/images/profile-image.png'}
+        src={userDetail.image || `${process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL}`}
         alt='profile-image'
         width={180}
         height={180}
@@ -74,7 +74,9 @@ export default function ProfileCard({
       <div className={cx('container')}>
         <div className={cx('profile-image-box')}>
           <Image
-            src={userDetail.image || '/images/profile-image.png'}
+            src={
+              userDetail.image || `${process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL}`
+            }
             alt='profile-image'
             fill
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
