@@ -153,7 +153,7 @@ export default function Production({ productData, me }: Readonly<Props>) {
           <CompareModal
             product={name}
             productId={id}
-            compareModalType={modalType as CompareModalType}
+            compareModalType={compareModalType as CompareModalType}
             handleOpen={setIsOpen}
           />
         )}
