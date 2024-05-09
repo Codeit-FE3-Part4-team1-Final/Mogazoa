@@ -65,7 +65,7 @@ export default function Production({ productData, me }: Readonly<Props>) {
       localStorage.setItem('subjectProduct', name);
     } else if (!objectProductId) {
       setCompareModalType('object');
-      localStorage.setItem('obejctProductId', String(id));
+      localStorage.setItem('objectProductId', String(id));
       localStorage.setItem('objectProduct', name);
     } else {
       setCompareModalType('changed');
