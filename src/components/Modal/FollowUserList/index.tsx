@@ -22,7 +22,7 @@ export default function FollowUserList({ user }: Props) {
           <Image
             fill
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            src={user.image || '/images/profile-image.png'}
+            src={user.image || `${process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL}`}
             alt='user-image'
             style={{ objectFit: 'cover' }}
             onError={(e) => handleErrorImage(e)}
