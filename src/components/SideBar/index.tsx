@@ -14,7 +14,8 @@ const cx = classNames.bind(styles);
 
 // todo(송상훈) : 에러처리 로딩처리 추가할것
 export default function SideBar({ setSelectedCategory }: Props) {
-  const isLoggedIn = !!localStorage.getItem('accessToken');
+  // const isLoggedIn = !!localStorage.getItem('accessToken');
+  const isLoggedIn = true;
 
   const { toggleSidebar } = useSidebarStore();
 
@@ -30,7 +31,9 @@ export default function SideBar({ setSelectedCategory }: Props) {
         <button
           className={cx('sideBar-header')}
           onClick={() => {
+            setSelectedCategoryId(null);
             setSelectedCategory(null);
+            toggleSidebar();
           }}
         >
           카테고리

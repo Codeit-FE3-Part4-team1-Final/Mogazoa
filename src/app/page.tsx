@@ -16,6 +16,7 @@ import CommonMain from '@/components/Home/CommonMain/CommonMain';
 
 const cx = classNames.bind(styles);
 
+// Todo(송상훈) : setTimeout 먹여놓은 부분 다른 로직을 수정해야 좋을 듯
 export default function Home() {
   const userRankings = getRanking();
 
@@ -29,8 +30,18 @@ export default function Home() {
   );
 
   useEffect(() => {
+    setTimeout(() => {
+      const savedInputValue = localStorage.getItem('inputValue');
+      if (savedInputValue) {
+        setInputValue(savedInputValue);
+        localStorage.removeItem('inputValue');
+      }
+    }, 1);
+  }, []);
+
+  useEffect(() => {
     setInputValue('');
-  }, [selectedCategory, setInputValue]);
+  }, [selectedCategory]);
 
   const { data: sortProducts } = useQuery({
     queryKey: [`${selectedCategory?.name}${selectedSort}`],
@@ -42,6 +53,11 @@ export default function Home() {
     queryKey: [`${selectedCategory?.name}Product`, inputValue],
     queryFn: () =>
       getProduct({ category: selectedCategory?.id, keyword: inputValue }),
+  });
+
+  const { data: allProducts } = useQuery({
+    queryKey: [`${selectedSort}all-Products`, inputValue],
+    queryFn: () => getProduct({ order: selectedSort, keyword: inputValue }),
   });
 
   const handleSortChange = (sortType: string) => {
@@ -66,7 +82,13 @@ export default function Home() {
         </aside>
         <main className={cx('main')}>
           {selectedCategory === null ? (
-            <CommonMain />
+            <CommonMain
+              products={allProducts}
+              sortTitle={sortTitle}
+              inputValue={inputValue}
+              selectedSort={selectedSort}
+              onSelect={handleSortChange}
+            />
           ) : (
             <CategoryMain
               sortTitle={sortTitle}

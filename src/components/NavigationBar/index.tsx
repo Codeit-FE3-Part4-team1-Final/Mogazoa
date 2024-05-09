@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import classNames from 'classnames/bind';
 import styles from './NavigationBar.module.scss';
 import useSidebarStore from '@/stores/sidebarStore';
@@ -20,12 +20,20 @@ export default function NavigationBar({ isLoggedIn }: Props) {
   const pathname = usePathname();
   const home = pathname === '/';
 
+  const router = useRouter();
+
   const { toggleSidebar } = useSidebarStore();
   const setInputValue = useSearchInputStore((state) => state.setInputValue);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      setInputValue(event.currentTarget.value);
+      if (!home) {
+        const inputValue = event.currentTarget.value;
+        router.push('/');
+        localStorage.setItem('inputValue', inputValue);
+      } else {
+        setInputValue(event.currentTarget.value);
+      }
     }
   };
 
@@ -50,7 +58,7 @@ export default function NavigationBar({ isLoggedIn }: Props) {
         </button>
         {(home && !isSearchVisible) || (!home && !isSearchVisible) ? (
           <Link className={cx('logo-wrapper')} href='/'>
-            <Image src='/images/logo-L.svg' alt='로고 이미지' fill />
+            <Image src='/images/logo-L.svg' alt='로고 이미지' priority fill />
           </Link>
         ) : null}
 
@@ -59,8 +67,9 @@ export default function NavigationBar({ isLoggedIn }: Props) {
             <Image
               src='/images/logo-image.svg'
               alt='대체 로고 이미지'
+              priority
               width={28}
-              height={28}
+              height={24}
             />
           </Link>
         ) : null}

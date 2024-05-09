@@ -34,7 +34,7 @@ const settings = {
   dots: true,
   infinite: false,
   speed: 500,
-  slidesToShow: 3.9,
+  slidesToShow: 3.5,
   slidesToScroll: 1,
   initialSlide: 0,
   responsive: [
