@@ -1,0 +1,54 @@
+@import '/src/styles/main.scss';
+
+.wrapper {
+  @include column-flexbox($align: start);
+  gap: 40px;
+  width: 540px;
+  height: 604px;
+  @include tablet {
+    width: 510px;
+    height: 548px;
+  }
+  @include mobile {
+    gap: 20px;
+    width: 295px;
+    height: 453px;
+  }
+}
+
+.edit-profile-form {
+  @include column-flexbox($align: start);
+  gap: 20px;
+  width: 100%;
+  @include tablet {
+    gap: 15px;
+  }
+  @include mobile {
+    gap: 10px;
+  }
+  & button {
+    margin-top: 20px;
+    @include mobile {
+      margin-top: 10px;
+    }
+  }
+}
+
+.title {
+  color: $primary;
+  font-size: 24px;
+  font-weight: 600;
+  @include tablet {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}
+
+.nickname-count {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  color: $tertiary;
+  font-size: 14px;
+}

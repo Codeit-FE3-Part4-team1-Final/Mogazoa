@@ -1,0 +1,31 @@
+@import '/src/styles/main.scss';
+
+.wrapper {
+  @include column-flexbox($align: start);
+  gap: 30px;
+  width: 100%;
+}
+
+.title-container {
+  position: relative;
+  z-index: 1;
+  @include flexbox;
+  gap: 40px;
+}
+
+.title {
+  color: $tertiary;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  @include tablet {
+    font-size: 18px;
+  }
+  @include mobile {
+    font-size: 18px;
+  }
+
+  &.selected {
+    color: $primary;
+  }
+}

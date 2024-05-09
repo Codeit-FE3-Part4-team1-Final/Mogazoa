@@ -1,0 +1,82 @@
+@import '@/styles/main';
+
+.container {
+  @include column-flexbox(center, center);
+  gap: 10px;
+  padding: 30px;
+  border-radius: 12px;
+  background: $comp-bg;
+  width: 300px;
+  height: 190px;
+
+  @include mobile {
+    @include column-flexbox(center, start);
+    padding: 20px;
+    height: 100%;
+
+    width: 100%;
+  }
+
+  .header {
+    @include column-flexbox;
+    gap: 15px;
+
+    @include mobile {
+      @include column-flexbox(center, start);
+      gap: 10px;
+    }
+  }
+}
+
+.label {
+  color: $primary;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+
+  @include tablet {
+    font-size: 16px;
+  }
+
+  @include mobile {
+    font-size: 14px;
+  }
+}
+.point {
+  @include flexbox;
+  gap: 5px;
+  color: $secondary;
+  font-size: 24px;
+  font-weight: 300;
+
+  @include tablet {
+    font-size: 20px;
+  }
+
+  @include mobile {
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.text {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 20px;
+  color: $tertiary;
+  text-align: center;
+  white-space: pre-wrap;
+
+  @include tablet {
+    font-size: 12px;
+  }
+}
+
+.difference {
+  color: $white;
+  font-size: 15px;
+
+  @include tablet {
+    font-size: 13px;
+  }
+}

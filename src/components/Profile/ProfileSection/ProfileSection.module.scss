@@ -1,0 +1,55 @@
+@import '/src/styles/main.scss';
+
+.wrapper {
+  @include flexbox;
+  padding: 60px 30px;
+  @include tablet {
+    padding: 40px 118px 60px;
+  }
+  @include mobile {
+    padding: 30px 20px 120px;
+  }
+}
+
+.container {
+  @include flexbox($align: start);
+  gap: 60px;
+  width: 100%;
+  max-width: 1340px;
+  @include tablet {
+    align-items: center;
+    flex-direction: column;
+  }
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+.profile-section {
+  position: sticky;
+  z-index: 2;
+  top: 50px;
+  align-self: start;
+  @include tablet {
+    position: static;
+    align-self: center;
+  }
+  @include mobile {
+    position: static;
+    align-self: center;
+  }
+}
+
+.activity-section {
+  @include column-flexbox;
+  gap: 80px;
+  width: 100%;
+  @include tablet {
+    width: 509px;
+    gap: 60px;
+  }
+  @include mobile {
+    width: 335px;
+    gap: 60px;
+  }
+}

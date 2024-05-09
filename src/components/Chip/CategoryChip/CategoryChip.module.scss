@@ -1,0 +1,86 @@
+@import '/src/styles/main.scss';
+
+@mixin category($background, $text) {
+  background: $background;
+  color: $text;
+}
+
+@mixin large() {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+@mixin small() {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.music {
+  @include category($music-10, $music);
+}
+
+.drama {
+  @include category($drama-10, $drama);
+}
+
+.book {
+  @include category($book-10, $book);
+}
+
+.hotel {
+  @include category($hotel-10, $hotel);
+}
+
+.interior {
+  @include category($interior-10, $interior);
+}
+
+.restaurant {
+  @include category($restaurant-10, $restaurant);
+}
+
+.electronics {
+  @include category($electronic-10, $electronic);
+}
+
+.cosmetic {
+  @include category($cosmetic-10, $cosmetic);
+}
+
+.cloth {
+  @include category($cloth-10, $cloth);
+}
+
+.app {
+  @include category($app-10, $app);
+}
+
+.null {
+  @include category($null-10, $null);
+}
+
+.large {
+  @include large();
+}
+
+.small {
+  @include small();
+}
+
+.chip {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  word-break: keep-all;
+  @include tablet {
+    @include small();
+  }
+  @include mobile {
+    @include small();
+  }
+}

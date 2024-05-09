@@ -1,0 +1,49 @@
+@import '@/styles/main';
+
+.dropdown-container {
+  position: relative;
+  font-size: 16px;
+  color: $tertiary;
+
+  .dropdown-content {
+    position: absolute;
+    background-color: $comp-bg;
+    border-radius: 8px;
+    padding: 8px 0;
+    z-index: 1;
+    width: max-content;
+    min-width: 150px;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    button {
+      color: white;
+      text-align: left; /* 텍스트 왼쪽 정렬 */
+      padding: 10px 20px;
+      border-bottom: 1px solid #444; /* 항목 구분선 */
+      width: 100%; /* 부모 요소의 전체 너비 사용 */
+      cursor: pointer;
+
+      &:last-of-type {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: #555;
+      }
+
+      &:focus {
+        outline: none;
+        background-color: #444;
+      }
+    }
+  }
+}
+
+.dropdown-button {
+  color: white;
+}

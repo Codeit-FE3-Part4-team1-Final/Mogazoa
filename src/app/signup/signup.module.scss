@@ -1,0 +1,51 @@
+@import '/src/styles/main.scss';
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 60px;
+
+  @include tablet {
+    gap: 55px;
+  }
+
+  @include mobile {
+    gap: 50px;
+  }
+}
+
+.form-input-area {
+  width: 640px;
+  height: 100%;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  @include tablet {
+    width: 440px;
+    gap: 35px;
+  }
+
+  @include mobile {
+    margin-top: 80px;
+    width: 335px;
+    gap: 30px;
+  }
+}
+
+.input-button {
+  margin-top: 15px;
+  height: 65px;
+
+  @include tablet {
+    height: 55px;
+  }
+
+  @include mobile {
+    height: 50px;
+  }
+}

@@ -1,0 +1,55 @@
+@import '/src/styles/main.scss';
+
+.button {
+  @include flexbox;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  height: 65px;
+  @include tablet {
+    font-size: 16px;
+    height: 55px;
+  }
+  @include mobile {
+    font-size: 16px;
+    height: 50px;
+  }
+}
+
+.primary {
+  background: $main_gradient;
+  color: $primary;
+  &:disabled {
+    background: $border;
+    color: $tertiary;
+    cursor: not-allowed;
+  }
+}
+
+.secondary {
+  border: 1px solid $main_blue;
+  background: $main_gradient;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  &:disabled {
+    border: 1px solid $tertiary;
+    background: $tertiary;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: not-allowed;
+  }
+}
+
+.tertiary {
+  border: 1px solid $secondary;
+  color: $secondary;
+  &:disabled {
+    border-color: $border;
+    color: $tertiary;
+    cursor: not-allowed;
+  }
+}

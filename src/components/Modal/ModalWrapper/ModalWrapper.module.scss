@@ -1,0 +1,41 @@
+@import '/src/styles/main.scss';
+
+.wrapper {
+  @include flexbox;
+  position: fixed;
+  z-index: 99;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(2px);
+}
+
+.container {
+  position: relative;
+  border-radius: 16px;
+  background: $background;
+  padding: 60px 40px 40px;
+  @include tablet {
+    border-radius: 12px;
+  }
+  @include mobile {
+    border-radius: 12px;
+    padding: 40px 20px 20px;
+  }
+}
+
+.close-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  @include tablet {
+    width: 36px;
+    height: 36px;
+  }
+  @include mobile {
+    width: 24px;
+    height: 24px;
+    top: 15px;
+    right: 15px;
+  }
+}

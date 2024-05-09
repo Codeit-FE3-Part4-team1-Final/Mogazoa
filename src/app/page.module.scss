@@ -1,0 +1,145 @@
+@import '/src/styles/main.scss';
+
+.home-container {
+  position: relative;
+  display: flex;
+  width: 1400px;
+  margin: 0 auto;
+  gap: 20px;
+  top: 100px;
+
+  @include tablet {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 150px auto;
+    grid-template-rows: 170px auto;
+    grid-template-areas:
+      'sidebar ranking'
+      'sidebar main';
+    gap: 0;
+    top: 60px;
+  }
+
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    top: 50px;
+  }
+}
+
+.sidebar {
+  width: 180px;
+  padding: 30px 20px 0;
+  flex-shrink: 0;
+  border-right: 1px solid $comp-bg-10;
+  height: calc(100vh - 100px);
+
+  @include tablet {
+    grid-area: sidebar;
+    width: 150px;
+    height: calc(100vh - 60px);
+  }
+
+  @include mobile {
+    position: fixed;
+    left: -180px;
+    transition: left 0.3s ease-in-out;
+    background-color: $comp-bg;
+    z-index: 97;
+    height: 100%;
+  }
+}
+
+.sidebar-visible {
+  left: 0 !important;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  padding-top: 30px;
+  flex-shrink: 1;
+  width: 1000px;
+  height: calc(100vh - 100px);
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include tablet {
+    grid-area: main;
+    margin: 0 auto;
+    width: 619px;
+    height: calc(100vh - 230px);
+  }
+
+  @include mobile {
+    order: 2;
+    width: 375px;
+    height: 100%;
+    padding-top: 20px;
+  }
+}
+
+.ranking-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 180px;
+  height: calc(100vh - 100px);
+  padding: 30px 20px 0;
+  flex-shrink: 0;
+  border-left: 1px solid $comp-bg-10;
+
+  @include tablet {
+    grid-area: ranking;
+    border: none;
+    padding: 30px 0 0;
+    width: 100%;
+    height: 170px;
+    justify-content: space-between;
+    border-bottom: 1px solid $comp-bg-10;
+    overflow: hidden;
+  }
+
+  @include mobile {
+    gap: 20px;
+    height: 140px;
+    padding: 20px 0 0;
+  }
+}
+
+.ranking-header {
+  font-size: 20px;
+
+  @include tablet {
+    font-size: 16px;
+    padding-left: 20px;
+  }
+}
+
+.ranking-items {
+  @include tablet {
+    overflow-x: scroll;
+    padding: 0 20px;
+    height: 100%;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.ranking-item {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include tablet {
+    gap: 10px;
+    flex-direction: row;
+    min-width: 807px;
+  }
+}

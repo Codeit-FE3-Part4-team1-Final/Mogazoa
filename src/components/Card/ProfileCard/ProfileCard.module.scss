@@ -1,0 +1,198 @@
+@import '/src/styles/main.scss';
+
+.wrapper {
+  position: relative;
+  z-index: 2;
+  width: 340px;
+  border-radius: 12px;
+  border: 1px solid $border;
+  background: $comp-bg;
+  padding: 40px 20px 30px;
+  @include tablet {
+    padding: 30px;
+    width: 509px;
+  }
+  @include mobile {
+    padding: 30px 20px;
+    width: 335px;
+  }
+}
+
+.blur-image {
+  border-radius: 50%;
+  position: absolute;
+  z-index: 0;
+  top: -160px;
+  left: -400px;
+  width: 800px;
+  height: 800px;
+  opacity: 0.15;
+  filter: blur(100px);
+  pointer-events: none;
+  @include tablet {
+    width: 580px;
+    height: 580px;
+    top: -40px;
+    left: -120px;
+  }
+  @include mobile {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+.container {
+  @include inline-flexbox;
+  flex-direction: column;
+  gap: 40px;
+  @include tablet {
+    width: 449px;
+    gap: 30px;
+    flex-shrink: 0;
+  }
+  @include mobile {
+    @include column-flexbox;
+    width: 295px;
+    gap: 30px;
+    flex-shrink: 0;
+  }
+}
+
+.profile-image-box {
+  position: relative;
+  border-radius: 50%;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  @include tablet {
+    width: 120px;
+    height: 120px;
+  }
+  @include mobile {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+.user-information {
+  position: relative;
+  z-index: 1;
+  @include column-flexbox();
+  width: 300px;
+  gap: 20px;
+  @include tablet {
+    width: 449px;
+    gap: 10px;
+  }
+  @include mobile {
+    width: 295px;
+    gap: 10px;
+  }
+}
+
+.user-name {
+  color: $primary;
+  font-size: 24px;
+  font-weight: 600;
+  @include tablet {
+    font-size: 20px;
+    line-height: 28px;
+  }
+  @include mobile {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}
+
+.user-description {
+  width: 300px;
+  color: $tertiary;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  word-wrap: break-word;
+  word-break: keep-all;
+  @include tablet {
+    width: 100%;
+    align-self: stretch;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+  }
+  @include mobile {
+    width: 295px;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+  }
+}
+
+.user-follow-box {
+  position: relative;
+  z-index: 1;
+  @include flexbox($align: start);
+  gap: 50px;
+  @include tablet {
+    gap: 80px;
+  }
+  @include mobile {
+    gap: 60px;
+  }
+}
+
+.follow {
+  @include column-flexbox;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.count {
+  color: $primary;
+  font-size: 20px;
+  font-weight: 600;
+  @include tablet {
+    font-size: 18px;
+    line-height: 21px;
+  }
+  @include mobile {
+    font-size: 18px;
+    line-height: 21px;
+  }
+}
+
+.text {
+  color: $secondary;
+  @include tablet {
+    font-size: 14px;
+  }
+  @include mobile {
+    font-size: 14px;
+  }
+}
+
+.separator {
+  height: 53px;
+  border: none;
+  border-left: 1px solid $border;
+  margin: 0;
+  @include tablet {
+    height: 48px;
+  }
+  @include mobile {
+    height: 48px;
+  }
+}
+
+.button-box {
+  position: relative;
+  z-index: 1;
+  @include column-flexbox;
+  width: 100%;
+  gap: 20px;
+  @include tablet {
+    gap: 15px;
+  }
+  @include mobile {
+    gap: 10px;
+  }
+}

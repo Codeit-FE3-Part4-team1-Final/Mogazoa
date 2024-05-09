@@ -1,0 +1,28 @@
+@import '/src/styles/main.scss';
+
+.container {
+  display: inline-flex;
+  background: $green-10;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: $green;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+
+  @include mobile {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+.close-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 2px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}

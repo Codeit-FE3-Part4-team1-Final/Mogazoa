@@ -1,0 +1,20 @@
+@import '/src/styles/main.scss';
+
+.product-count {
+  text-align: center;
+  color: $primary;
+}
+
+.subject-victory {
+  text-align: center;
+  color: $green;
+}
+
+.object-victory {
+  text-align: center;
+  color: $pink;
+}
+
+.td {
+  color: $secondary;
+}

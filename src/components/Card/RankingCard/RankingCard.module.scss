@@ -1,0 +1,56 @@
+@import '/src/styles/main.scss';
+
+.ranking-Wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $comp-bg-10;
+
+  @include tablet {
+    border: none;
+  }
+}
+
+.ranking-image {
+  border-radius: 999px;
+  width: 35px;
+  height: 35px;
+}
+
+.ranking {
+  position: absolute;
+  top: 26px;
+  left: 19px;
+}
+
+.ranking-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.ranking-Info {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.ranking-nickname {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.ranking-userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  color: $tertiary;
+  font-weight: 300;
+}

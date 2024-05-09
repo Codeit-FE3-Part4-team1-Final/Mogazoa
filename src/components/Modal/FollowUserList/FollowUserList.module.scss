@@ -1,0 +1,29 @@
+@import '/src/styles/main.scss';
+
+.user-information {
+  @include flexbox;
+  gap: 20px;
+}
+
+.profile-image-box {
+  position: relative;
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  overflow: hidden;
+  @include tablet {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.user-name {
+  font-size: 18px;
+  font-weight: 500;
+  @include tablet {
+    font-size: 16px;
+  }
+  @include mobile {
+    font-size: 16px;
+  }
+}
