@@ -1,8 +1,10 @@
 import Image from 'next/image';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import cx from '@/components/ReviewItem/cx.ts';
 import Rating from '@/components/Rating';
 import Thumbs from '@/components/Thumbs';
 import { Review, UserDetail } from '@/types/types.ts';
+import deleteReviewFunction from '@/utils/deleteReview.ts';
 
 interface ReviewItemProps {
   review: Review;
@@ -17,6 +19,23 @@ export default function ReviewItem({
 }: Readonly<ReviewItemProps>) {
   const defaultProfileImageUrl = '/images/profile-image.png';
 
+  const queryClient = useQueryClient();
+  const deleteReviewMutation = useMutation({
+    mutationFn: deleteReviewFunction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['reviews'],
+      });
+    },
+
+    onError: (error) => {
+      console.error('리뷰 삭제 실패:', error);
+    },
+  });
+
+  const handleDeleteReview = (reviewId: number) => {
+    deleteReviewMutation.mutate(reviewId);
+  };
   return (
     <div className={cx('container')}>
       <div className={cx('profile')}>
@@ -57,7 +76,9 @@ export default function ReviewItem({
             {me?.id === review.user.id && (
               <div className={cx('action-links')}>
                 <button onClick={() => handleToggleModal(review)}>수정</button>
-                <button>삭제</button>
+                <button onClick={() => handleDeleteReview(review.id)}>
+                  삭제
+                </button>
               </div>
             )}
           </div>

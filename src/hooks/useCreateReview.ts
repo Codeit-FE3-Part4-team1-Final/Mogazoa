@@ -1,19 +1,17 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getCookie } from 'cookies-next';
 import generateRandomEnglishName from '@/utils/generateRandomEnglishName';
-import { CreateReviewRequestBody, Review } from '@/types/types';
+import { CreateReviewRequestBody } from '@/types/types';
 import uploadImage from '@/utils/uploadImage';
 import { useModalStore } from '../../providers/ModalStoreProvider';
 import createReview from '@/utils/createReview.ts';
 
-const token = getCookie('accessToken') || '';
+const token = getCookie('accessToken') ?? '';
 
 const useCreateReview = (productId: number) => {
   const queryClient = useQueryClient();
-  const router = useRouter();
   const FILE_MAX_SIZE = 5 * 1024 * 1024;
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -36,7 +34,6 @@ const useCreateReview = (productId: number) => {
   });
 
   const content = watch('content', '');
-  const rating = watch('rating');
 
   const onBlurContent = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length < 10) {
@@ -113,14 +110,21 @@ const useCreateReview = (productId: number) => {
     setImageUrl('');
   };
 
+  const queryKeysToInvalidate = [
+    'user-reviewed-products',
+    'reviews',
+    'productData',
+  ];
+
   const { mutate, isPending } = useMutation({
     mutationFn: (body: CreateReviewRequestBody) => createReview(body),
-    onSuccess: (review: Review) => {
-      queryClient.invalidateQueries({
-        queryKey: ['user-reviewed-products'],
+    onSuccess: () => {
+      queryKeysToInvalidate.forEach((key) => {
+        queryClient.invalidateQueries({
+          queryKey: [key],
+        });
       });
 
-      router.push(`/product/${review.productId}`);
       toggleModal();
       setModalType(null);
     },

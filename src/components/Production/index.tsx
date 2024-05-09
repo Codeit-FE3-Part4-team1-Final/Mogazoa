@@ -31,6 +31,10 @@ export default function Production({ productData, me }: Readonly<Props>) {
   );
 
   const handleToggleModal = (type: ModalType) => {
+    if (me === null) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
     setModalType(type);
     toggleModal();
   };

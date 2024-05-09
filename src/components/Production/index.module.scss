@@ -18,7 +18,7 @@
   }
   .image-wrap {
     position: relative;
-    height: 250px;
+    min-height: 200px;
     width: 355px;
     border-radius: 8px;
     overflow: hidden;
@@ -52,7 +52,7 @@
             font-size: 20px;
           }
           @include mobile {
-            line-height: 28px; /* 140% */
+            line-height: 28px;
           }
         }
 
@@ -83,7 +83,6 @@
     }
 
     .info-wrap {
-      max-height: 150px;
       overflow: hidden;
       text-overflow: ellipsis;
       @include mobile {
