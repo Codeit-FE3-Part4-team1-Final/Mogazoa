@@ -34,14 +34,19 @@ export default function ReviewItem({
           <Rating Rating={review.rating} />
         </div>
       </div>
+
       <div className={cx('review')}>
-        <div className={cx('review-content')}>{review.content}</div>
-        <div className={cx('review-images')}>
-          {review.reviewImages.map((image) => (
-            <div key={image.id} className={cx('review-image')}>
-              <Image src={image.source} alt={'Review Image'} fill />
+        <div className={cx('review-content')}>
+          {review.reviewImages.length === 0 ? null : (
+            <div className={cx('review-images')}>
+              {review.reviewImages.map((image) => (
+                <div key={image.id} className={cx('review-image')}>
+                  <Image src={image.source} alt={'Review Image'} fill />
+                </div>
+              ))}
             </div>
-          ))}
+          )}
+          <div className={cx('review-text')}>{review.content}</div>
         </div>
         <div className={cx('review-footer')}>
           <div className={cx('date-wrapper')}>
@@ -56,7 +61,6 @@ export default function ReviewItem({
               </div>
             )}
           </div>
-
           <Thumbs
             likeCount={review.likeCount}
             isLiked={review.isLiked}
