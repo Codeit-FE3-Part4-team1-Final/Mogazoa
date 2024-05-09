@@ -6,6 +6,7 @@ import NavigationBar from '@/components/NavigationBar';
 import { ModalStoreProvider } from '../../providers/ModalStoreProvider';
 import ProgressBar from '@/components/Loading/Nprogress';
 import Floating from '@/components/Floating';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -29,6 +30,7 @@ export default function RootLayout({
             <NavigationBar isLoggedIn={isLoggedIn} />
             {children}
             {isLoggedIn && <Floating token={token.value} />}
+            <Footer />
           </ModalStoreProvider>
         </ReactQueryProvider>
       </body>

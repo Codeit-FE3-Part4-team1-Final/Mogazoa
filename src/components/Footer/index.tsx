@@ -5,18 +5,15 @@ const cx = classNames.bind(styles);
 
 export default function Footer() {
   return (
-    <footer className={cx('footer')}>
+    <div className={cx('footer')}>
+      <div className={cx('button')}></div>
       <div className={cx('container')}>
-        <div className={cx('items', 'one')}>
-          <div className={cx('items', 'two')}>
-            <div className={cx('items', 'three')}>
-              <div className={cx('items', 'four')}>
-                <div className={cx('items', 'five')}></div>
-              </div>
-            </div>
+        <div className={cx('content')}>
+          <div className={cx('items')}>
+            <h3>Classy footer text</h3>
           </div>
         </div>
       </div>
-    </footer>
+    </div>
   );
 }
