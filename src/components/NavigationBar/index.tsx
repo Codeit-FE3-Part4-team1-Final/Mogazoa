@@ -8,6 +8,7 @@ import classNames from 'classnames/bind';
 import styles from './NavigationBar.module.scss';
 import useSidebarStore from '@/stores/sidebarStore';
 import useSearchInputStore from '@/stores/searchValueStore';
+import useSelectedCategoryStore from '@/stores/categoryStore';
 
 interface Props {
   isLoggedIn: boolean;
@@ -21,12 +22,19 @@ export default function NavigationBar({ isLoggedIn }: Props) {
   const home = pathname === '/';
 
   const { toggleSidebar } = useSidebarStore();
+  const setSelectedCategory = useSelectedCategoryStore(
+    (state) => state.setSelectedCategory,
+  );
   const setInputValue = useSearchInputStore((state) => state.setInputValue);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       setInputValue(event.currentTarget.value);
     }
+  };
+
+  const handleLogoClick = () => {
+    setSelectedCategory(null);
   };
 
   const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -49,13 +57,21 @@ export default function NavigationBar({ isLoggedIn }: Props) {
           />
         </button>
         {(home && !isSearchVisible) || (!home && !isSearchVisible) ? (
-          <Link className={cx('logo-wrapper')} href='/'>
+          <Link
+            className={cx('logo-wrapper')}
+            href='/'
+            onClick={handleLogoClick}
+          >
             <Image src='/images/logo-L.svg' alt='로고 이미지' priority fill />
           </Link>
         ) : null}
 
         {!home && isSearchVisible ? (
-          <Link className={cx('logo-wrapper')} href='/'>
+          <Link
+            className={cx('logo-wrapper')}
+            href='/'
+            onClick={handleLogoClick}
+          >
             <Image
               src='/images/logo-image.svg'
               alt='대체 로고 이미지'
