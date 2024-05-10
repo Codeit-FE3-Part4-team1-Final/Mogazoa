@@ -220,6 +220,12 @@ const useCreateProduct = (token: string, productData?: ProductDetailType) => {
       queryClient.invalidateQueries({
         queryKey: ['productData'],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['user-reviewed-products'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['user-favorite-products'],
+      });
 
       router.push(`/product/${product.id}`);
       toggleModal();
