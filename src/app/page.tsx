@@ -30,16 +30,6 @@ export default function Home() {
   );
 
   useEffect(() => {
-    setTimeout(() => {
-      const savedInputValue = localStorage.getItem('inputValue');
-      if (savedInputValue) {
-        setInputValue(savedInputValue);
-        localStorage.removeItem('inputValue');
-      }
-    }, 1);
-  }, []);
-
-  useEffect(() => {
     setInputValue('');
   }, [selectedCategory]);
 
