@@ -8,8 +8,6 @@ import styles from './ComparePage.module.scss';
 import SubjectInput from '@/components/Input/CompareInput/SubjectInput';
 import ObjectInput from '@/components/Input/CompareInput/ObjectInput';
 import CompareLoading from '@/components/Loading/CompareLoading';
-import TopScroll from '@/components/Button/TopScroll';
-import Footer from '@/components/Footer';
 
 const cx = classNames.bind(styles);
 
@@ -57,9 +55,7 @@ export default function ComparePage() {
             <CompareLoading />
           </div>
         )}
-        <TopScroll />
       </div>
-      <Footer />
     </>
   );
 }
