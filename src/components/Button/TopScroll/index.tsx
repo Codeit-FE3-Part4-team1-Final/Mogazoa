@@ -20,7 +20,6 @@ export default function TopScroll() {
           alt='화살표 아이콘'
           width={20}
           height={20}
-          className={cx('image')}
         />
       </button>
     </div>
