@@ -38,7 +38,9 @@ export default function CreateProduct({ token, productData }: Props) {
 
   return (
     <div className={cx('wrapper')}>
-      <span className={cx('title')}>상품 추가</span>
+      <span className={cx('title')}>
+        {productData ? '상품 편집' : '상품 추가'}
+      </span>
       <form className={cx('form')} onSubmit={handleSubmit(onSubmit)}>
         <div className={cx('input-container')}>
           <ImageInput
@@ -86,7 +88,7 @@ export default function CreateProduct({ token, productData }: Props) {
           error={!!errors.description}
         />
         <Button category='primary' type='submit' disabled={isPending}>
-          추가하기
+          {productData ? '저장하기' : '추가하기'}
         </Button>
       </form>
     </div>

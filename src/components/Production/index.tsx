@@ -161,7 +161,12 @@ export default function Production({ productData, me }: Readonly<Props>) {
 
             {isMe && (
               <div className={cx('button-3')}>
-                <Button category={'tertiary'}>편집하기</Button>
+                <Button
+                  category={'tertiary'}
+                  onClick={() => handleToggleModal('editProduct')}
+                >
+                  편집하기
+                </Button>
               </div>
             )}
           </div>
