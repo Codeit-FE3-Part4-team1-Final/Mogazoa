@@ -6,18 +6,21 @@ import ImageInput from '@/components/Input/ImageInput';
 import TextBoxInput from '@/components/Input/TextBoxInput';
 import useCreateProduct from '@/hooks/useCreateProduct';
 import Select from '@/components/Input/Select';
+import { ProductDetailType } from '@/types/types';
 
 const cx = classNames.bind(styles);
 
 interface Props {
   token: string;
+  productData?: ProductDetailType;
 }
 
-export default function CreateProduct({ token }: Props) {
+export default function CreateProduct({ token, productData }: Props) {
   const {
     name,
     description,
     previewImage,
+    categoryId,
     onChangeFile,
     resetFile,
     onChangeName,
@@ -31,7 +34,7 @@ export default function CreateProduct({ token }: Props) {
     errors,
     categoryList,
     isPending,
-  } = useCreateProduct(token);
+  } = useCreateProduct(token, productData);
 
   return (
     <div className={cx('wrapper')}>
@@ -41,7 +44,6 @@ export default function CreateProduct({ token }: Props) {
           <ImageInput
             image={previewImage}
             register={register('image', {
-              required: '대표 이미지를 추가해주세요.',
               onChange: onChangeFile,
             })}
             resetFile={resetFile}
@@ -61,12 +63,14 @@ export default function CreateProduct({ token }: Props) {
               <p className={cx('nickname-count')}>{name.length}/20</p>
             </TextFieldInput>
             <Select
+              value={categoryId}
               optionList={categoryList}
               handleChange={onChangeCategory}
               register={register('categoryId', {
                 required: '카테고리를 선택해주세요.',
               })}
               error={!!errors.categoryId}
+              productCategory={productData?.category}
             />
           </div>
         </div>
