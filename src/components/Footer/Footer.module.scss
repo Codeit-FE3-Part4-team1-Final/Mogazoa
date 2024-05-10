@@ -1,0 +1,66 @@
+@import '/src/styles/main.scss';
+
+.footer {
+  position: fixed;
+  width: 100%;
+  height: 1em;
+  bottom: 0;
+  left: 0;
+  margin: 0 auto;
+  overflow: hidden;
+  z-index: 999;
+  transition: all 1s ease;
+
+  &:hover {
+    transition: all 1s ease;
+    height: 10em;
+  }
+
+  .button {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    margin: 0 auto;
+    border: 8px solid $secondary;
+    border-radius: 35px;
+    transition: all 1s ease;
+
+    &:hover {
+      position: relative;
+      width: 35px;
+      height: 35px;
+      border: 8px solid $secondary;
+      transition: all 1s ease;
+    }
+  }
+
+  .container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin-top: 5px;
+    background: $background;
+  }
+
+  .content {
+    position: relative;
+    width: 150px;
+    height: auto;
+    top: -45px;
+    right: 190px;
+    margin: 0 auto;
+  }
+
+  .items {
+    width: 500px;
+    float: left;
+    text-align: center;
+  }
+
+  p {
+    margin-top: 70px;
+    margin-left: 40px;
+  }
+}
