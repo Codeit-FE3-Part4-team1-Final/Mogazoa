@@ -7,8 +7,8 @@ function YouTubeEmbed({ videoId }: Props) {
 
   return (
     <iframe
-      width='480'
-      height='315'
+      width='100%'
+      height='100%'
       src={src}
       title='YouTube video player'
       frameBorder='1'

@@ -1,1 +1,13 @@
 @import '@/styles/main';
+.container {
+  @include column-flexbox;
+  gap: 10px;
+
+  p {
+    @include flexbox;
+    margin: 0 auto;
+    height: 100%;
+    max-width: 100%;
+    min-height: 1px;
+  }
+}

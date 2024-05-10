@@ -8,8 +8,9 @@ import { ModalType, ProductDetailType, UserDetail } from '@/types/types.ts';
 import CompareModal from '../Modal/CompareModal';
 import toggleFavorite from './actions.ts';
 import copyCurrentUrl from '@/utils/copyCurrentUrl.ts';
+import ModalWrapper from '@/components/Modal/ModalWrapper';
+import CreateReview from '@/components/Modal/CreateReview';
 import { useModalStore } from '../../../providers/ModalStoreProvider.tsx';
-import ModalWrapper from '../Modal/ModalWrapper/index.tsx';
 import CreateProduct from '../Modal/CreateProduct/index.tsx';
 import getUserToken from '@/utils/getUserToken.ts';
 
@@ -25,20 +26,20 @@ export default function Production({ productData, me }: Readonly<Props>) {
   const { id, image, name, description, isFavorite, category, writerId } =
     productData;
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [modalType, setModalType] = useState<CompareModalType | null>(null);
-  const {
-    isOpened: isGlobalModalOpened,
-    toggleModal: toggleGlobalModal,
-    modalType: globalModalType,
-    setModalType: setGlobalModalType,
-  } = useModalStore((state) => state);
+  const [compareModalType, setCompareModalType] =
+    useState<CompareModalType | null>(null);
   const queryClient = useQueryClient();
+  const { isOpened, toggleModal, modalType, setModalType } = useModalStore(
+    (state) => state,
+  );
 
-  // 상품 편집 모달
-  const handleToggleGlobalModal = async (type: ModalType) => {
-    setGlobalModalType(type);
-
-    toggleGlobalModal();
+  const handleToggleModal = (type: ModalType) => {
+    if (me === null) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+    setModalType(type);
+    toggleModal();
   };
 
   const { mutate } = useMutation({
@@ -64,17 +65,17 @@ export default function Production({ productData, me }: Readonly<Props>) {
     const objectProductId = localStorage.getItem('objectProductId');
 
     if (String(id) === subjectProductId || String(id) === objectProductId) {
-      setModalType('exist');
+      setCompareModalType('exist');
     } else if (!subjectProductId) {
-      setModalType('subject');
+      setCompareModalType('subject');
       localStorage.setItem('subjectProductId', String(id));
       localStorage.setItem('subjectProduct', name);
     } else if (!objectProductId) {
-      setModalType('object');
+      setCompareModalType('object');
       localStorage.setItem('objectProductId', String(id));
       localStorage.setItem('objectProduct', name);
     } else {
-      setModalType('changed');
+      setCompareModalType('changed');
     }
     setIsOpen(true);
   };
@@ -91,79 +92,99 @@ export default function Production({ productData, me }: Readonly<Props>) {
   }, []);
 
   return (
-    <div className={cx('container')}>
-      {isGlobalModalOpened && globalModalType === 'editProduct' && (
-        <ModalWrapper>
-          <CreateProduct token={userToken!} productData={productData} />
-        </ModalWrapper>
-      )}
-      <div className={cx('image-wrap', 'col-sm-4', 'col-md-4', 'col-lg-4')}>
-        <Image src={image} alt={'상품이미지'} fill />
-      </div>
-
-      <div className={cx('content-wrap', 'col-sm-4', 'col-md-8', 'col-lg-8')}>
-        <div className={cx('category-wrap')}>
-          <CategoryChip productCategory={category.name} size={'large'} />
-        </div>
-        <div className={cx('name-wrap')}>
-          <div className={cx('name')}>
-            <span className={cx('title__name')}>{name}</span>
-            <button onClick={handleToggleFavorite}>
-              <Image
-                src={
-                  isFavorite
-                    ? '/images/save-icon.svg'
-                    : '/images/unsave-icon.svg'
-                }
-                alt={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
-                width={28}
-                height={28}
-              />
-            </button>
-          </div>
-          <div className={cx('name__action')}>
-            <button className={cx('btn')}>
-              <Image src={'/images/kakao-icon.svg'} alt={'카카오아이콘'} fill />
-            </button>
-            <button className={cx('btn')} onClick={copyCurrentUrl}>
-              <Image src={'/images/share-icon.svg'} alt={'카카오아이콘'} fill />
-            </button>
-          </div>
-        </div>
-        <div className={cx('info-wrap')}>
-          <span className={cx('description')}>{description}</span>
+    <>
+      <div className={cx('container')}>
+        {isOpened && modalType === 'editProduct' && (
+          <ModalWrapper>
+            <CreateProduct token={userToken!} productData={productData} />
+          </ModalWrapper>
+        )}
+        <div className={cx('image-wrap', 'col-sm-4', 'col-md-4', 'col-lg-4')}>
+          <Image src={image} alt={'상품이미지'} fill />
         </div>
 
-        <div className={cx('production-footer')}>
-          <div className={cx('button-1')}>
-            <Button category={'primary'}>리뷰 작성하기</Button>
+        <div className={cx('content-wrap', 'col-sm-4', 'col-md-8', 'col-lg-8')}>
+          <div className={cx('category-wrap')}>
+            <CategoryChip productCategory={category.name} size={'large'} />
           </div>
-          <div className={cx('button-2')}>
-            <Button category={'secondary'} onClick={handleClick}>
-              비교하기
-            </Button>
+          <div className={cx('name-wrap')}>
+            <div className={cx('name')}>
+              <span className={cx('title__name')}>{name}</span>
+              <button onClick={handleToggleFavorite}>
+                <Image
+                  src={
+                    isFavorite
+                      ? '/images/save-icon.svg'
+                      : '/images/unsave-icon.svg'
+                  }
+                  alt={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+                  width={28}
+                  height={28}
+                />
+              </button>
+            </div>
+            <div className={cx('name__action')}>
+              <button className={cx('btn')}>
+                <Image
+                  src={'/images/kakao-icon.svg'}
+                  alt={'카카오아이콘'}
+                  fill
+                />
+              </button>
+              <button className={cx('btn')} onClick={copyCurrentUrl}>
+                <Image
+                  src={'/images/share-icon.svg'}
+                  alt={'카카오아이콘'}
+                  fill
+                />
+              </button>
+            </div>
+          </div>
+          <div className={cx('info-wrap')}>
+            <span className={cx('description')}>{description}</span>
           </div>
 
-          {isMe && (
-            <div className={cx('button-3')}>
+          <div className={cx('production-footer')}>
+            <div className={cx('button-1')}>
               <Button
-                category={'tertiary'}
-                onClick={() => handleToggleGlobalModal('editProduct')}
+                category={'primary'}
+                onClick={() => handleToggleModal('createReview')}
               >
-                편집하기
+                리뷰 작성하기
               </Button>
             </div>
-          )}
+            <div className={cx('button-2')}>
+              <Button category={'secondary'} onClick={handleClick}>
+                비교하기
+              </Button>
+            </div>
+
+            {isMe && (
+              <div className={cx('button-3')}>
+                <Button category={'tertiary'}>편집하기</Button>
+              </div>
+            )}
+          </div>
         </div>
+        {isOpen && (
+          <CompareModal
+            product={name}
+            productId={id}
+            compareModalType={compareModalType as CompareModalType}
+            handleOpen={setIsOpen}
+          />
+        )}
       </div>
-      {isOpen && (
-        <CompareModal
-          product={name}
-          productId={id}
-          compareModalType={modalType as CompareModalType}
-          handleOpen={setIsOpen}
-        />
-      )}
-    </div>
+
+      {isOpened && modalType === 'createReview' ? (
+        <ModalWrapper>
+          <CreateReview
+            name={name}
+            productCategory={category.name}
+            productId={id}
+          />
+        </ModalWrapper>
+      ) : null}
+    </>
   );
 }

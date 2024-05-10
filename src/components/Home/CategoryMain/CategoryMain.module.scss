@@ -84,7 +84,7 @@
   margin: 0 auto;
   width: 950px;
   grid-template-columns: repeat(4, 1fr);
-  gap: 29px;
+  gap: 22px;
 
   @include tablet {
     width: 590px;
