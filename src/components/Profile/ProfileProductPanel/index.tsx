@@ -26,7 +26,6 @@ export default function ProfileProductPanel({ userId }: Props) {
     fetchNextCreatedProduct,
     fetchNextFavoriteProduct,
   } = useUserProductData(userId);
-
   return (
     <section className={cx('wrapper')}>
       <span className={cx('title-container')}>

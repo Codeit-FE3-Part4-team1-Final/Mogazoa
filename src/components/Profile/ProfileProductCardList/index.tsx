@@ -9,6 +9,7 @@ import ProductCard from '@/components/Card/ProductCard';
 import styles from './ProfileProductCardList.module.scss';
 import { UserProductCategory } from '../ProfileProductPanel';
 import useInfiniteUserProduct from '@/hooks/useInfiniteUserProduct';
+import NoProduct from '@/components/Skeleton/NoProduct';
 
 const cx = classNames.bind(styles);
 
@@ -56,6 +57,9 @@ export default function ProfileProductCardList({
   );
   return (
     <div className={cx('product-card-container')}>
+      {(!productCardItem || productCardItem[0].list.length === 0) && (
+        <NoProduct userProductCategory={userProductCategory} />
+      )}
       {productCardItem?.map((productList) =>
         productList.list.map((product) => {
           return <ProductCard productItem={product} key={product.id} />;
