@@ -110,7 +110,6 @@ const useCreateProduct = (token: string, productData?: ProductDetailType) => {
 
       if (!validation) {
         setError('name', { message: '이미 등록된 상품입니다.' });
-        console.log(errors);
         return;
       }
     }
