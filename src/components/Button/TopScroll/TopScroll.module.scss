@@ -10,10 +10,10 @@
   left: 80px;
   bottom: 80px;
   z-index: 1;
-  border: 1px solid #dadcdf;
+  border: 1px solid $primary;
   border-radius: 50%;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.08);
-  background: rgba(255, 2545, 255, 0.5);
+  background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
 
   &:hover {

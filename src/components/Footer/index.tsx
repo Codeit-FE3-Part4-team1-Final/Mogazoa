@@ -10,7 +10,12 @@ export default function Footer() {
       <div className={cx('container')}>
         <div className={cx('content')}>
           <div className={cx('items')}>
-            <h3>Classy footer text</h3>
+            <p>
+              MOGAZOA Copyright © 2024 Mogazoa - All rights reserved
+              <br />
+              <br />
+              Designed By : Part4-1
+            </p>
           </div>
         </div>
       </div>
