@@ -37,10 +37,19 @@ export default function CommonMain({
   onSelect,
 }: Props) {
   return (
-    <main className={cx('main-wrapper')}>
-      <section className={cx('banner')}>.</section>
-      <div className={cx('line')} />
+    <main>
       <div className={cx('main-container')}>
+        <div className={cx('youtube-section')}>
+          <section className={cx('youtube-wrapper')}>
+            <div className={cx('youtube-first')}>
+              <YouTubeEmbed videoId='PM5K03g-04M' />
+            </div>
+            <div className={cx('youtube-second')}>
+              <YouTubeEmbed videoId='JgrVNnU1c9w' />
+            </div>
+          </section>
+        </div>
+        <div className={cx('line')} />
         <section className={cx('all-product')}>
           <div className={cx('header')}>
             <p className={cx('title')}>
@@ -74,12 +83,6 @@ export default function CommonMain({
           ) : (
             <div>Loading...</div>
           )}
-        </section>
-        <div className={cx('line')} />
-        <section className={cx('youtube-section')}>
-          <p className={cx('title')}>제목제목제목</p>
-          <YouTubeEmbed videoId='PM5K03g-04M' />
-          <YouTubeEmbed videoId='JgrVNnU1c9w' />
         </section>
       </div>
     </main>

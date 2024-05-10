@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import classNames from 'classnames/bind';
 import styles from './NavigationBar.module.scss';
 import useSidebarStore from '@/stores/sidebarStore';
@@ -20,20 +20,12 @@ export default function NavigationBar({ isLoggedIn }: Props) {
   const pathname = usePathname();
   const home = pathname === '/';
 
-  const router = useRouter();
-
   const { toggleSidebar } = useSidebarStore();
   const setInputValue = useSearchInputStore((state) => state.setInputValue);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      if (!home) {
-        const inputValue = event.currentTarget.value;
-        router.push('/');
-        localStorage.setItem('inputValue', inputValue);
-      } else {
-        setInputValue(event.currentTarget.value);
-      }
+      setInputValue(event.currentTarget.value);
     }
   };
 
