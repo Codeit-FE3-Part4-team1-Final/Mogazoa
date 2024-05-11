@@ -6,18 +6,21 @@ import ImageInput from '@/components/Input/ImageInput';
 import TextBoxInput from '@/components/Input/TextBoxInput';
 import useCreateProduct from '@/hooks/useCreateProduct';
 import Select from '@/components/Input/Select';
+import { ProductDetailType } from '@/types/types';
 
 const cx = classNames.bind(styles);
 
 interface Props {
   token: string;
+  productData?: ProductDetailType;
 }
 
-export default function CreateProduct({ token }: Props) {
+export default function CreateProduct({ token, productData }: Props) {
   const {
     name,
     description,
     previewImage,
+    categoryId,
     onChangeFile,
     resetFile,
     onChangeName,
@@ -31,17 +34,18 @@ export default function CreateProduct({ token }: Props) {
     errors,
     categoryList,
     isPending,
-  } = useCreateProduct(token);
+  } = useCreateProduct(token, productData);
 
   return (
     <div className={cx('wrapper')}>
-      <span className={cx('title')}>상품 추가</span>
+      <span className={cx('title')}>
+        {productData ? '상품 편집' : '상품 추가'}
+      </span>
       <form className={cx('form')} onSubmit={handleSubmit(onSubmit)}>
         <div className={cx('input-container')}>
           <ImageInput
             image={previewImage}
             register={register('image', {
-              required: '대표 이미지를 추가해주세요.',
               onChange: onChangeFile,
             })}
             resetFile={resetFile}
@@ -61,12 +65,14 @@ export default function CreateProduct({ token }: Props) {
               <p className={cx('nickname-count')}>{name.length}/20</p>
             </TextFieldInput>
             <Select
+              value={categoryId}
               optionList={categoryList}
               handleChange={onChangeCategory}
               register={register('categoryId', {
                 required: '카테고리를 선택해주세요.',
               })}
               error={!!errors.categoryId}
+              productCategory={productData?.category}
             />
           </div>
         </div>
@@ -82,7 +88,7 @@ export default function CreateProduct({ token }: Props) {
           error={!!errors.description}
         />
         <Button category='primary' type='submit' disabled={isPending}>
-          추가하기
+          {productData ? '저장하기' : '추가하기'}
         </Button>
       </form>
     </div>

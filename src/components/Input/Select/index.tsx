@@ -9,10 +9,12 @@ import { Category } from '@/types/types';
 const cx = classNames.bind(styles);
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  value: number;
   handleChange: (id: number) => void;
   optionList: Category[];
   register?: UseFormRegisterReturn;
   error?: boolean;
+  productCategory?: Category;
 }
 
 export default function Select({
@@ -21,10 +23,14 @@ export default function Select({
   register,
   handleChange,
   error,
+  productCategory,
   ...rest
 }: Props) {
   const [isOpened, setIsOpened] = useState(false);
-  const [name, setName] = useState('카테고리를 선택해주세요');
+  const [name, setName] = useState(
+    () => productCategory?.name || '카테고리를 선택해주세요',
+  );
+
   const onClick = () => {
     setIsOpened((prev) => !prev);
   };
@@ -58,12 +64,13 @@ export default function Select({
         )}
       </button>
       <input
+        value={value}
         readOnly
         className={cx('selected-input')}
         id='select'
-        value={value}
         {...register}
         {...rest}
+        type='number'
       />
     </div>
   );

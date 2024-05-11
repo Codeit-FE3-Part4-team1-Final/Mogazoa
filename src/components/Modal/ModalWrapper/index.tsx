@@ -13,9 +13,10 @@ interface Props {
 }
 
 export default function ModalWrapper({ children }: Props) {
-  const { toggleModal } = useModalStore((state) => state);
+  const { toggleModal, setModalType } = useModalStore((state) => state);
   const handleClickWrapper = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
+      setModalType(null);
       toggleModal();
     }
   };

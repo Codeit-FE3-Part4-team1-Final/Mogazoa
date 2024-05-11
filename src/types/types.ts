@@ -7,6 +7,7 @@ export type ModalType =
   | 'createProduct'
   | 'editProduct'
   | 'createReview'
+  | 'editReview'
   | null;
 
 export type ProductCategory =

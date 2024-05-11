@@ -28,7 +28,7 @@ export default function ProfileProductPanel({ userId }: Props) {
   } = useUserProductData(userId);
   return (
     <section className={cx('wrapper')}>
-      <span className={cx('title-container')}>
+      <div className={cx('title-container')}>
         <span
           className={cx(
             'title',
@@ -56,7 +56,7 @@ export default function ProfileProductPanel({ userId }: Props) {
         >
           찜한 상품
         </span>
-      </span>
+      </div>
       <ProfileProductCardList
         userProductCategory={userProductCategory}
         productCardItem={productCardItem}
