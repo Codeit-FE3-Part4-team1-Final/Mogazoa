@@ -7,7 +7,7 @@ import styles from './ImageInput.module.scss';
 const cx = classNames.bind(styles);
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  image: string | null;
+  image: string | null | undefined;
   register?: UseFormRegisterReturn;
   resetFile?: () => void;
   error?: boolean;

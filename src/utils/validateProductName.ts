@@ -5,11 +5,23 @@ const validateProductName = async (keyword: string) => {
     `${process.env.NEXT_PUBLIC_API_URL_HOST}/products/?keyword=${keyword}`,
   );
 
-  const product: SearchProductResponse = await response.json();
-  if (product.list.length !== 0) {
-    return false;
+  const productList: SearchProductResponse = await response.json();
+
+  if (!productList || productList.list.length === 0) {
+    return true;
   }
-  return true;
+
+  const keywordWithoutSpaces = keyword.replace(/\s/g, '').toLowerCase();
+
+  const hasMatchingProduct = productList.list.some((product) => {
+    const productNameWithoutSpaces = product.name
+      .replace(/\s/g, '')
+      .toLowerCase();
+
+    return productNameWithoutSpaces === keywordWithoutSpaces;
+  });
+
+  return !hasMatchingProduct;
 };
 
 export default validateProductName;

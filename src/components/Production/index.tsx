@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import cx from '@/components/Production/cx.ts';
 import CategoryChip from '@/components/Chip/CategoryChip';
@@ -11,6 +11,8 @@ import copyCurrentUrl from '@/utils/copyCurrentUrl.ts';
 import ModalWrapper from '@/components/Modal/ModalWrapper';
 import CreateReview from '@/components/Modal/CreateReview';
 import { useModalStore } from '../../../providers/ModalStoreProvider.tsx';
+import CreateProduct from '../Modal/CreateProduct/index.tsx';
+import getUserToken from '@/utils/getUserToken.ts';
 
 interface Props {
   productData: ProductDetailType;
@@ -20,6 +22,7 @@ interface Props {
 type CompareModalType = 'subject' | 'object' | 'exist' | 'changed';
 
 export default function Production({ productData, me }: Readonly<Props>) {
+  const [userToken, setUserToken] = useState<string | undefined>('');
   const { id, image, name, description, isFavorite, category, writerId } =
     productData;
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -79,9 +82,23 @@ export default function Production({ productData, me }: Readonly<Props>) {
 
   const isMe = writerId === me?.id;
 
+  // 쿠키에서 토큰 가져오기
+  useEffect(() => {
+    const getToken = async () => {
+      const token = await getUserToken();
+      setUserToken(token?.value);
+    };
+    getToken();
+  }, []);
+
   return (
     <>
       <div className={cx('container')}>
+        {isOpened && modalType === 'editProduct' && (
+          <ModalWrapper>
+            <CreateProduct token={userToken!} productData={productData} />
+          </ModalWrapper>
+        )}
         <div className={cx('image-wrap', 'col-sm-4', 'col-md-4', 'col-lg-4')}>
           <Image src={image} alt={'상품이미지'} fill />
         </div>
@@ -144,7 +161,12 @@ export default function Production({ productData, me }: Readonly<Props>) {
 
             {isMe && (
               <div className={cx('button-3')}>
-                <Button category={'tertiary'}>편집하기</Button>
+                <Button
+                  category={'tertiary'}
+                  onClick={() => handleToggleModal('editProduct')}
+                >
+                  편집하기
+                </Button>
               </div>
             )}
           </div>

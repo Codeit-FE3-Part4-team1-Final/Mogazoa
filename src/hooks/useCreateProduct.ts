@@ -59,13 +59,18 @@ const categoryList: Category[] = [
 interface CreateProductMutationProps {
   body: CreateProductRequestBody;
   userToken: string;
+  HTTPMethod: 'PATCH' | 'POST';
+  id?: number;
 }
 
-const useCreateProduct = (token: string) => {
+const useCreateProduct = (token: string, productData?: ProductDetailType) => {
+  const method = productData ? 'PATCH' : 'POST';
   const queryClient = useQueryClient();
   const router = useRouter();
   const FILE_MAX_SIZE = 5 * 1024 * 1024;
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null | undefined>(
+    productData?.image,
+  );
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState('');
   const { toggleModal, setModalType } = useModalStore((state) => state);
@@ -84,9 +89,15 @@ const useCreateProduct = (token: string) => {
     mode: 'onBlur',
   });
 
-  const name = watch('name', '');
-  const categoryId = watch('categoryId', 0);
-  const description = watch('description', '');
+  const name = watch('name', productData ? productData.name : '');
+  const categoryId = watch(
+    'categoryId',
+    productData ? productData.categoryId : 0,
+  );
+  const description = watch(
+    'description',
+    productData ? productData.description : '',
+  );
 
   const onBlurName = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length === 0) {
@@ -94,12 +105,13 @@ const useCreateProduct = (token: string) => {
       return;
     }
 
-    const validation = await validateProductName(event.target.value);
+    if (name !== productData?.name) {
+      const validation = await validateProductName(event.target.value);
 
-    if (!validation) {
-      setError('name', { message: '이미 등록된 상품입니다.' });
-      console.log(errors);
-      return;
+      if (!validation) {
+        setError('name', { message: '이미 등록된 상품입니다.' });
+        return;
+      }
     }
 
     clearErrors('name');
@@ -194,11 +206,25 @@ const useCreateProduct = (token: string) => {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ body, userToken }: CreateProductMutationProps) =>
-      createProduct(body, userToken),
+    mutationFn: ({
+      body,
+      userToken,
+      HTTPMethod,
+      id,
+    }: CreateProductMutationProps) =>
+      createProduct(body, userToken, HTTPMethod, id),
     onSuccess: (product: ProductDetailType) => {
       queryClient.invalidateQueries({
         queryKey: ['user-created-products'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['productData'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['user-reviewed-products'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['user-favorite-products'],
       });
 
       router.push(`/product/${product.id}`);
@@ -212,11 +238,13 @@ const useCreateProduct = (token: string) => {
       if (isPending) {
         return;
       }
-      if (!selectedImage) {
+      // 기존 이미지, 선택 이미지 둘 다 없을 시
+      if (!previewImage && !selectedImage) {
         setError('image', { message: '대표 이미지를 추가해주세요.' });
         return;
       }
-      if (!data.categoryId) {
+      // eslint-disable-next-line
+      if (data.categoryId == 0) {
         setError('categoryId', { message: '카테고리를 선택해주세요.' });
         return;
       }
@@ -227,14 +255,29 @@ const useCreateProduct = (token: string) => {
         return;
       }
 
-      const validation = await validateProductName(data.name);
-      if (!validation) {
-        setError('name', { message: '이미 등록된 상품입니다.' });
-        return;
+      if (name !== productData?.name) {
+        const validation = await validateProductName(data.name);
+        if (!validation) {
+          setError('name', { message: '이미 등록된 상품입니다.' });
+          return;
+        }
       }
 
-      const body = { ...data, image: imageUrl };
-      mutate({ body, userToken: token });
+      let body = data;
+
+      // 기존 이미지는 있고, 다른 이미지를 선택하지 않았을 시
+      if (previewImage && !selectedImage) {
+        body = { ...data, image: previewImage };
+      } else {
+        body = { ...data, image: imageUrl };
+      }
+
+      mutate({
+        body,
+        userToken: token,
+        HTTPMethod: method,
+        id: productData?.id,
+      });
     } catch (error) {
       throw new Error('상품 등록 실패');
     }

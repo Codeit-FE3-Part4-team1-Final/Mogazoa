@@ -49,7 +49,8 @@ export default function ProfileFollowModal({
   return (
     <div className={cx('wrapper')}>
       <span className={cx('category')}>
-        {userName}님{modalType === 'followers' ? '을' : '이'} 팔로우하는 유저
+        {userName}님{modalType === 'followers' ? '을' : '이'} 팔로우
+        <span className={cx('category', 'dark-text')}>하는 유저</span>
       </span>
       {(!data || data[0].list.length === 0) && (
         <NoFollow modalType={modalType} />
