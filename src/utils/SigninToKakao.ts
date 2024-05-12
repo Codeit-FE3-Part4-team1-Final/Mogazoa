@@ -1,7 +1,8 @@
-const SigninToKakao = () => {
+const signinToKakao = () => {
+  const uri = `${process.env.NEXT_PUBLIC_SIGNIN_REDIRECT_URI}`;
   window.Kakao.Auth.authorize({
-    redirectUri: `${process.env.NEXT_PUBLIC_REDIRECT_URI}`,
+    redirectUri: uri,
   });
 };
 
-export default SigninToKakao;
+export default signinToKakao;

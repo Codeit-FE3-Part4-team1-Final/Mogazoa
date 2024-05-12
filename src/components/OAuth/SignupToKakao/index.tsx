@@ -6,6 +6,7 @@ import UserInfoInput from '@/components/Input/UserInfoInput';
 import { checkNickname } from '@/utils/userValidation';
 import styles from './SignupToKakao.module.scss';
 import Button from '@/components/Button';
+import signupToKakao from '@/utils/signupToKakao';
 
 const cx = classNames.bind(styles);
 
@@ -19,12 +20,11 @@ export default function SignupToKakao() {
     const result = checkNickname(value);
     setError(result);
   };
-  const onClick = () => {
+  const onClick = async () => {
     if (error) {
       return;
     }
-    // OAuth 로그인 로직
-    console.log(nickname);
+    signupToKakao(nickname);
   };
   return (
     <div className={cx('wrapper')}>

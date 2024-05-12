@@ -1,25 +1,24 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { SignInResponse, SignInWithOauthRequestBody } from '@/types/types';
+import { SignInResponse, SignUpWithOauthRequestBody } from '@/types/types';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   try {
-    const { code } = req.query;
-    console.log('인가코드 : ', code);
+    const { code, state } = req.query;
 
     if (!code) {
       throw new Error('failed to login to Kakao');
     }
-    const body: SignInWithOauthRequestBody = {
-      redirectUri: 'http://localhost:3000/api/auth/kakao',
+    const body: SignUpWithOauthRequestBody = {
+      nickname: state! as string,
+      redirectUri: `http://localhost:3000/api/auth/kakao-signup`,
       token: code,
     };
-    console.log('request body: ', body);
 
     const response = await fetch(
-      `https://mogazoa-api.vercel.app/3-1/auth/signIn/kakao`,
+      `https://mogazoa-api.vercel.app/3-1/auth/signUp/kakao`,
       {
         method: 'POST',
         headers: {
@@ -30,7 +29,6 @@ export default async function handler(
     );
 
     const result: SignInResponse = await response.json();
-    console.log(result);
 
     if (response.ok) {
       res.setHeader(
@@ -38,11 +36,10 @@ export default async function handler(
         `accessToken=${result.accessToken}; Path=/; HttpOnly; Secure`,
       );
       res.redirect('/');
-    } else if (response.status === 403) {
-      res.redirect('/oauth/signup/kakao');
+    } else {
+      throw new Error('카카오 회원가입 에러');
     }
   } catch (error) {
-    console.error(error);
     res.status(500).json('failed to sign up');
   }
 }

@@ -10,7 +10,7 @@ import styles from './signin.module.scss';
 import Button from '@/components/Button';
 import { checkSignEmail, checkSignPassword } from '@/utils/userValidation';
 import { signInUser } from '@/apis/postUserInfo';
-import SigninToKakao from '@/utils/SigninToKakao';
+import signinToKakao from '@/utils/SigninToKakao';
 
 const cx = classNames.bind(styles);
 
@@ -90,7 +90,10 @@ export default function SignInPage() {
                 height={32}
               />
             </div>
-            <div className={cx('sns-circle')} onClick={SigninToKakao}>
+            <div
+              className={cx('sns-circle')}
+              onClick={() => signinToKakao('signin')}
+            >
               <Image
                 className={cx('sns-image')}
                 src='./images/kakao-icon.svg'
