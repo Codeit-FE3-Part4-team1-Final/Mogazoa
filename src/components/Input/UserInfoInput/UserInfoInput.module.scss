@@ -1,5 +1,25 @@
 @import '/src/styles/main.scss';
 
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-0.3rem);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(0.3rem);
+  }
+}
+
 .input-container {
   display: flex;
   flex-direction: column;
@@ -25,6 +45,7 @@
   background-color: $comp-bg;
   border-radius: 10px;
   border: 1px solid transparent;
+  color: $secondary;
 
   &:focus {
     border-color: $main_indigo;
@@ -42,5 +63,6 @@
 .input-error {
   font-size: 13px;
   font-weight: 100;
-  color: $tertiary;
+  color: $error;
+  animation: shake 0.7s ease;
 }
