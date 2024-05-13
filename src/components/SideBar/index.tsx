@@ -4,6 +4,7 @@ import styles from './SideBar.module.scss';
 import getCategories from '@/apis/getCategories';
 import { Category } from '@/types/types';
 import useSidebarStore from '@/stores/sidebarStore';
+import useSearchInputStore from '@/stores/searchValueStore';
 
 interface Props {
   selectedCategory: Category | null;
@@ -19,6 +20,7 @@ export default function SideBar({
 }: Props) {
   const isLoggedIn = true;
 
+  const { setInputValue } = useSearchInputStore();
   const { toggleSidebar } = useSidebarStore();
 
   const categories = getCategories();
@@ -31,6 +33,7 @@ export default function SideBar({
           onClick={() => {
             setSelectedCategory(null);
             toggleSidebar();
+            setInputValue('');
           }}
         >
           카테고리
@@ -39,13 +42,13 @@ export default function SideBar({
           {categories?.map((category) => (
             <button
               className={cx('sideBar-list', {
-                selected: selectedCategory === category,
+                selected: selectedCategory?.id === category.id,
               })}
               key={category.id}
               onClick={() => {
                 setSelectedCategory(category);
-
                 toggleSidebar();
+                setInputValue('');
               }}
             >
               {category.name}

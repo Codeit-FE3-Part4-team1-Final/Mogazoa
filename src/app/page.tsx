@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 import SideBar from '@/components/SideBar';
 import styles from './page.module.scss';
@@ -21,15 +21,11 @@ export default function Home() {
   const userRankings = getRanking();
 
   const { isSidebarVisible } = useSidebarStore();
-  const { inputValue, setInputValue } = useSearchInputStore();
+  const { inputValue } = useSearchInputStore();
   const { selectedCategory, setSelectedCategory } = useSelectedCategoryStore();
 
   const [sortTitle, setSortTitle] = useState<string>('HOT');
   const [selectedSort, setSelectedSort] = useState<string>('reviewCount');
-
-  useEffect(() => {
-    setInputValue('');
-  }, [selectedCategory]);
 
   const { data: sortProducts } = useQuery({
     queryKey: [`${selectedCategory?.name}${selectedSort}`],

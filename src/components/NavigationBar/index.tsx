@@ -10,20 +10,8 @@ import useSidebarStore from '@/stores/sidebarStore';
 import useSearchInputStore from '@/stores/searchValueStore';
 import useSelectedCategoryStore from '@/stores/categoryStore';
 import SearchDropDown from '../DropDown/SearchDropDown';
-
-const menuItems = [
-  { key: 'all', label: '전체' },
-  { key: 'music', label: '음악' },
-  { key: 'movie/drama', label: '영화/드라마' },
-  { key: 'book', label: '강의/책' },
-  { key: 'hotel', label: '호텔' },
-  { key: 'interior', label: '가구/인테리어' },
-  { key: 'restaurant', label: '식당' },
-  { key: 'electronics', label: '전자기기' },
-  { key: 'cosmetic', label: '화장품' },
-  { key: 'cloth', label: '의류/잡화' },
-  { key: 'app', label: '앱' },
-];
+import { Category } from '@/types/types';
+import getCategories from '@/apis/getCategories';
 
 interface Props {
   isLoggedIn: boolean;
@@ -36,11 +24,14 @@ export default function NavigationBar({ isLoggedIn }: Props) {
   const pathname = usePathname();
   const home = pathname === '/';
 
+  const categories = getCategories();
+
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const toggleSearch = () => setIsSearchVisible(!isSearchVisible);
 
   const [searchSelectedCategory, setSearchSelectedCategory] =
-    useState<string>('all');
+    useState<Category | null>(null);
+
   const { toggleSidebar } = useSidebarStore();
   const setSelectedCategory = useSelectedCategoryStore(
     (state) => state.setSelectedCategory,
@@ -49,8 +40,15 @@ export default function NavigationBar({ isLoggedIn }: Props) {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      setInputValue(event.currentTarget.value);
-      setIsSearchVisible(false);
+      if (searchSelectedCategory === null) {
+        setSelectedCategory(null);
+        setInputValue(event.currentTarget.value);
+        setIsSearchVisible(false);
+      } else {
+        setSelectedCategory(searchSelectedCategory);
+        setInputValue(event.currentTarget.value);
+        setIsSearchVisible(false);
+      }
     }
   };
 
@@ -58,7 +56,7 @@ export default function NavigationBar({ isLoggedIn }: Props) {
     setSelectedCategory(null);
   };
 
-  const handleCategoryChange = (category: string) => {
+  const handleCategoryChange = (category: Category | null) => {
     setSearchSelectedCategory(category);
   };
 
@@ -124,7 +122,7 @@ export default function NavigationBar({ isLoggedIn }: Props) {
             <div className={cx('search-dropDown')}>
               <SearchDropDown
                 buttonLabel={searchSelectedCategory}
-                dropItems={menuItems}
+                dropItems={categories}
                 onSelect={handleCategoryChange}
               />
             </div>
