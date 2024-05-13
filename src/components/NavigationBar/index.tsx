@@ -9,6 +9,21 @@ import styles from './NavigationBar.module.scss';
 import useSidebarStore from '@/stores/sidebarStore';
 import useSearchInputStore from '@/stores/searchValueStore';
 import useSelectedCategoryStore from '@/stores/categoryStore';
+import SearchDropDown from '../DropDown/SearchDropDown';
+
+const menuItems = [
+  { key: 'all', label: '전체' },
+  { key: 'music', label: '음악' },
+  { key: 'movie/drama', label: '영화/드라마' },
+  { key: 'book', label: '강의/책' },
+  { key: 'hotel', label: '호텔' },
+  { key: 'interior', label: '가구/인테리어' },
+  { key: 'restaurant', label: '식당' },
+  { key: 'electronics', label: '전자기기' },
+  { key: 'cosmetic', label: '화장품' },
+  { key: 'cloth', label: '의류/잡화' },
+  { key: 'app', label: '앱' },
+];
 
 interface Props {
   isLoggedIn: boolean;
@@ -21,6 +36,11 @@ export default function NavigationBar({ isLoggedIn }: Props) {
   const pathname = usePathname();
   const home = pathname === '/';
 
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const toggleSearch = () => setIsSearchVisible(!isSearchVisible);
+
+  const [searchSelectedCategory, setSearchSelectedCategory] =
+    useState<string>('all');
   const { toggleSidebar } = useSidebarStore();
   const setSelectedCategory = useSelectedCategoryStore(
     (state) => state.setSelectedCategory,
@@ -30,6 +50,7 @@ export default function NavigationBar({ isLoggedIn }: Props) {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       setInputValue(event.currentTarget.value);
+      setIsSearchVisible(false);
     }
   };
 
@@ -37,11 +58,11 @@ export default function NavigationBar({ isLoggedIn }: Props) {
     setSelectedCategory(null);
   };
 
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const handleCategoryChange = (category: string) => {
+    setSearchSelectedCategory(category);
+  };
 
-  const toggleSearch = () => setIsSearchVisible(!isSearchVisible);
-
-  // Todo(송상훈):로고 이미지 랜더링 부분 리팩토링 하기
+  // Todo(송상훈):
   return (
     <div className={cx('wrapper', { fixed: home })}>
       <div className={cx('container')}>
@@ -82,27 +103,31 @@ export default function NavigationBar({ isLoggedIn }: Props) {
           </Link>
         ) : null}
         <div className={cx('navigation-item')}>
+          <button
+            className={cx('mobile-search-icon', {
+              'search-icon-unVisible': isSearchVisible,
+            })}
+            onClick={toggleSearch}
+          >
+            <Image
+              src='/images/search-icon.svg'
+              alt='돋보기 이미지'
+              width={24}
+              height={24}
+            />
+          </button>
           <div
             className={cx('search', {
               'search-visible': isSearchVisible,
             })}
           >
-            <button className={cx('mobile-search-icon')} onClick={toggleSearch}>
-              <Image
-                src='/images/search-icon.svg'
-                alt='돋보기 이미지'
-                width={24}
-                height={24}
+            <div className={cx('search-dropDown')}>
+              <SearchDropDown
+                buttonLabel={searchSelectedCategory}
+                dropItems={menuItems}
+                onSelect={handleCategoryChange}
               />
-            </button>
-            <button className={cx('search-icon')}>
-              <Image
-                src='/images/search-icon.svg'
-                alt='돋보기 이미지'
-                width={24}
-                height={24}
-              />
-            </button>
+            </div>
             <input
               className={cx('search-input')}
               placeholder='상품 이름을 검색해 보세요'
