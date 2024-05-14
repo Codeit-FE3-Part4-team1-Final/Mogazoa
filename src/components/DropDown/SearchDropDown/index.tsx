@@ -6,14 +6,14 @@ import { Category } from '@/types/types';
 const cx = classNames.bind(styles);
 
 interface Props {
-  buttonLabel: Category | null;
+  selectedSearchCategory: Category | null;
   dropItems: Category[];
   onSelect: (value: Category | null) => void;
 }
 
 export default function SearchDropDown({
   onSelect,
-  buttonLabel,
+  selectedSearchCategory,
   dropItems,
 }: Readonly<Props>) {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +44,9 @@ export default function SearchDropDown({
   return (
     <div className={cx('dropdown-container')} ref={dropdownRef}>
       <button className={cx('dropdown-button')} onClick={toggleDropdown}>
-        <div>{buttonLabel ? buttonLabel.name : '전체'}</div>
+        <div>
+          {selectedSearchCategory ? selectedSearchCategory.name : '전체'}
+        </div>
         <div className={cx('dropdown-arrow')}>{isOpen ? '▲' : '▼'}</div>
       </button>
       {isOpen && (
@@ -54,7 +56,7 @@ export default function SearchDropDown({
               <button
                 type='button'
                 className={cx('dropdown-item')}
-                onClick={() => handleItemClick(null)} // '전체' 선택 시 null을 onSelect로 전달
+                onClick={() => handleItemClick(null)}
                 role='menuitem'
               >
                 전체

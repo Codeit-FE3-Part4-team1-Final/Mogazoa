@@ -6,6 +6,7 @@ import styles from './CategoryMain.module.scss';
 import DropDown from '@/components/DropDown';
 import ProductCard from '@/components/Card/ProductCard';
 import { Category, ProductListType } from '@/types/types';
+import CompareLoading from '@/components/Loading/CompareLoading';
 
 interface MenuItem {
   key: string;
@@ -95,7 +96,9 @@ export default function CategoryMain({
               ))}
             </Slider>
           ) : (
-            <div>Loading...</div>
+            <div className={cx('loading-container')}>
+              <CompareLoading />
+            </div>
           )}
         </div>
       </section>
@@ -106,11 +109,17 @@ export default function CategoryMain({
             {inputValue ? `'${inputValue}' 검색상품` : '전체 상품'}
           </p>
         </div>
-        <div className={cx('product-list-grid')}>
-          {categoryProducts?.list.map((productItem) => (
-            <ProductCard key={productItem.id} productItem={productItem} />
-          ))}
-        </div>
+        {categoryProducts?.list ? (
+          <div className={cx('product-list-grid')}>
+            {categoryProducts?.list.map((productItem) => (
+              <ProductCard key={productItem.id} productItem={productItem} />
+            ))}
+          </div>
+        ) : (
+          <div className={cx('loading-container')}>
+            <CompareLoading />
+          </div>
+        )}
       </section>
     </>
   );

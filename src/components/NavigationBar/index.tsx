@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import classNames from 'classnames/bind';
@@ -29,23 +29,28 @@ export default function NavigationBar({ isLoggedIn }: Props) {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const toggleSearch = () => setIsSearchVisible(!isSearchVisible);
 
-  const [searchSelectedCategory, setSearchSelectedCategory] =
+  const [selectedSearchCategory, setSearchSelectedCategory] =
     useState<Category | null>(null);
 
   const { toggleSidebar } = useSidebarStore();
+  const { selectedCategory } = useSelectedCategoryStore();
   const setSelectedCategory = useSelectedCategoryStore(
     (state) => state.setSelectedCategory,
   );
   const setInputValue = useSearchInputStore((state) => state.setInputValue);
 
+  useEffect(() => {
+    setSearchSelectedCategory(selectedCategory);
+  }, [selectedCategory]);
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      if (searchSelectedCategory === null) {
+      if (selectedSearchCategory === null) {
         setSelectedCategory(null);
         setInputValue(event.currentTarget.value);
         setIsSearchVisible(false);
       } else {
-        setSelectedCategory(searchSelectedCategory);
+        setSelectedCategory(selectedSearchCategory);
         setInputValue(event.currentTarget.value);
         setIsSearchVisible(false);
       }
@@ -53,6 +58,7 @@ export default function NavigationBar({ isLoggedIn }: Props) {
   };
 
   const handleLogoClick = () => {
+    setInputValue('');
     setSelectedCategory(null);
   };
 
@@ -121,7 +127,7 @@ export default function NavigationBar({ isLoggedIn }: Props) {
           >
             <div className={cx('search-dropDown')}>
               <SearchDropDown
-                buttonLabel={searchSelectedCategory}
+                selectedSearchCategory={selectedSearchCategory}
                 dropItems={categories}
                 onSelect={handleCategoryChange}
               />

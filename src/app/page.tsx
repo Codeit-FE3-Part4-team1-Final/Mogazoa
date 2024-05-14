@@ -13,6 +13,7 @@ import useSearchInputStore from '@/stores/searchValueStore';
 import CategoryMain from '@/components/Home/CategoryMain/CategoryMain';
 import CommonMain from '@/components/Home/CommonMain/CommonMain';
 import useSelectedCategoryStore from '@/stores/categoryStore';
+import Footer from '@/components/Footer';
 
 const cx = classNames.bind(styles);
 
@@ -105,6 +106,7 @@ export default function Home() {
           </div>
         </section>
       </div>
+      <Footer />
     </div>
   );
 }
