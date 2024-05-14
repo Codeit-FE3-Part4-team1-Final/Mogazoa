@@ -1,13 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import classNames from 'classnames/bind';
 import styles from './NavigationBar.module.scss';
 import useSidebarStore from '@/stores/sidebarStore';
 import useSearchInputStore from '@/stores/searchValueStore';
+import useSelectedCategoryStore from '@/stores/categoryStore';
+import SearchDropDown from '../DropDown/SearchDropDown';
+import { Category } from '@/types/types';
+import getCategories from '@/apis/getCategories';
 
 interface Props {
   isLoggedIn: boolean;
@@ -20,20 +24,49 @@ export default function NavigationBar({ isLoggedIn }: Props) {
   const pathname = usePathname();
   const home = pathname === '/';
 
+  const categories = getCategories();
+
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const toggleSearch = () => setIsSearchVisible(!isSearchVisible);
+
+  const [selectedSearchCategory, setSearchSelectedCategory] =
+    useState<Category | null>(null);
+
   const { toggleSidebar } = useSidebarStore();
+  const { selectedCategory } = useSelectedCategoryStore();
+  const setSelectedCategory = useSelectedCategoryStore(
+    (state) => state.setSelectedCategory,
+  );
   const setInputValue = useSearchInputStore((state) => state.setInputValue);
+
+  useEffect(() => {
+    setSearchSelectedCategory(selectedCategory);
+  }, [selectedCategory]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      setInputValue(event.currentTarget.value);
+      if (selectedSearchCategory === null) {
+        setSelectedCategory(null);
+        setInputValue(event.currentTarget.value);
+        setIsSearchVisible(false);
+      } else {
+        setSelectedCategory(selectedSearchCategory);
+        setInputValue(event.currentTarget.value);
+        setIsSearchVisible(false);
+      }
     }
   };
 
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const handleLogoClick = () => {
+    setInputValue('');
+    setSelectedCategory(null);
+  };
 
-  const toggleSearch = () => setIsSearchVisible(!isSearchVisible);
+  const handleCategoryChange = (category: Category | null) => {
+    setSearchSelectedCategory(category);
+  };
 
-  // Todo(송상훈):로고 이미지 랜더링 부분 리팩토링 하기
+  // Todo(송상훈):
   return (
     <div className={cx('wrapper', { fixed: home })}>
       <div className={cx('container')}>
@@ -49,13 +82,21 @@ export default function NavigationBar({ isLoggedIn }: Props) {
           />
         </button>
         {(home && !isSearchVisible) || (!home && !isSearchVisible) ? (
-          <Link className={cx('logo-wrapper')} href='/'>
+          <Link
+            className={cx('logo-wrapper')}
+            href='/'
+            onClick={handleLogoClick}
+          >
             <Image src='/images/logo-L.svg' alt='로고 이미지' priority fill />
           </Link>
         ) : null}
 
         {!home && isSearchVisible ? (
-          <Link className={cx('logo-wrapper')} href='/'>
+          <Link
+            className={cx('logo-wrapper')}
+            href='/'
+            onClick={handleLogoClick}
+          >
             <Image
               src='/images/logo-image.svg'
               alt='대체 로고 이미지'
@@ -66,27 +107,31 @@ export default function NavigationBar({ isLoggedIn }: Props) {
           </Link>
         ) : null}
         <div className={cx('navigation-item')}>
+          <button
+            className={cx('mobile-search-icon', {
+              'search-icon-unVisible': isSearchVisible,
+            })}
+            onClick={toggleSearch}
+          >
+            <Image
+              src='/images/search-icon.svg'
+              alt='돋보기 이미지'
+              width={24}
+              height={24}
+            />
+          </button>
           <div
             className={cx('search', {
               'search-visible': isSearchVisible,
             })}
           >
-            <button className={cx('mobile-search-icon')} onClick={toggleSearch}>
-              <Image
-                src='/images/search-icon.svg'
-                alt='돋보기 이미지'
-                width={24}
-                height={24}
+            <div className={cx('search-dropDown')}>
+              <SearchDropDown
+                selectedSearchCategory={selectedSearchCategory}
+                dropItems={categories}
+                onSelect={handleCategoryChange}
               />
-            </button>
-            <button className={cx('search-icon')}>
-              <Image
-                src='/images/search-icon.svg'
-                alt='돋보기 이미지'
-                width={24}
-                height={24}
-              />
-            </button>
+            </div>
             <input
               className={cx('search-input')}
               placeholder='상품 이름을 검색해 보세요'

@@ -1,38 +1,32 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 import SideBar from '@/components/SideBar';
 import styles from './page.module.scss';
 import getProduct from '@/apis/getProduct.ts';
-import { Category } from '@/types/types';
 import getRanking from '@/apis/getRanking';
 import RankingCard from '@/components/Card/RankingCard';
 import useSidebarStore from '@/stores/sidebarStore';
 import useSearchInputStore from '@/stores/searchValueStore';
 import CategoryMain from '@/components/Home/CategoryMain/CategoryMain';
 import CommonMain from '@/components/Home/CommonMain/CommonMain';
+import useSelectedCategoryStore from '@/stores/categoryStore';
 import Footer from '@/components/Footer';
 
 const cx = classNames.bind(styles);
 
-// Todo(송상훈) : setTimeout 먹여놓은 부분 다른 로직을 수정해야 좋을 듯
+// Todo(송상훈) :
 export default function Home() {
   const userRankings = getRanking();
 
   const { isSidebarVisible } = useSidebarStore();
-  const { inputValue, setInputValue } = useSearchInputStore();
+  const { inputValue } = useSearchInputStore();
+  const { selectedCategory, setSelectedCategory } = useSelectedCategoryStore();
 
   const [sortTitle, setSortTitle] = useState<string>('HOT');
   const [selectedSort, setSelectedSort] = useState<string>('reviewCount');
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null,
-  );
-
-  useEffect(() => {
-    setInputValue('');
-  }, [selectedCategory]);
 
   const { data: sortProducts } = useQuery({
     queryKey: [`${selectedCategory?.name}${selectedSort}`],
@@ -69,7 +63,10 @@ export default function Home() {
         <aside
           className={cx('sidebar', { 'sidebar-visible': isSidebarVisible })}
         >
-          <SideBar setSelectedCategory={setSelectedCategory} />
+          <SideBar
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
         </aside>
         <main className={cx('main')}>
           {selectedCategory === null ? (
