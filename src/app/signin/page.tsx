@@ -10,7 +10,7 @@ import styles from './signin.module.scss';
 import Button from '@/components/Button';
 import { checkSignEmail, checkSignPassword } from '@/utils/userValidation';
 import { signInUser } from '@/apis/postUserInfo';
-import signToKakao from '@/utils/SigninKakao';
+import signToKakao from '@/utils/signinKakao';
 
 const cx = classNames.bind(styles);
 
