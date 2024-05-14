@@ -1,0 +1,13 @@
+@import '@/styles/main';
+
+.wrapper {
+  @include column-flexbox;
+  width: 640px;
+  gap: 60px;
+  @include tablet {
+    width: 440px;
+  }
+  @include mobile {
+    width: 335px;
+  }
+}

@@ -7,8 +7,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  left: 80px;
-  bottom: 80px;
+  left: 90px;
+  bottom: 90px;
   z-index: 1;
   border: 1px solid $primary;
   border-radius: 50%;
@@ -20,5 +20,13 @@
     background: $white;
     transition: all 0.3s;
     transform: scale(1.1);
+  }
+
+  @include tablet {
+    left: 30px;
+  }
+
+  @include mobile {
+    left: 20px;
   }
 }

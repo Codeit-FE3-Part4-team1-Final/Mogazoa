@@ -13,6 +13,7 @@ import CreateReview from '@/components/Modal/CreateReview';
 import { useModalStore } from '../../../providers/ModalStoreProvider.tsx';
 import CreateProduct from '../Modal/CreateProduct/index.tsx';
 import getUserToken from '@/utils/getUserToken.ts';
+import handleShareKakao from '@/utils/shareKakao.ts';
 
 interface Props {
   productData: ProductDetailType;
@@ -124,7 +125,10 @@ export default function Production({ productData, me }: Readonly<Props>) {
               </button>
             </div>
             <div className={cx('name__action')}>
-              <button className={cx('btn')}>
+              <button
+                className={cx('btn')}
+                onClick={() => handleShareKakao(productData)}
+              >
                 <Image
                   src={'/images/kakao-icon.svg'}
                   alt={'카카오아이콘'}

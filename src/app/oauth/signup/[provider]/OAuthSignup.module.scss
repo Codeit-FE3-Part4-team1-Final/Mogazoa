@@ -1,0 +1,6 @@
+@import '@/styles/main';
+
+.wrapper {
+  @include flexbox;
+  height: 100vh;
+}
