@@ -12,12 +12,12 @@ export default async function handler(
       throw new Error('failed to login to Kakao');
     }
     const body: SignInWithOauthRequestBody = {
-      redirectUri: 'http://localhost:3000/api/auth/kakao-signin',
+      redirectUri: `https://mogazoa4-1.vercel.app/api/auth/kakao-signin`,
       token: code,
     };
 
     const response = await fetch(
-      `https://mogazoa-api.vercel.app/3-1/auth/signIn/kakao`,
+      `${process.env.NEXT_PUBLIC_API_URL_HOST}/auth/signIn/kakao`,
       {
         method: 'POST',
         headers: {

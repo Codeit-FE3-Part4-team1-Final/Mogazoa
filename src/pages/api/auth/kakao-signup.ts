@@ -13,12 +13,12 @@ export default async function handler(
     }
     const body: SignUpWithOauthRequestBody = {
       nickname: state! as string,
-      redirectUri: `http://localhost:3000/api/auth/kakao-signup`,
+      redirectUri: `https://mogazoa4-1.vercel.app/api/auth/kakao-signup`,
       token: code,
     };
 
     const response = await fetch(
-      `https://mogazoa-api.vercel.app/3-1/auth/signUp/kakao`,
+      `${process.env.NEXT_PUBLIC_API_URL_HOST}/auth/signUp/kakao`,
       {
         method: 'POST',
         headers: {
