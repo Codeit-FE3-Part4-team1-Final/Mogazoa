@@ -8,11 +8,14 @@
   .dropdown-content {
     position: absolute;
     background-color: $comp-bg;
+    border: 1px solid $comp-bg-10;
     border-radius: 8px;
     padding: 8px 0;
     z-index: 1;
     width: max-content;
-    min-width: 150px;
+    min-width: 100px;
+    top: 25px;
+    right: 0;
 
     ul {
       list-style: none;

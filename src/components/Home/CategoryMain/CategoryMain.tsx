@@ -70,7 +70,7 @@ export default function CategoryMain({
   sortProducts,
 }: Props) {
   return (
-    <>
+    <div className={cx('main-container')}>
       <section className={cx('product-info')}>
         <div className={cx('header')}>
           <p className={cx('title')}>
@@ -102,6 +102,7 @@ export default function CategoryMain({
           )}
         </div>
       </section>
+      <div className={cx('line')} />
       <section className={cx('all-product')}>
         <div className={cx('header')}>
           <p className={cx('title')}>
@@ -121,6 +122,6 @@ export default function CategoryMain({
           </div>
         )}
       </section>
-    </>
+    </div>
   );
 }
