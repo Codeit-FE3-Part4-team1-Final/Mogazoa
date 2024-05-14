@@ -323,7 +323,7 @@ export interface SignInRequestBody {
  *
  * Kakao 의 경우에는 인가 코드 입니다.
  */
-export type OauthToken = string;
+export type OauthToken = string | string[];
 
 /**
  * example: http://localhost:3000/oauth/kakao

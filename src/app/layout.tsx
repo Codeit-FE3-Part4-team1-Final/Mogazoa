@@ -6,6 +6,14 @@ import NavigationBar from '@/components/NavigationBar';
 import { ModalStoreProvider } from '../../providers/ModalStoreProvider';
 import ProgressBar from '@/components/Loading/Nprogress';
 import Floating from '@/components/Floating';
+import KakaoScript from '../../providers/KakaoScript';
+
+declare global {
+  interface Window {
+    // eslint-disable-next-line
+    Kakao: any;
+  }
+}
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -32,6 +40,7 @@ export default function RootLayout({
           </ModalStoreProvider>
         </ReactQueryProvider>
       </body>
+      <KakaoScript />
     </html>
   );
 }
