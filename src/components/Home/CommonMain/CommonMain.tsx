@@ -4,6 +4,7 @@ import styles from './CommonMain.module.scss';
 import DropDown from '@/components/DropDown';
 import ProductCard from '@/components/Card/ProductCard';
 import YouTubeEmbed from '@/components/YouTubeEmbeb/YouTubeEmbed';
+import CompareLoading from '@/components/Loading/CompareLoading';
 
 interface MenuItem {
   key: string;
@@ -81,7 +82,9 @@ export default function CommonMain({
               ))}
             </div>
           ) : (
-            <div>Loading...</div>
+            <div className={cx('loading-container')}>
+              <CompareLoading />
+            </div>
           )}
         </section>
       </div>

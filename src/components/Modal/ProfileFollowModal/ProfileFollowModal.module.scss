@@ -21,6 +21,10 @@
   font-weight: 600;
   padding-right: 76px;
   word-break: keep-all;
+  &.dark-text {
+    padding: 0;
+    color: $tertiary;
+  }
   @include tablet {
     font-size: 20px;
     line-height: 28px;

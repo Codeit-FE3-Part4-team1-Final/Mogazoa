@@ -1,27 +1,27 @@
 import Link from 'next/link';
-import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SideBar.module.scss';
 import getCategories from '@/apis/getCategories';
 import { Category } from '@/types/types';
 import useSidebarStore from '@/stores/sidebarStore';
+import useSearchInputStore from '@/stores/searchValueStore';
 
 interface Props {
+  selectedCategory: Category | null;
   setSelectedCategory: (category: Category | null) => void;
 }
 
 const cx = classNames.bind(styles);
 
 // todo(송상훈) : 에러처리 로딩처리 추가할것
-export default function SideBar({ setSelectedCategory }: Props) {
-  // const isLoggedIn = !!localStorage.getItem('accessToken');
+export default function SideBar({
+  selectedCategory,
+  setSelectedCategory,
+}: Props) {
   const isLoggedIn = true;
 
+  const { setInputValue } = useSearchInputStore();
   const { toggleSidebar } = useSidebarStore();
-
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
-    null,
-  );
 
   const categories = getCategories();
 
@@ -31,9 +31,9 @@ export default function SideBar({ setSelectedCategory }: Props) {
         <button
           className={cx('sideBar-header')}
           onClick={() => {
-            setSelectedCategoryId(null);
             setSelectedCategory(null);
             toggleSidebar();
+            setInputValue('');
           }}
         >
           카테고리
@@ -42,13 +42,13 @@ export default function SideBar({ setSelectedCategory }: Props) {
           {categories?.map((category) => (
             <button
               className={cx('sideBar-list', {
-                selected: selectedCategoryId === category.id,
+                selected: selectedCategory?.id === category.id,
               })}
               key={category.id}
               onClick={() => {
                 setSelectedCategory(category);
-                setSelectedCategoryId(category.id);
                 toggleSidebar();
+                setInputValue('');
               }}
             >
               {category.name}

@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 .input-label {
@@ -25,6 +26,7 @@
   background-color: $comp-bg;
   border-radius: 10px;
   border: 1px solid transparent;
+  color: $secondary;
 
   &:focus {
     border-color: $main_indigo;
@@ -42,5 +44,5 @@
 .input-error {
   font-size: 13px;
   font-weight: 100;
-  color: $tertiary;
+  color: $error;
 }
