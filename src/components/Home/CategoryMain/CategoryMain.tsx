@@ -1,4 +1,6 @@
+import { useCallback, useRef } from 'react';
 import Slider from 'react-slick';
+import { InfiniteData } from '@tanstack/query-core';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import classNames from 'classnames/bind';
@@ -13,20 +15,37 @@ interface MenuItem {
   label: string;
 }
 
+interface ProductInterface {
+  updatedAt: string;
+  createdAt: string;
+  writerId: number;
+  categoryId: number;
+  favoriteCount: number;
+  reviewCount: number;
+  rating: number;
+  image: string;
+  name: string;
+  id: number;
+}
+
+interface ProductListInterface {
+  nextCursor: number;
+  list: ProductInterface[];
+}
+
 interface Props {
   sortTitle: string;
   selectedSort: string;
   onSelect: (sortType: string) => void;
   selectedCategory: Category | null;
   inputValue: string;
-  categoryProducts?: {
-    list: ProductListType[];
-    nextCursor: number;
-  };
   sortProducts?: {
     list: ProductListType[];
     nextCursor: number;
   };
+  categoryProducts?: InfiniteData<ProductListInterface, unknown>;
+  fetchNextPageCategory: () => void;
+  hasNextPageCategory: boolean;
 }
 
 const cx = classNames.bind(styles);
@@ -68,7 +87,22 @@ export default function CategoryMain({
   inputValue,
   categoryProducts,
   sortProducts,
+  fetchNextPageCategory,
+  hasNextPageCategory,
 }: Props) {
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastProductElementRef = useCallback(
+    (node: Element | null) => {
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPageCategory) {
+          fetchNextPageCategory?.();
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [fetchNextPageCategory, hasNextPageCategory],
+  );
   return (
     <div className={cx('main-container')}>
       <section className={cx('product-info')}>
@@ -110,11 +144,13 @@ export default function CategoryMain({
             {inputValue ? `'${inputValue}' 검색상품` : '전체 상품'}
           </p>
         </div>
-        {categoryProducts?.list ? (
+        {categoryProducts?.pages ? (
           <div className={cx('product-list-grid')}>
-            {categoryProducts?.list.map((productItem) => (
-              <ProductCard key={productItem.id} productItem={productItem} />
-            ))}
+            {categoryProducts.pages.map((page) =>
+              page.list.map((productItem) => (
+                <ProductCard key={productItem.id} productItem={productItem} />
+              )),
+            )}
           </div>
         ) : (
           <div className={cx('loading-container')}>
@@ -122,6 +158,7 @@ export default function CategoryMain({
           </div>
         )}
       </section>
+      <div ref={lastProductElementRef} />
     </div>
   );
 }
