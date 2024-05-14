@@ -13,7 +13,7 @@ export default function Statistics({ type, product }: Readonly<Props>) {
   const { unit, icon, label, metricKey } = TYPE_DATA[type] || {};
   if (!unit || !icon || !label || !metricKey) return null;
 
-  const count = product[metricKey];
+  const count = Math.ceil(product[metricKey]);
   const averageCount = product.categoryMetric[metricKey];
   const comparisonText = generateComparisonText(count, averageCount, unit);
 

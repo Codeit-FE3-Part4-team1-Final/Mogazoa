@@ -101,7 +101,12 @@ export default function Production({ productData, me }: Readonly<Props>) {
           </ModalWrapper>
         )}
         <div className={cx('image-wrap', 'col-sm-4', 'col-md-4', 'col-lg-4')}>
-          <Image src={image} alt={'상품이미지'} fill />
+          <Image
+            src={image}
+            alt={'상품이미지'}
+            fill
+            style={{ objectFit: 'contain' }}
+          />
         </div>
 
         <div className={cx('content-wrap', 'col-sm-4', 'col-md-8', 'col-lg-8')}>
