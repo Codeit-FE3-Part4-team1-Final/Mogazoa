@@ -136,6 +136,7 @@
 
 .search-input {
   font-size: 16px;
+  color: $secondary;
 
   @include tablet {
     font-size: 14px;
