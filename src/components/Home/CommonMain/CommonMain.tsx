@@ -1,14 +1,35 @@
+/* eslint-disable */
+
+import { InfiniteData } from '@tanstack/query-core';
 import classNames from 'classnames/bind';
-import { ProductListType } from '@/types/types';
 import styles from './CommonMain.module.scss';
 import DropDown from '@/components/DropDown';
 import ProductCard from '@/components/Card/ProductCard';
 import YouTubeEmbed from '@/components/YouTubeEmbeb/YouTubeEmbed';
 import CompareLoading from '@/components/Loading/CompareLoading';
+import { useCallback, useRef } from 'react';
 
 interface MenuItem {
   key: string;
   label: string;
+}
+
+interface ProductInterface {
+  updatedAt: string;
+  createdAt: string;
+  writerId: number;
+  categoryId: number;
+  favoriteCount: number;
+  reviewCount: number;
+  rating: number;
+  image: string;
+  name: string;
+  id: number;
+}
+
+interface ProductListInterface {
+  nextCursor: number;
+  list: ProductInterface[];
 }
 
 interface Props {
@@ -16,10 +37,9 @@ interface Props {
   selectedSort: string;
   onSelect: (sortType: string) => void;
   inputValue: string;
-  products?: {
-    list: ProductListType[];
-    nextCursor: number;
-  };
+  products?: InfiniteData<ProductListInterface, unknown>;
+  fetchNextPageAll?: () => void;
+  hasNextPageAll?: boolean;
 }
 
 const menuItems: MenuItem[] = [
@@ -36,7 +56,23 @@ export default function CommonMain({
   selectedSort,
   inputValue,
   onSelect,
+  fetchNextPageAll,
+  hasNextPageAll,
 }: Props) {
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastProductElementRef = useCallback(
+    (node: Element | null) => {
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPageAll) {
+          fetchNextPageAll?.();
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [fetchNextPageAll, hasNextPageAll],
+  );
+
   return (
     <main>
       <div className={cx('main-container')}>
@@ -75,11 +111,13 @@ export default function CommonMain({
               onSelect={onSelect}
             />
           </div>
-          {products?.list ? (
+          {products?.pages ? (
             <div className={cx('product-list-grid')}>
-              {products?.list.map((productItem) => (
-                <ProductCard productItem={productItem} key={productItem.id} />
-              ))}
+              {products.pages.map((page) =>
+                page.list.map((productItem) => (
+                  <ProductCard productItem={productItem} key={productItem.id} />
+                )),
+              )}
             </div>
           ) : (
             <div className={cx('loading-container')}>
@@ -87,6 +125,7 @@ export default function CommonMain({
             </div>
           )}
         </section>
+        <div ref={lastProductElementRef} />
       </div>
     </main>
   );

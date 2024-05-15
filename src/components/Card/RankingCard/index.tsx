@@ -19,6 +19,8 @@ export default function RankingCard({ userRanking, rankingIndex }: Props) {
         <Link href={`/user/${userRanking.id}`}>
           <Image
             className={cx('ranking-image')}
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            style={{ objectFit: 'cover' }}
             src={userRanking.image || '/images/profile-image.png'}
             alt='profile-image'
             width={45}

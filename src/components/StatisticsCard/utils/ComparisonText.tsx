@@ -13,17 +13,19 @@ const generateComparisonText = (
   if (count > averageCount) {
     return (
       <>
-        같은 카테고리의 제품들보다{' '}
+        같은 카테고리의 제품들보다
+        <span className={cx('mobile-space')}></span>
         <span className={cx('difference')}>
           {difference} {unit}
         </span>{' '}
-        더 높아요!
+        더 높아요.
       </>
     );
   }
   return (
     <>
-      같은 카테고리의 제품들보다{' '}
+      같은 카테고리의 제품들보다
+      <span className={cx('mobile-space')}></span>
       <span className={cx('difference')}>
         {difference} {unit}
       </span>{' '}
