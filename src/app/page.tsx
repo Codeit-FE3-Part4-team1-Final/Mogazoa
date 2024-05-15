@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import SideBar from '@/components/SideBar';
@@ -34,15 +34,37 @@ export default function Home() {
       getProduct({ category: selectedCategory?.id, order: selectedSort }),
   });
 
-  const { data: categoryProducts } = useQuery({
+  const {
+    data: categoryProducts,
+    fetchNextPage: fetchNextPageCategory,
+    hasNextPage: hasNextPageCategory,
+  } = useInfiniteQuery({
     queryKey: [`${selectedCategory?.name}Product`, inputValue],
-    queryFn: () =>
-      getProduct({ category: selectedCategory?.id, keyword: inputValue }),
+    queryFn: ({ pageParam }) =>
+      getProduct({
+        category: selectedCategory?.id,
+        keyword: inputValue,
+        cursor: pageParam,
+      }),
+    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
+    initialPageParam: 0,
   });
 
-  const { data: allProducts } = useQuery({
+  const {
+    data: allProducts,
+    fetchNextPage: fetchNextPageAll,
+    hasNextPage: hasNextPageAll,
+  } = useInfiniteQuery({
     queryKey: [`${selectedSort}all-Products`, inputValue],
-    queryFn: () => getProduct({ order: selectedSort, keyword: inputValue }),
+    queryFn: ({ pageParam = undefined }) =>
+      getProduct({
+        order: selectedSort,
+        keyword: inputValue,
+        cursor: pageParam,
+      }),
+
+    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
+    initialPageParam: 0,
   });
 
   const handleSortChange = (sortType: string) => {
@@ -76,6 +98,8 @@ export default function Home() {
               inputValue={inputValue}
               selectedSort={selectedSort}
               onSelect={handleSortChange}
+              fetchNextPageAll={fetchNextPageAll}
+              hasNextPageAll={hasNextPageAll}
             />
           ) : (
             <CategoryMain
@@ -86,6 +110,8 @@ export default function Home() {
               inputValue={inputValue}
               categoryProducts={categoryProducts}
               sortProducts={sortProducts}
+              fetchNextPageCategory={fetchNextPageCategory}
+              hasNextPageCategory={hasNextPageCategory}
             />
           )}
         </main>

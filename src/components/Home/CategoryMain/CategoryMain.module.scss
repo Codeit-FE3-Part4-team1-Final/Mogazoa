@@ -1,5 +1,15 @@
 @import '/src/styles/main.scss';
 
+.main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+  @include mobile {
+    gap: 30px;
+  }
+}
+
 .product-info {
   display: flex;
   flex-direction: column;
@@ -65,14 +75,12 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
-  margin-top: 70px;
   width: 1000px;
   margin-bottom: 180px;
 
   @include tablet {
     width: 619px;
     align-items: center;
-    margin-top: 50px;
   }
 
   @include mobile {
@@ -114,4 +122,9 @@
   @include mobile {
     height: 183px;
   }
+}
+
+.line {
+  border: 1px solid $comp-bg;
+  width: 100%;
 }

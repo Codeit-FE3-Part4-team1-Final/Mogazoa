@@ -17,7 +17,7 @@
 
   .dropdown-content {
     position: absolute;
-    top: 30px;
+    top: 35px;
     left: -20px;
     background-color: $comp-bg;
     border: 1px solid $comp-bg-10;
@@ -29,6 +29,7 @@
 
     @include tablet {
       min-width: 130px;
+      top: 30px;
     }
 
     @include mobile {
