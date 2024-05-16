@@ -79,7 +79,6 @@
 <div>
   <img height='26px' src='https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white' />
   <img height='26px' src='https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white' />
-  <img height='26px' src='https://img.shields.io/badge/husky-E94E2D?style=for-the-badge&logo=styledcomponent&logoColor=white' />
   <img height='26px' src='https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white' />
   <img height='26px' src='https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white' />
 </div>
@@ -101,27 +100,31 @@
 
 - 카카오톡 공유, 찜, url 복사 기능
 - 상품 정보 배열에 저장해 각각 카드 컴포넌트로 구현
-- 쿠기 정보를 통해 리뷰 수정 및 삭제 기능 구현
+- server action을 이용하여 상품 추가 및 삭제 기능 구현
+- TopScroll 컴포넌트로 맨 위로 이동
 
 ### 📄 프로필 페이지
 
-- useInfinitieQuery를 이용하여 유저 팔로우 기능 구현
-- react-hook-form을 이용한 유저 프로필 페이지 구현
-- 유저 프로필 내 상품 무한 스크롤 기능 및 팔로우 취소 기능 구현
-- 팔로우 목록 모달 구현
+- 유저 프로필 페이지 SSR 적용
+- useMutation을 이용하여 유저 팔로우/팔로우 취소 기능 구현
+- react-hook-form을 이용하여 유저 프로필 정보 수정 기능 구현
+- useInfiniteQuery를 이용하여 유저 프로필 내 상품 목록 무한 스크롤 기능 구현
+- server action을 이용하여 로그아웃 기능 구현
 
 ### 📄 비교하기 페이지
 
 - 상품 별 좋아요, 찜, 리뷰에 대한 상품 비교 기능
-- 비교 등록한 상품 계속 유지
-- 상품 비교 모달을 통해 상품이 모두 등록해 있을 때 교체 모달로 변경
+- localStorage에 저장한 상품 값 변경할 때마다 업데이트(상품 유지)
+- 상품이 이미 등록되어있다면 비교 모달이 교체 모달로 변경
+- 승리 상품 카드 컴포넌트로 자세히 보여주기
 
 ### 📄 공통
 
-- 모달창의 상태 관리 및 카카오톡 간편 회원가입/로그인 기능(Zustand)
+- Zustand를 이용한 모달창의 전역 상태 관리
+- 카카오톡 간편 회원가입/로그인/공유 기능 구현
 - react-query를 이용한 API 호츌
 - nprogress 라이브러리를 이용한 페이지 렌더링 상태 구현
-- react-query를 이용한 상품 추가 및 수정 모달
+- 상품 추가 및 수정 모달
 - scss 변수 분리(globals/main/mixins)
 
 <br /><br />

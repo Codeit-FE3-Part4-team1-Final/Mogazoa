@@ -12,6 +12,7 @@ import {
   fetchProductData,
   fetchUserInfo,
 } from '@/app/product/[productId]/actions.ts';
+import TopScroll from '@/components/Button/TopScroll';
 
 interface MenuItem {
   key: string;
@@ -78,6 +79,7 @@ export default function ProductPage({
         </div>
         <ProductionReview productData={productData} order={order} me={me} />
       </section>
+      <TopScroll />
     </main>
   );
 }
