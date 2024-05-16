@@ -79,7 +79,6 @@
 <div>
   <img height='26px' src='https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white' />
   <img height='26px' src='https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white' />
-  <img height='26px' src='https://img.shields.io/badge/husky-E94E2D?style=for-the-badge&logo=styledcomponent&logoColor=white' />
   <img height='26px' src='https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white' />
   <img height='26px' src='https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white' />
 </div>
@@ -102,6 +101,7 @@
 - 카카오톡 공유, 찜, url 복사 기능
 - 상품 정보 배열에 저장해 각각 카드 컴포넌트로 구현
 - server action을 이용하여 상품 추가 및 삭제 기능 구현
+- TopScroll 컴포넌트로 맨 위로 이동
 
 ### 📄 프로필 페이지
 
