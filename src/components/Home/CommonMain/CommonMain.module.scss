@@ -29,6 +29,10 @@
   @include mobile {
     width: 320px;
   }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .youtube-wrapper {
