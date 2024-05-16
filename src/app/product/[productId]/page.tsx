@@ -12,6 +12,8 @@ import {
   fetchProductData,
   fetchUserInfo,
 } from '@/app/product/[productId]/actions.ts';
+import TopScroll from '@/components/Button/TopScroll';
+import CompareLoading from '@/components/Loading/CompareLoading';
 
 interface MenuItem {
   key: string;
@@ -46,7 +48,11 @@ export default function ProductPage({
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className={cx('loading-container')}>
+        <CompareLoading />
+      </div>
+    );
   }
   if (error || !productData) {
     return <div>An error occurred</div>;
@@ -78,6 +84,7 @@ export default function ProductPage({
         </div>
         <ProductionReview productData={productData} order={order} me={me} />
       </section>
+      <TopScroll />
     </main>
   );
 }
