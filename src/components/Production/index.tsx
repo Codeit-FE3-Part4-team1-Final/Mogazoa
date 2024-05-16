@@ -159,7 +159,7 @@ export default function Production({ productData, me }: Readonly<Props>) {
                 category={'primary'}
                 onClick={() => handleToggleModal('createReview')}
               >
-                리뷰 작성하기
+                리뷰 작성
               </Button>
             </div>
             <div className={cx('button-2')}>

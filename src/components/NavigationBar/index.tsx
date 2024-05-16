@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+
+import { usePathname, useRouter } from 'next/navigation';
 import classNames from 'classnames/bind';
 import styles from './NavigationBar.module.scss';
 import useSidebarStore from '@/stores/sidebarStore';
@@ -21,8 +22,12 @@ const cx = classNames.bind(styles);
 
 // Todo(송상훈)
 export default function NavigationBar({ isLoggedIn }: Props) {
+  const router = useRouter();
+
   const pathname = usePathname();
   const home = pathname === '/';
+  const userProfile = pathname?.startsWith('/user');
+  const myProfile = pathname?.startsWith('/mypage');
 
   const categories = getCategories();
 
@@ -45,6 +50,7 @@ export default function NavigationBar({ isLoggedIn }: Props) {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
+      // 기존 로직 수행
       if (selectedSearchCategory === null) {
         setSelectedCategory(null);
         setInputValue(event.currentTarget.value);
@@ -53,6 +59,11 @@ export default function NavigationBar({ isLoggedIn }: Props) {
         setSelectedCategory(selectedSearchCategory);
         setInputValue(event.currentTarget.value);
         setIsSearchVisible(false);
+      }
+
+      // home 경로가 아닌 경우 홈으로 리다이렉트
+      if (!home) {
+        router.push('/');
       }
     }
   };
@@ -106,38 +117,43 @@ export default function NavigationBar({ isLoggedIn }: Props) {
             />
           </Link>
         ) : null}
+
         <div className={cx('navigation-item')}>
-          <button
-            className={cx('mobile-search-icon', {
-              'search-icon-unVisible': isSearchVisible,
-            })}
-            onClick={toggleSearch}
-          >
-            <Image
-              src='/images/search-icon.svg'
-              alt='돋보기 이미지'
-              width={24}
-              height={24}
-            />
-          </button>
-          <div
-            className={cx('search', {
-              'search-visible': isSearchVisible,
-            })}
-          >
-            <div className={cx('search-dropDown')}>
-              <SearchDropDown
-                selectedSearchCategory={selectedSearchCategory}
-                dropItems={categories}
-                onSelect={handleCategoryChange}
-              />
-            </div>
-            <input
-              className={cx('search-input')}
-              placeholder='상품 이름을 검색해 보세요'
-              onKeyDown={handleKeyDown}
-            />
-          </div>
+          {!userProfile && !myProfile ? (
+            <>
+              <button
+                className={cx('mobile-search-icon', {
+                  'search-icon-unVisible': isSearchVisible,
+                })}
+                onClick={toggleSearch}
+              >
+                <Image
+                  src='/images/search-icon.svg'
+                  alt='돋보기 이미지'
+                  width={24}
+                  height={24}
+                />
+              </button>
+              <div
+                className={cx('search', {
+                  'search-visible': isSearchVisible,
+                })}
+              >
+                <div className={cx('search-dropDown')}>
+                  <SearchDropDown
+                    selectedSearchCategory={selectedSearchCategory}
+                    dropItems={categories}
+                    onSelect={handleCategoryChange}
+                  />
+                </div>
+                <input
+                  className={cx('search-input')}
+                  placeholder='상품 이름을 검색해 보세요'
+                  onKeyDown={handleKeyDown}
+                />
+              </div>
+            </>
+          ) : null}
           <div className={cx('navigation-user-menu')}>
             {isLoggedIn ? (
               <>
