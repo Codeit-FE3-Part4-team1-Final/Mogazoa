@@ -8,7 +8,6 @@ import ProductCard from '@/components/Card/ProductCard';
 import YouTubeEmbed from '@/components/YouTubeEmbeb/YouTubeEmbed';
 import CompareLoading from '@/components/Loading/CompareLoading';
 import { useCallback, useRef } from 'react';
-import TopScroll from '@/components/Button/TopScroll';
 
 interface MenuItem {
   key: string;
@@ -75,67 +74,59 @@ export default function CommonMain({
   );
 
   return (
-    <>
-      <main>
-        <div className={cx('main-container')}>
-          <div className={cx('youtube-section')}>
-            <section className={cx('youtube-wrapper')}>
-              <div className={cx('youtube-first')}>
-                <YouTubeEmbed videoId='PM5K03g-04M' />
-              </div>
-              <div className={cx('youtube-second')}>
-                <YouTubeEmbed videoId='JgrVNnU1c9w' />
-              </div>
-            </section>
-          </div>
-          <div className={cx('line')} />
-          <section className={cx('all-product')}>
-            <div className={cx('header')}>
-              <p className={cx('title')}>
-                {inputValue ? (
-                  <>
-                    <span
-                      className={cx('title-point')}
-                    >{`'${inputValue}'`}</span>{' '}
-                    검색상품
-                  </>
-                ) : (
-                  <>
-                    {' '}
-                    <span
-                      className={cx('title-point')}
-                    >{`${sortTitle}`}</span>{' '}
-                    상품
-                  </>
-                )}
-              </p>
-              <DropDown
-                buttonLabel={selectedSort}
-                dropItems={menuItems}
-                onSelect={onSelect}
-              />
+    <main>
+      <div className={cx('main-container')}>
+        <div className={cx('youtube-section')}>
+          <section className={cx('youtube-wrapper')}>
+            <div className={cx('youtube-first')}>
+              <YouTubeEmbed videoId='PM5K03g-04M' />
             </div>
-            {products?.pages ? (
-              <div className={cx('product-list-grid')}>
-                {products.pages.map((page) =>
-                  page.list.map((productItem) => (
-                    <ProductCard
-                      productItem={productItem}
-                      key={productItem.id}
-                    />
-                  )),
-                )}
-              </div>
-            ) : (
-              <div className={cx('loading-container')}>
-                <CompareLoading />
-              </div>
-            )}
+            <div className={cx('youtube-second')}>
+              <YouTubeEmbed videoId='JgrVNnU1c9w' />
+            </div>
           </section>
-          <div ref={lastProductElementRef} />
         </div>
-      </main>
-      <TopScroll />
-    </>
+        <div className={cx('line')} />
+        <section className={cx('all-product')}>
+          <div className={cx('header')}>
+            <p className={cx('title')}>
+              {inputValue ? (
+                <>
+                  <span className={cx('title-point')}>{`'${inputValue}'`}</span>{' '}
+                  검색상품
+                </>
+              ) : (
+                <>
+                  {' '}
+                  <span
+                    className={cx('title-point')}
+                  >{`${sortTitle}`}</span>{' '}
+                  상품
+                </>
+              )}
+            </p>
+            <DropDown
+              buttonLabel={selectedSort}
+              dropItems={menuItems}
+              onSelect={onSelect}
+            />
+          </div>
+          {products?.pages ? (
+            <div className={cx('product-list-grid')}>
+              {products.pages.map((page) =>
+                page.list.map((productItem) => (
+                  <ProductCard productItem={productItem} key={productItem.id} />
+                )),
+              )}
+            </div>
+          ) : (
+            <div className={cx('loading-container')}>
+              <CompareLoading />
+            </div>
+          )}
+        </section>
+        <div ref={lastProductElementRef} />
+      </div>
+    </main>
   );
 }
