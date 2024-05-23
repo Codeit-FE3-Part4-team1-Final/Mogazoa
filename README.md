@@ -83,7 +83,7 @@
   <img height='26px' src='https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white' />
 </div>
 
-### 배포 URL
+### 배포
 
 <img height='26px' src='https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=Vercel&logoColor=white' />
 
