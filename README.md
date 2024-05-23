@@ -83,7 +83,7 @@
   <img height='26px' src='https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white' />
 </div>
 
-### 배포
+### 배포 URL
 
 <img height='26px' src='https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=Vercel&logoColor=white' />
 
@@ -94,7 +94,8 @@
 ### 📄 메인페이지 및 로그인/회원가입 페이지
 
 - UX/UI 개선을 위한 메인페이지 제작
--
+- 카테고리별 상품 조회
+- 카카오 간편 로그인/회원가입
 
 ### 📄 상품 상세 페이지
 
